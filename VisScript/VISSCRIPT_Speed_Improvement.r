@@ -1,0 +1,76 @@
+library(plyr)
+library(ggplot2)
+library(svglite)
+
+inFn = "./results/compare.csv"
+ouDr = dirname(inFn)
+plotData = read.csv(inFn, header = TRUE)
+
+# Ensure factors
+plotData$MARKER  = factor(plotData$MARKER, levels = c("cds", "igs", "int"))
+plotData$DATASET = factor(plotData$DATASET)
+
+max_time = round_any(max(plotData$TIME), 10, f = ceiling)
+
+myPlot = ggplot(
+  plotData,
+  aes(
+    x = CPUS,
+    y = TIME,
+    color = DATASET,
+    group = DATASET
+  )
+) +
+  geom_point(size = 3) +
+  geom_line() +
+  geom_text(
+    aes(label = paste(round(TIME, 2), "sec")),
+    size = 3,
+    vjust = -0.35,
+    hjust = -0.15,
+    show.legend = FALSE
+  ) +
+  scale_x_continuous(
+    breaks = c(1,2,4,8,16),
+    limits = c(1,16)
+  ) +
+  scale_y_log10(
+    limits = c(5, max_time)
+  ) +
+  scale_color_manual(
+  values = c(
+    "Asteraceae_MP"  = "darkgreen",
+    "Asteraceae_MAFT_Threading"    = "blue"
+    # "benchmark_YangEtAl2022_angiosperms" = "maroon"
+  ),
+  breaks = c(
+    "Asteraceae_MP",
+    "Asteraceae_MAFT_Threading"
+    # "benchmark_YangEtAl2022_angiosperms"
+  ),
+  labels = c(
+    "Asteraceae_MP (n=155)",
+    "Asteraceae_MAFT_Threading(n=155)"
+    # "Angiosperms (n=2585)"
+  )
+) +
+  facet_wrap(~ MARKER, ncol = 1, scales = "fixed") +
+  xlab("\nNumber of CPUs") +
+  ylab("Computation Time (seconds) – log-scale\n") +
+#   ggtitle("Speed improvements through MPI implementation\n") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 18, hjust = 0.5),
+    strip.text = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12, color = "gray"),
+    axis.title = element_text(size = 14),
+    legend.position = "top",
+    legend.key.width = unit(1, "cm"),
+    panel.grid.major = element_line(color = "gray"),
+    panel.grid.minor = element_line(color = "gray")
+  )
+
+out_fn = paste0(ouDr, "/PlastomeBurst_SpeedImprovements_AllMarkers.svg")
+svglite(out_fn, width =13, height = 16)
+print(myPlot)
+dev.off()
