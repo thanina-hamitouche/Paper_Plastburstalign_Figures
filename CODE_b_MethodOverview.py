@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Arc, Rectangle, Wedge
 import os
+import argparse
 
 # ---------------------------
 # Helper functions
@@ -706,7 +707,37 @@ def draw_bracket(ax, centers, R, panel_left_guide_x, tick_width=0.8, lw=2):
 # Main
 # ---------------------------
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Create method overview figure and export both SVG and PNG files."
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=None,
+        help="Output directory for image files (default: script directory).",
+    )
+    parser.add_argument(
+        "--output-name",
+        default="PlastomeBurstAndAlign_Figure1",
+        help="Output filename (with or without extension); script writes both .svg and .png.",
+    )
+    return parser.parse_args()
+
+
+def resolve_output_paths(output_dir, output_name):
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    target_dir = output_dir if output_dir else script_dir
+    os.makedirs(target_dir, exist_ok=True)
+    output_base = os.path.splitext(output_name)[0]
+    return (
+        os.path.join(target_dir, f"{output_base}.svg"),
+        os.path.join(target_dir, f"{output_base}.png"),
+    )
+
 def main():
+    args = parse_args()
+    svg_path, png_path = resolve_output_paths(args.output_dir, args.output_name)
+
     fig, ax = plt.subplots(figsize=(16, 12))
     ax.set_aspect('equal')
     ax.axis('off')
@@ -828,11 +859,10 @@ def main():
     ax.set_ylim(min_y, max_y)
     plt.tight_layout(pad=1.0)
     
-    # Save figure as SVG
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    svg_path = os.path.join(script_dir, 'PlastomeBurstAndAlign_Figure1.svg')
+    # Save figure as SVG and PNG.
     plt.savefig(svg_path, format='svg', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.savefig(png_path, format='png', dpi=300, bbox_inches='tight')
+    plt.close(fig)
 
 if __name__ == "__main__":
     main()

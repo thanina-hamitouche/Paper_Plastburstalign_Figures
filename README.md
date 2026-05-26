@@ -8,25 +8,31 @@ Rscript -e "install.packages(c('argparse','ggplot2','plyr','dplyr','svglite'), r
 
 #### By genome record
 ```bash
-Rscript "./CODE_a1_AccumulationGraph__genomeRecords.R" --input "./input_data/output_script1.sorted.unique.tsv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__genomeRecords"
+Rscript "CODE_a1_AccumulationGraph__genomeRecords.R" --input "./input_data/output_script1.sorted.unique.tsv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__genomeRecords"
 ```
 ![Accumulation graph by genome records](VIZ_a_AccumulationGraphs/AccumulationGraph__genomeRecords.png)
 
 #### By publications
 ```bash
-Rscript "./CODE_a2_AccumulationGraph__publications.R" --input "./input_data/plastome_publications_per_year_2026-04-27.csv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__publications"
+Rscript "CODE_a2_AccumulationGraph__publications.R" --input "./input_data/plastome_publications_per_year_2026-04-27.csv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__publications"
 ```
 ![Accumulation graph by publications](VIZ_a_AccumulationGraphs/AccumulationGraph__publications.png)
 
 ### Method overview - Schematic
 ```bash
-Foo bar baz
+python CODE_b_MethodOverview.py --output-dir ./VIZ_b_MethodOverview --output-name VIZ_MethodOverview
 ```
-![Schematic of the script purpose](VIZ_b_MethodOverview/VIZ_MethodOverview_manually-corrected_2025-01-04.png)
+![Schematic of the script purpose](VIZ_b_MethodOverview/VIZ_MethodOverview.png)
 
 ### Exon Splicing - Flowchart
 ```bash
-Foo bar baz
+pdflatex -jobname="./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing" CODE_c_FlowchartExonSplicing.tex
+rm ./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.aux
+rm ./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.log
+convert -density 300 ./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.pdf ./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png
+
+## TO DO: Check if the same as the LaTeX version:
+python CODE_c_FlowchartExonSplicing.py --output-dir ./VIZ_c_FlowchartExonSplicing --output-name VIZ_FlowchartExonSplicing_Python
 ```
 ![Flowchart of exon splicing](VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png)
 

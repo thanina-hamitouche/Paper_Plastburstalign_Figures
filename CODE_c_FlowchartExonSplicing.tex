@@ -1,4 +1,14 @@
 \documentclass{standalone}
+\usepackage{iftex}
+\ifPDFTeX
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\else
+\usepackage{fontspec}
+\setmainfont{Arial}
+\setsansfont{Arial}
+\fi
 \usepackage{tikz}
 \usetikzlibrary{shapes, arrows}
 
