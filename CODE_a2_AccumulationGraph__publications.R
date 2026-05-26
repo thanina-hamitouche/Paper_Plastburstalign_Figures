@@ -15,12 +15,15 @@ parser <- ArgumentParser(
 parser$add_argument("--input", required = TRUE,
                     help = "Path to input CSV file with publication data (columns: publications, year).")
 parser$add_argument("--output", default = "./Plastome_publications_per_year.svg",
-                    help = "Output SVG filename (default: ./Plastome_publications_per_year.svg).")
+                    help = "Output filename or basename; script writes both .svg and .png (default basename: ./Plastome_publications_per_year).")
 args <- parser$parse_args()
 
 ################################################################################
 
 outfilename <- args$output
+output_base <- tools::file_path_sans_ext(outfilename)
+svg_outfile <- paste0(output_base, ".svg")
+png_outfile <- paste0(output_base, ".png")
 
 if (!file.exists(args$input)) {
     stop(paste("Input file not found:", args$input), call. = FALSE)
@@ -54,9 +57,10 @@ myPlot <- base_plot +
     scale_y_continuous(breaks = seq(0, break_max, 100),
                        labels = function(x) format(x, big.mark = ",", scientific = FALSE, trim = TRUE),
                        minor_breaks = NULL) +
-    theme_minimal() +
+        theme_minimal(base_family = "Arial") +
     theme(plot.title = element_text(size = 20),
           plot.subtitle = element_text(size = 20, face = "italic"),
+            text = element_text(family = "Arial"),
           axis.text = element_text(size = 12),
           axis.text.x = element_text(size = 11, angle = 45, hjust = 0.5, vjust = 1.0),
           axis.ticks.x = element_line(color = "black"),
@@ -75,6 +79,7 @@ svg_device <- if (requireNamespace("svglite", quietly = TRUE)) {
 } else {
     grDevices::svg
 }
-ggsave(file = outfilename, plot = myPlot, width = 10, height = 5, device = svg_device)
+ggsave(file = svg_outfile, plot = myPlot, width = 10, height = 5, device = svg_device)
+ggsave(file = png_outfile, plot = myPlot, width = 10, height = 5, dpi = 300)
 
 ################################################################################

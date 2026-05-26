@@ -19,7 +19,7 @@ parser$add_argument("--start-date", default = "2000-01-01",
 parser$add_argument("--end-date", default = "2025-02-06",
                     help = "End date in YYYY-MM-DD format (default: 2025-02-06).")
 parser$add_argument("--output", default = "./Accumulation_graph_plastid_genomes.svg",
-                    help = "Output SVG filename (default: ./Accumulation_graph_plastid_genomes.svg).")
+                    help = "Output filename or basename; script writes both .svg and .png (default basename: ./Accumulation_graph_plastid_genomes).")
 parser$add_argument("--date-column", default = "CREATE_DATE",
                     help = "Column name containing dates (default: CREATE_DATE).")
 args <- parser$parse_args()
@@ -29,6 +29,9 @@ args <- parser$parse_args()
 start_date <- as.Date(args$start_date, format = "%Y-%m-%d")
 end_date <- as.Date(args$end_date, format = "%Y-%m-%d")
 outfilename <- args$output
+output_base <- tools::file_path_sans_ext(outfilename)
+svg_outfile <- paste0(output_base, ".svg")
+png_outfile <- paste0(output_base, ".png")
 
 if (is.na(start_date) || is.na(end_date)) {
     stop("--start-date and --end-date must be in YYYY-MM-DD format.", call. = FALSE)
@@ -80,9 +83,10 @@ myPlot = base_plot +
     scale_y_continuous(breaks=seq(0, break_max, 5000),
                        labels=function(x) format(x, big.mark = ",", scientific = FALSE, trim = TRUE),
                        minor_breaks=NULL) +
-    theme_minimal() + 
+        theme_minimal(base_family = "Arial") + 
     theme(plot.title = element_text(size=20),
           plot.subtitle = element_text(size=20, face="italic"),
+            text = element_text(family = "Arial"),
                         axis.text=element_text(size=12),
                         axis.text.x = element_text(size=11, angle=90, hjust=0.5, vjust=2.0),
                     axis.ticks.x = element_line(color="black"),
@@ -101,6 +105,7 @@ svg_device <- if (requireNamespace("svglite", quietly = TRUE)) {
 } else {
     grDevices::svg
 }
-ggsave(file=outfilename, plot=myPlot, width=10, height=5, device=svg_device)
+ggsave(file=svg_outfile, plot=myPlot, width=10, height=5, device=svg_device)
+ggsave(file=png_outfile, plot=myPlot, width=10, height=5, dpi=300)
 
 ################################################################################
