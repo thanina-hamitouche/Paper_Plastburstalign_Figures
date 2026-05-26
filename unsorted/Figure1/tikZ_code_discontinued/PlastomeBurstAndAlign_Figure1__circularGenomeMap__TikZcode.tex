@@ -1,0 +1,92 @@
+\documentclass[margin=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage[group-separator={,}]{siunitx}
+
+% --- Dimensions (with units) ---
+\def \MainR {6cm}             % genome ring radius
+\def \InnerR {5.5cm}          % gene arc radius
+\def \TickHalf {0.10cm}       % half-length of regular tick
+\def \TickHalfZero {0.175cm}  % half-length of origin tick
+\def \LabelOffset {0.45cm}    % radial offset for tick labels (outside)
+
+% --- Colors for genes ---
+\definecolor{gene1}{RGB}{228,26,28}
+\definecolor{gene2}{RGB}{55,126,184}
+\definecolor{gene3}{RGB}{77,175,74}
+\definecolor{gene4}{RGB}{152,78,163}
+\definecolor{gene5}{RGB}{255,127,0}
+\definecolor{gene6}{RGB}{166,86,40}
+
+% --- Genes outside IR regions: Start/Stop/Color (gaps widened) ---
+\def \GeneList{%
+10/40/gene1,
+70/110/gene2,
+140/180/gene3}
+
+% --- IR definitions (each ≥30k bp; IRa ends at 360°) ---
+% IRb = 200–270 (span 70° ≈ 31k)
+% IRa = 292.5–360 (span 67.5° ≈ 30k), ends exactly at 360°
+\pgfmathsetmacro{\IRbStart}{200}
+\pgfmathsetmacro{\IRbEnd}{270}
+\pgfmathsetmacro{\IRaStart}{292.5}
+\pgfmathsetmacro{\IRaEnd}{360}
+\pgfmathsetmacro{\IRbLen}{\IRbEnd-\IRbStart}
+\pgfmathsetmacro{\IRaLen}{\IRaEnd-\IRaStart}
+\pgfmathsetmacro{\IRscale}{\IRaLen/\IRbLen}
+
+% --- Genes inside IRb (list with no trailing newline) ---
+\def \IRGeneList{%
+205/230/gene4,
+240/265/gene5}
+
+\begin{document}
+\begin{tikzpicture}[line cap=rect]
+
+% --- Genome ring ---
+\draw[line width=2pt] (0,0) circle [radius=\MainR];
+
+% --- Ticks on the ring; labels just outside; origin largest ---
+\draw[line width=1.5pt]
+  (0:{\dimexpr\MainR-\TickHalfZero\relax}) -- (0:{\dimexpr\MainR+\TickHalfZero\relax});
+\node[font=\scriptsize] at (0:{\dimexpr\MainR+\LabelOffset\relax}) {0};
+
+\foreach \ang/\lab in {23/10k,45/20k,68/30k,90/40k,113/50k,135/60k,158/70k,
+                       180/80k,203/90k,225/100k,248/110k,270/120k,293/130k,
+                       315/140k,338/150k} {
+  \draw[line width=0.5pt] (\ang:{\dimexpr\MainR-\TickHalf\relax}) -- (\ang:{\dimexpr\MainR+\TickHalf\relax});
+  \node[font=\scriptsize] at (\ang:{\dimexpr\MainR+\LabelOffset\relax}) {\lab};
+}
+
+% --- IR regions (thicker bars), labels outside ---
+\draw[gray,line width=10pt,opacity=0.5] (\IRbStart:\MainR) arc (\IRbStart:\IRbEnd:\MainR);   % IRb 200–270
+\node[font=\normalsize] at ({(\IRbStart+\IRbEnd)/2}:{\dimexpr\MainR+0.7cm\relax}) {IRb};
+
+\draw[gray,line width=10pt,opacity=0.5] (\IRaStart:\MainR) arc (\IRaStart:\IRaEnd:\MainR);   % IRa 292.5–360
+\node[font=\normalsize] at ({(\IRaStart+\IRaEnd)/2}:{\dimexpr\MainR+0.7cm\relax}) {IRa};
+
+% --- Genes outside IRs (wider gaps; arcs only, no labels) ---
+\foreach \start/\stop/\col in \GeneList {
+  \draw[draw=\col,line width=4pt,opacity=0.85] (\start:\InnerR) arc (\start:\stop:\InnerR);
+}
+
+% --- Genes in IRb (arcs only) ---
+\foreach \start/\stop/\col in \IRGeneList {
+  \draw[draw=\col,line width=4pt,opacity=0.85] (\start:\InnerR) arc (\start:\stop:\InnerR);
+}
+
+% --- Reverse-complement genes in IRa (mirrored, scaled from IRb) ---
+% For each IRb gene [s,t], its IRa partner spans:
+%   s' = IRaEnd - (t - IRbStart)*scale
+%   t' = IRaEnd - (s - IRbStart)*scale
+\foreach \s/\t/\col in \IRGeneList {
+  \pgfmathsetmacro{\sprime}{\IRaEnd - (\t-\IRbStart)*\IRscale}
+  \pgfmathsetmacro{\tprime}{\IRaEnd - (\s-\IRbStart)*\IRscale}
+  \draw[draw=\col,line width=4pt,opacity=0.85] (\sprime:\InnerR) arc (\sprime:\tprime:\InnerR);
+}
+
+% --- Center label ---
+\node[font=\large,align=center] at (0,0) {Genome 1};
+
+\end{tikzpicture}
+\end{document}
