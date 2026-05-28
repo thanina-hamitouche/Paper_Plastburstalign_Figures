@@ -3,7 +3,7 @@ Code for generating publication-quality figures and tables for the manuscript.
 
 ### Accumulation graphs
 ```bash
-Rscript -e "install.packages(c('argparse','ggplot2','plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
+Rscript -e "install.packages(c('argparse','ggplot2','ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
 ```
 #### Combined: records (histogram) + publications (blue line)
 ```bash

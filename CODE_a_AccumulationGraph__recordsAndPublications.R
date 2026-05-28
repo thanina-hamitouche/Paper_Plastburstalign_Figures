@@ -1,37 +1,34 @@
-#!/usr/bin/R
-# author: Michael Gruenstaeudl <m_gruenstaeudl@fhsu.edu>
+
+# Combined Accumulation Graph: Genome Records (bars) & Publications (line)
+# Author: Michael Gruenstaeudl <m_gruenstaeudl@fhsu.edu>
 
 library(argparse)
 library(ggplot2)
 library(dplyr)
+library(ggtext)  # For colored annotation in plot title
 
-################################################################################
-### ARGPARSE BLOCK ###
 
-parser <- ArgumentParser(
-    description = "Generate a combined accumulation graph of plastid genome records (bars) and publications (line)."
-)
-
+# --- Argument Parsing ---
+parser <- ArgumentParser(description = "Generate a combined accumulation graph of plastid genome records (bars) and publications (line).")
 parser$add_argument("--input-records", required = TRUE)
 parser$add_argument("--input-publications", required = TRUE)
 parser$add_argument("--start-date", default = "2000-01-01")
 parser$add_argument("--end-date", default = "2026-12-31")
 parser$add_argument("--date-column", default = "CREATE_DATE")
-parser$add_argument(
-    "--output",
-    default = "./VIZ_a_AccumulationGraphs/AccumulationGraph__recordsAndPublications"
-)
-
+parser$add_argument("--output", default = "./VIZ_a_AccumulationGraphs/AccumulationGraph__recordsAndPublications")
 args <- parser$parse_args()
 
-################################################################################
-### Fixed plotting range ###
 
+# --- Plotting Range ---
 plot_start_year <- 2000
 plot_end_year <- 2026
-
 plot_start_date <- as.Date(paste0(plot_start_year, "-01-01"))
 plot_end_date <- as.Date(paste0(plot_end_year, "-12-31"))
+
+
+output_base <- tools::file_path_sans_ext(args$output)
+svg_outfile <- paste0(output_base, ".svg")
+png_outfile <- paste0(output_base, ".png")
 
 if (!file.exists(args$input_records)) {
     stop(paste("Genome records input file not found:", args$input_records), call. = FALSE)
@@ -41,15 +38,10 @@ if (!file.exists(args$input_publications)) {
     stop(paste("Publications input file not found:", args$input_publications), call. = FALSE)
 }
 
-output_base <- tools::file_path_sans_ext(args$output)
-svg_outfile <- paste0(output_base, ".svg")
-png_outfile <- paste0(output_base, ".png")
-
 dir.create(dirname(svg_outfile), recursive = TRUE, showWarnings = FALSE)
 
-################################################################################
-### Read and process genome records ###
 
+# --- Read and Process Genome Records ---
 records_data <- read.csv(args$input_records, sep = "\t", stringsAsFactors = FALSE)
 
 if (!(args$date_column %in% colnames(records_data))) {
@@ -77,15 +69,9 @@ plot_records$FREQ_RECORDS <- as.integer(monthly_counts[as.character(plot_records
 plot_records$FREQ_RECORDS[is.na(plot_records$FREQ_RECORDS)] <- 0
 plot_records$CUM_RECORDS <- cumsum(plot_records$FREQ_RECORDS)
 
-################################################################################
-### Read and process publications ###
 
-pub_data <- read.csv(
-    args$input_publications,
-    sep = ",",
-    header = FALSE,
-    stringsAsFactors = FALSE
-)
+# --- Read and Process Publications ---
+pub_data <- read.csv(args$input_publications, sep = ",", header = FALSE, stringsAsFactors = FALSE)
 
 if (ncol(pub_data) < 2) {
     stop("Publications input must contain at least two columns: publications, year.", call. = FALSE)
@@ -117,8 +103,8 @@ plot_publications <- plot_publications[order(plot_publications$year), ]
 plot_publications$CUM_PUBLICATIONS <- cumsum(plot_publications$publications)
 plot_publications$DATE <- as.Date(paste0(plot_publications$year, "-01-01"))
 
-################################################################################
-### Axis scaling ###
+
+# --- Axis Scaling ---
 
 max_records <- max(plot_records$CUM_RECORDS, na.rm = TRUE)
 max_publications <- max(plot_publications$CUM_PUBLICATIONS, na.rm = TRUE)
@@ -151,8 +137,8 @@ publication_breaks <- publication_breaks[
 
 publication_breaks_scaled <- publication_breaks * scale_factor
 
-################################################################################
-### Calculate average yearly growth for the last five years ###
+
+# --- Calculate Average Yearly Growth (last 5 years) ---
 
 growth_years <- (plot_end_year - 4):plot_end_year
 
@@ -189,10 +175,17 @@ label_publications <- if (length(avg_publications_growth) == 1 && !is.na(avg_pub
     "Estimated yearly growth of publications: n/a"
 }
 
-annotation_text <- paste0(label_records, "\n", label_publications)
 
-################################################################################
-### Plot ###
+# --- Compose Annotation Text (with blue publications line) ---
+annotation_text <- paste0(
+    label_records,
+    "<br><span style='color:#1f77b4;'>",
+    label_publications,
+    "</span>"
+)
+
+
+# --- Plot ---
 
 myPlot <- ggplot() +
 
@@ -259,10 +252,9 @@ myPlot <- ggplot() +
     ) +
 
     theme_minimal(base_family = "Arial") +
-
     theme(
         text = element_text(family = "Arial"),
-        plot.title = element_text(
+        plot.title = ggtext::element_markdown(
             size = 14,
             face = "bold",
             hjust = 0.5,
@@ -279,8 +271,7 @@ myPlot <- ggplot() +
         plot.margin = unit(c(0.4, 1.2, 0.1, 0.1), "cm")
     )
 
-################################################################################
-### Save plot ###
+# --- Save Plot ---
 
 svg_device <- if (requireNamespace("svglite", quietly = TRUE)) {
     svglite::svglite
