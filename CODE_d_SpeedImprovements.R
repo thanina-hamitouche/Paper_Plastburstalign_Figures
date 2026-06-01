@@ -2,7 +2,7 @@ library(plyr)
 library(ggplot2)
 library(svglite)
 
-inFn = "./results/compare.csv"
+inFn = "./results/plastburst_benchmark_Final.csv"
 ouDr = dirname(inFn)
 plotData = read.csv(inFn, header = TRUE)
 
@@ -39,19 +39,19 @@ myPlot = ggplot(
   ) +
   scale_color_manual(
   values = c(
-    "Asteraceae_MP"  = "darkgreen",
-    "Asteraceae_MAFT_Threading"    = "blue"
-    # "benchmark_YangEtAl2022_angiosperms" = "maroon"
+    "benchmark_YangEtAl2022_Asteraceae"  = "darkgreen",
+    "benchmark_YangEtAl2022_monocots"    = "blue",
+    "benchmark_YangEtAl2022_angiosperms" = "maroon"
   ),
   breaks = c(
-    "Asteraceae_MP",
-    "Asteraceae_MAFT_Threading"
-    # "benchmark_YangEtAl2022_angiosperms"
+    "benchmark_YangEtAl2022_Asteraceae",
+    "benchmark_YangEtAl2022_monocots",
+    "benchmark_YangEtAl2022_angiosperms"
   ),
   labels = c(
-    "Asteraceae_MP (n=155)",
-    "Asteraceae_MAFT_Threading(n=155)"
-    # "Angiosperms (n=2585)"
+    "Asteraceae (n=155)",
+    "Monocot(n=733)",
+    "Angiosperms (n=2585)"
   )
 ) +
   facet_wrap(~ MARKER, ncol = 1, scales = "fixed") +
