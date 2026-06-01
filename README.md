@@ -49,6 +49,6 @@ python CODE_c_FlowchartExonSplicing.py --output-dir ./VIZ_c_FlowchartExonSplicin
 
 ### Speed Improvements
 ```bash
-Foo bar baz
+Rscript VISSCRIPT_Speed_Improvement.r 
 ```
 ![Visualization of speed improvements](VIZ_d_SpeedImprovements/SpeedImprovements_AllMarkers.png)
