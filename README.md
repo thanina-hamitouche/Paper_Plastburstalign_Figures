@@ -11,17 +11,13 @@ Rscript "CODE_a_AccumulationGraph__recordsAndPublications.R" --input-records "./
 ```
 ![Combined accumulation graph](VIZ_a_AccumulationGraphs/AccumulationGraph__recordsAndPublications.png)
 
-#### LEGACY: By genome record
-```bash
-Rscript "CODE_a1_AccumulationGraph__genomeRecords.R" --input "./input_data/output_script1.sorted.unique.tsv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__genomeRecords"
-```
-![Accumulation graph by genome records](VIZ_a_AccumulationGraphs/AccumulationGraph__genomeRecords.png)
+---
 
-#### LEGACY: By publications
+### Speed Improvements
 ```bash
-Rscript "CODE_a2_AccumulationGraph__publications.R" --input "./input_data/plastome_publications_per_year_2026-04-27.csv" --output "./VIZ_a_AccumulationGraphs/AccumulationGraph__publications"
+Rscript CODE_d_SpeedImprovements.R ./input_data/plastburst_benchmark_Final.csv ./VIZ_d_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers
 ```
-![Accumulation graph by publications](VIZ_a_AccumulationGraphs/AccumulationGraph__publications.png)
+![Visualization of speed improvements](VIZ_d_SpeedImprovements/SpeedImprovements_AllMarkers.png)
 
 ---
 
@@ -44,11 +40,3 @@ convert -density 300 ./VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.pdf
 python CODE_c_FlowchartExonSplicing.py --output-dir ./VIZ_c_FlowchartExonSplicing --output-name VIZ_FlowchartExonSplicing_Python
 ```
 ![Flowchart of exon splicing](VIZ_c_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png)
-
----
-
-### Speed Improvements
-```bash
-Rscript VISSCRIPT_Speed_Improvement.r 
-```
-![Visualization of speed improvements](VIZ_d_SpeedImprovements/SpeedImprovements_AllMarkers.png)
