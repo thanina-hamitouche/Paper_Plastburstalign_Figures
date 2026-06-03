@@ -17,7 +17,7 @@ Rscript "CODE_a_AccumulationGraph__recordsAndPublications.R" --input-records "./
 ```bash
 Rscript CODE_d_SpeedImprovements.R ./input_data/plastburst_benchmark_Final.csv ./VIZ_d_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers
 ```
-![Visualization of speed improvements](VIZ_d_SpeedImprovements/SpeedImprovements_AllMarkers.png)
+![Visualization of speed improvements](VIZ_d_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers.png)
 
 ---
 
