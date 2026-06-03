@@ -1,6 +1,7 @@
 library(plyr)
 library(ggplot2)
 library(svglite)
+library(ggrepel)
 
 args = commandArgs(trailingOnly = TRUE)
 if (length(args) < 2) {
@@ -30,7 +31,7 @@ plotData$MARKER  = factor(plotData$MARKER, levels = c("CDS", "IGS", "INT"))
 plotData$DATASET = factor(plotData$DATASET)
 plotData$TIME_MIN = plotData$TIME / 60
 max_cpus = max(plotData$CPUS, na.rm = TRUE)
-x_breaks = unique(c(0, 2^(0:ceiling(log(max_cpus, base = 2)))))
+x_breaks = unique(2^(0:ceiling(log(max_cpus, base = 2))))
 x_breaks = x_breaks[x_breaks <= max_cpus]
 if (!(max_cpus %in% x_breaks)) {
   x_breaks = sort(unique(c(x_breaks, max_cpus)))
@@ -93,22 +94,28 @@ myPlot = ggplot(
     group = interaction(DATASET, MARKER)
   )
 ) +
-  geom_vline(xintercept = 0, color = "black", linewidth = 0.4) +
+  geom_vline(xintercept = 1, color = "black", linewidth = 0.4) +
   geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
   geom_point(size = 3) +
   geom_line(linewidth = 0.75) +
-  geom_text(
+  geom_label_repel(
     aes(label = format_duration_labels(TIME_MIN)),
     family = "Arial",
     size = 3.6,
-    vjust = -0.35,
-    hjust = -0.05,
+    box.padding = 0.2,
+    point.padding = 0.15,
+    label.padding = unit(0.08, "lines"),
+    label.size = 0,
+    fill = scales::alpha("white", 0.5),
+    segment.color = "gray60",
+    segment.size = 0.25,
     show.legend = FALSE
   ) +
   scale_x_continuous(
+    trans = scales::pseudo_log_trans(base = 2),
     breaks = x_breaks,
     minor_breaks = NULL,
-    limits = c(0, max(x_breaks)),
+    limits = c(1, max(x_breaks)),
     expand = expansion(mult = c(0, 0.05))
   ) +
   scale_y_continuous(
@@ -149,8 +156,8 @@ myPlot = ggplot(
     linetype = guide_legend(order = 2)
   ) +
   coord_cartesian(clip = "off") +
-  xlab("\nNumber of CPUs") +
-  ylab("Computation Time\n(minutes) - log-scale\n") +
+  xlab("\nNumber of CPUs\n(log2 scale)") +
+  ylab("Computation Time\n(log10 scale)\n") +
   ggtitle("Speed improvements through MPI implementation\n") +
   theme_minimal(base_family = "Arial") +
   theme(
@@ -178,7 +185,7 @@ myPlot = ggplot(
 out_fn_svg = paste0(outPathStem, ".svg")
 out_fn_png = paste0(outPathStem, ".png")
 
-svglite(out_fn_svg, width =13, height = 16)
+svglite(out_fn_svg, width = 13, height = 16)
 print(myPlot)
 dev.off()
 
