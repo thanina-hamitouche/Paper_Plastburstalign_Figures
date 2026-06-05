@@ -1,0 +1,229 @@
+2026-05-22 21:46:30 [INFO] parsing GenBank flatfiles and extracting their sequence annotations using 4 processes
+2026-05-22 21:46:30 [INFO]  parsing KY045817.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034888.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034860.gb
+2026-05-22 21:46:30 [INFO]  parsing KX063946.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034822.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031399.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034877.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023109.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034898.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034899.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_007578.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034895.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_032057.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034889.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034867.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_027835.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034871.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034862.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034850.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034830.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034825.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023114.gb
+2026-05-22 21:46:30 [INFO]  parsing KX085421.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034894.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034863.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034854.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_032056.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034892.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034829.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034820.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034816.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034879.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_020607.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034875.gb
+2026-05-22 21:46:30 [INFO]  parsing KX499523.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034876.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023111.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034869.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034810.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031833.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034826.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034901.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_030275.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_007977.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031395.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_030783.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034812.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023107.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034900.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034903.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023112.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_030785.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034320.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034861.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034848.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036966.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023110.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034866.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034817.gb
+2026-05-22 21:46:30 [INFO]  parsing KT988070.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034896.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036833.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034831.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034865.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_028027.gb
+2026-05-22 21:46:30 [INFO]  parsing KU360270.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034683.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036965.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034852.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_015543.gb
+2026-05-22 21:46:30 [INFO]  parsing KY965816.gb
+2026-05-22 21:46:30 [INFO]  parsing MG874805.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031853.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034847.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034815.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_035884.gb
+2026-05-22 21:46:30 [INFO]  parsing MG913594.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034851.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_020320.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_035875.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_027113.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034813.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034823.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034811.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034819.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034893.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036967.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_030173.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034327.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034326.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034890.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036831.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036810.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034824.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_010601.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031396.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_030772.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034827.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034897.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034878.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_024286.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034872.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034884.gb
+2026-05-22 21:46:30 [INFO]  parsing KP299293.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034325.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034870.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034828.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034853.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031816.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034323.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034328.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034856.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023108.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034855.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031898.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034814.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_027434.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_025910.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034858.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034818.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036832.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034857.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034880.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_028005.gb
+2026-05-22 21:46:30 [INFO]  parsing KM360047.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034996.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034883.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034902.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034891.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034821.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034832.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034868.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031400.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034887.gb
+2026-05-22 21:46:30 [INFO]  parsing KU295560.gb
+2026-05-22 21:46:30 [INFO]  parsing MG874804.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_031815.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_020092.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034648.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_028006.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034864.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023113.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034885.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034322.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_036504.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034849.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034321.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034859.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034882.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034873.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034881.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034324.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034874.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_034886.gb
+2026-05-22 21:46:30 [INFO]  parsing NC_023833.gb
+2026-05-22 21:46:30 [INFO] cleaning extracted sequence annotations
+2026-05-22 21:46:30 [INFO]   removing annotations that occur in fewer than 2 taxa
+2026-05-22 21:46:30 [INFO]   removing annotations whose longest sequence is shorter than 3 bp
+2026-05-22 21:46:30 [INFO]     removing trnL_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing accD_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing rpoA_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing ccsA_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing cplP_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing cplP_intron2 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing trnK_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing rpoC1_intron2 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing atpF_intron2 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO]     removing ndhK_intron1 for not reaching the minimum number of taxa defined
+2026-05-22 21:46:30 [INFO] found MAFFT in system PATH
+2026-05-22 21:46:30 [INFO] configured MAFFT with 4 threads
+2026-05-22 21:46:30 [INFO] saving individual regions as unaligned nucleotide matrices
+2026-05-22 21:46:30 [INFO] conducting the alignment of extracted sequences
+2026-05-22 21:46:30 [INFO] conducting multiple sequence alignments based on nucleotide sequence data using 4 threads
+2026-05-22 21:46:33 [INFO]      successfully aligned nucl_rps16_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:35 [INFO]      successfully aligned nucl_ycf3_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:35 [INFO]      successfully aligned nucl_trnK_UUU_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:41 [INFO]      successfully aligned nucl_trnL_UAA_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:43 [INFO]      successfully aligned nucl_clpP_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:46 [INFO]      successfully aligned nucl_clpP_intron2.unalign.fasta using MAFFT
+2026-05-22 21:46:46 [INFO]      successfully aligned nucl_trnV_UAC_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:47 [INFO]      successfully aligned nucl_atpF_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:48 [INFO]      successfully aligned nucl_petB_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:48 [INFO]      successfully aligned nucl_rpoC1_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:50 [INFO]      successfully aligned nucl_rpl2_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:51 [INFO]      successfully aligned nucl_ndhB_intron1.unalign.fasta using MAFFT
+2026-05-22 21:46:56 [INFO]      successfully aligned nucl_ndhA_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:01 [INFO]      successfully aligned nucl_petD_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:03 [INFO]      successfully aligned nucl_ycf3_intron2.unalign.fasta using MAFFT
+2026-05-22 21:47:03 [INFO]      successfully aligned nucl_trnG_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:04 [INFO]      successfully aligned nucl_trnV_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:05 [INFO]      successfully aligned nucl_trnI_GAU_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:06 [INFO]      successfully aligned nucl_trnI_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:06 [INFO]      successfully aligned nucl_trnA_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:06 [INFO]      successfully aligned nucl_ycf2_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:07 [INFO]      successfully aligned nucl_rpl16_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:08 [INFO]      successfully aligned nucl_trnA_UGC_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:10 [INFO]      successfully aligned nucl_trnG_UCC_intron1.unalign.fasta using MAFFT
+2026-05-22 21:47:10 [INFO] converting all successful alignments to NEXUS format using 4 threads
+
+end of script
+
+Script directory: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2
+Dataset folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_YangEtAl2022_Asteraceae
+Output folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_YangEtAl2022_Asteraceae_output_int_4threads
+Running plastburstalign with 4 threads, mode: int...
+	Command being timed: "python ./test_script.py benchmark_YangEtAl2022_Asteraceae 4 int"
+	User time (seconds): 537.87
+	System time (seconds): 13.54
+	Percent of CPU this job got: 1349%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:40.84
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 181704
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 45
+	Minor (reclaiming a frame) page faults: 3616200
+	Voluntary context switches: 178808
+	Involuntary context switches: 1996
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 23712
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

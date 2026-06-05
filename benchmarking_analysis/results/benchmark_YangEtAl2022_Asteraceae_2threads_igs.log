@@ -1,0 +1,963 @@
+2026-05-22 21:39:25 [INFO] parsing GenBank flatfiles and extracting their sequence annotations using 2 processes
+2026-05-22 21:39:25 [INFO]  parsing KY045817.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in KY045817
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in KY045817
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in KY045817
+2026-05-22 21:39:25 [INFO]  parsing NC_034888.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034822.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034888
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034888
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034822
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034888
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034822
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034822
+2026-05-22 21:39:25 [INFO]  parsing NC_023109.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034898.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_023109
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_023109
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_023109
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034898
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034898
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034898
+2026-05-22 21:39:25 [INFO]  parsing NC_034895.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_032057.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034895
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034895
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_032057
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_032057
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034895
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_032057
+2026-05-22 21:39:25 [INFO]  parsing NC_034871.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_027835.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034871
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034871
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034871
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_027835
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_027835
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_027835
+2026-05-22 21:39:25 [INFO]  parsing NC_034825.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034830.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034825
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034825
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034825
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034830
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034830
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034830
+2026-05-22 21:39:25 [INFO]  parsing NC_034863.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034894.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034863
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034863
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034863
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034894
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034894
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034894
+2026-05-22 21:39:25 [INFO]  parsing NC_034829.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034892.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034829
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034829
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034829
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034892
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034892
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034892
+2026-05-22 21:39:25 [INFO]  parsing NC_020607.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034879.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_020607
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_020607
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_020607
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034879
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034879
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034879
+2026-05-22 21:39:25 [INFO]  parsing NC_023111.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_034876.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_023111
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_023111
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_023111
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034876
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034876
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034876
+2026-05-22 21:39:25 [INFO]  parsing NC_034826.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_031833.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_034826
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_034826
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_034826
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_031833
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_031833
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_031833
+2026-05-22 21:39:25 [INFO]  parsing NC_031395.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_007977.gb
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_031395
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_031395
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_031395
+2026-05-22 21:39:25 [INFO]   resolving genes with compound locations in NC_007977
+2026-05-22 21:39:25 [INFO]    resolving cis-spliced genes in NC_007977
+2026-05-22 21:39:25 [INFO]    resolving trans-spliced genes in NC_007977
+2026-05-22 21:39:25 [INFO]  parsing NC_034900.gb
+2026-05-22 21:39:25 [INFO]  parsing NC_023107.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034900
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034900
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034900
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_023107
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_023107
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_023107
+2026-05-22 21:39:26 [INFO]  parsing NC_034320.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_030785.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034320
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034320
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034320
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_030785
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_030785
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_030785
+2026-05-22 21:39:26 [INFO]  parsing NC_023110.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_036966.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_023110
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_023110
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_023110
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036966
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036966
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036966
+2026-05-22 21:39:26 [INFO]  parsing NC_034896.gb
+2026-05-22 21:39:26 [INFO]  parsing KT988070.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KT988070
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KT988070
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KT988070
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034896
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034896
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034896
+2026-05-22 21:39:26 [INFO]  parsing NC_034865.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_028027.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034865
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034865
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034865
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_028027
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_028027
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_028027
+2026-05-22 21:39:26 [INFO]  parsing NC_036965.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034852.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036965
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036965
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036965
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034852
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034852
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034852
+2026-05-22 21:39:26 [INFO]  parsing MG874805.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_031853.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in MG874805
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in MG874805
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in MG874805
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031853
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031853
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031853
+2026-05-22 21:39:26 [INFO]  parsing NC_035884.gb
+2026-05-22 21:39:26 [INFO]  parsing MG913594.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_035884
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_035884
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_035884
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in MG913594
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in MG913594
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in MG913594
+2026-05-22 21:39:26 [INFO]  parsing NC_034860.gb
+2026-05-22 21:39:26 [INFO]  parsing KX063946.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034860
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034860
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034860
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KX063946
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KX063946
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KX063946
+2026-05-22 21:39:26 [INFO]  parsing NC_034877.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_031399.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034877
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034877
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034877
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031399
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031399
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031399
+2026-05-22 21:39:26 [INFO]  parsing NC_034899.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_007578.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_007578
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_007578
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_007578
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034899
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034899
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034899
+2026-05-22 21:39:26 [INFO]  parsing NC_034889.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034867.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034889
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034889
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034889
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034867
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034867
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034867
+2026-05-22 21:39:26 [INFO]  parsing NC_034862.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034850.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034862
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034862
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034862
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034850
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034850
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034850
+2026-05-22 21:39:26 [INFO]  parsing NC_023114.gb
+2026-05-22 21:39:26 [INFO]  parsing KX085421.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_023114
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_023114
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_023114
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KX085421
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KX085421
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KX085421
+2026-05-22 21:39:26 [INFO]  parsing NC_032056.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034854.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_032056
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_032056
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_032056
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034854
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034854
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034854
+2026-05-22 21:39:26 [INFO]  parsing NC_034816.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034820.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034816
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034816
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034816
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034820
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034820
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034820
+2026-05-22 21:39:26 [INFO]  parsing KX499523.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034875.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KX499523
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KX499523
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KX499523
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034875
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034875
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034875
+2026-05-22 21:39:26 [INFO]  parsing NC_034869.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034810.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034869
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034869
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034869
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034810
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034810
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034810
+2026-05-22 21:39:26 [INFO]  parsing NC_034901.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_030275.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034901
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034901
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034901
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_030275
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_030275
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_030275
+2026-05-22 21:39:26 [INFO]  parsing NC_030783.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034812.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_030783
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_030783
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_030783
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034812
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034812
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034812
+2026-05-22 21:39:26 [INFO]  parsing NC_034903.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_023112.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034903
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034903
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034903
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_023112
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_023112
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_023112
+2026-05-22 21:39:26 [INFO]  parsing NC_034861.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034848.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034861
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034861
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034861
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034848
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034848
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034848
+2026-05-22 21:39:26 [INFO]  parsing NC_034866.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034817.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034866
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034866
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034866
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034817
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034817
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034817
+2026-05-22 21:39:26 [INFO]  parsing NC_036833.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034831.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036833
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036833
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036833
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034831
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034831
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034831
+2026-05-22 21:39:26 [INFO]  parsing KU360270.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034683.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KU360270
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KU360270
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KU360270
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034683
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034683
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034683
+2026-05-22 21:39:26 [INFO]  parsing NC_015543.gb
+2026-05-22 21:39:26 [INFO]  parsing KY965816.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_015543
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_015543
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_015543
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KY965816
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KY965816
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KY965816
+2026-05-22 21:39:26 [INFO]  parsing NC_034847.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034815.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034847
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034847
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034847
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034815
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034815
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034815
+2026-05-22 21:39:26 [INFO]  parsing NC_034851.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034851
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034851
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034851
+2026-05-22 21:39:26 [INFO]  parsing NC_035875.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_035875
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_035875
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_035875
+2026-05-22 21:39:26 [INFO]  parsing NC_034823.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034823
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034823
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034823
+2026-05-22 21:39:26 [INFO]  parsing NC_034893.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034893
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034893
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034893
+2026-05-22 21:39:26 [INFO]  parsing NC_027113.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034326.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_027113
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_027113
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_027113
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034326
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034326
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034326
+2026-05-22 21:39:26 [INFO]  parsing NC_034819.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034824.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034819
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034819
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034819
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034824
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034824
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034824
+2026-05-22 21:39:26 [INFO]  parsing NC_034327.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034827.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034327
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034327
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034327
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034827
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034827
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034827
+2026-05-22 21:39:26 [INFO]  parsing NC_036810.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034872.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036810
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036810
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036810
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034872
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034872
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034872
+2026-05-22 21:39:26 [INFO]  parsing NC_030772.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034870.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_030772
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_030772
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_030772
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034870
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034870
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034870
+2026-05-22 21:39:26 [INFO]  parsing NC_024286.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034323.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_024286
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_024286
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_024286
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034323
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034323
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034323
+2026-05-22 21:39:26 [INFO]  parsing NC_034325.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034855.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034855
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034855
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034855
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034325
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034325
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034325
+2026-05-22 21:39:26 [INFO]  parsing NC_025910.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_031816.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_025910
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_025910
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_025910
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031816
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031816
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031816
+2026-05-22 21:39:26 [INFO]  parsing NC_034857.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_023108.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034857
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034857
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034857
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_023108
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_023108
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_023108
+2026-05-22 21:39:26 [INFO]  parsing NC_034996.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_027434.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034996
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034996
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034996
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_027434
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_027434
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_027434
+2026-05-22 21:39:26 [INFO]  parsing NC_034821.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_036832.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034821
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034821
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034821
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036832
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036832
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036832
+2026-05-22 21:39:26 [INFO]  parsing NC_034887.gb
+2026-05-22 21:39:26 [INFO]  parsing KM360047.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034887
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034887
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034887
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KM360047
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KM360047
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KM360047
+2026-05-22 21:39:26 [INFO]  parsing NC_034891.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_020092.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034891
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034891
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034891
+2026-05-22 21:39:26 [INFO]  parsing NC_031400.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_020092
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_020092
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_020092
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031400
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031400
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031400
+2026-05-22 21:39:26 [INFO]  parsing NC_034322.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_031815.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034322
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034322
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034322
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031815
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031815
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031815
+2026-05-22 21:39:26 [INFO]  parsing NC_034864.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034859.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034864
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034864
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034864
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034859
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034859
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034859
+2026-05-22 21:39:26 [INFO]  parsing NC_034885.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_020320.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034885
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034885
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034885
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_020320
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_020320
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_020320
+2026-05-22 21:39:26 [INFO]  parsing NC_034873.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034813.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034873
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034873
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034813
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034813
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034873
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034813
+2026-05-22 21:39:26 [INFO]  parsing NC_034811.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034881.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034811
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034811
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034881
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034881
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034811
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034881
+2026-05-22 21:39:26 [INFO]  parsing NC_030173.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_036967.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_030173
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_030173
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_030173
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036967
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036967
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036967
+2026-05-22 21:39:26 [INFO]  parsing NC_036831.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034890.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_036831
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_036831
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_036831
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034890
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034890
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034890
+2026-05-22 21:39:26 [INFO]  parsing NC_031396.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_010601.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031396
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031396
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031396
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_010601
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_010601
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_010601
+2026-05-22 21:39:26 [INFO]  parsing NC_034897.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034878.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034897
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034897
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034897
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034878
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034878
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034878
+2026-05-22 21:39:26 [INFO]  parsing NC_034884.gb
+2026-05-22 21:39:26 [INFO]  parsing KP299293.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034884
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034884
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034884
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in KP299293
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in KP299293
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in KP299293
+2026-05-22 21:39:26 [INFO]  parsing NC_034853.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034828.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034853
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034853
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034853
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034828
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034828
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034828
+2026-05-22 21:39:26 [INFO]  parsing NC_034856.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034328.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034856
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034856
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034856
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034328
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034328
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034328
+2026-05-22 21:39:26 [INFO]  parsing NC_034814.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_031898.gb
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_034814
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_034814
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_034814
+2026-05-22 21:39:26 [INFO]   resolving genes with compound locations in NC_031898
+2026-05-22 21:39:26 [INFO]    resolving cis-spliced genes in NC_031898
+2026-05-22 21:39:26 [INFO]    resolving trans-spliced genes in NC_031898
+2026-05-22 21:39:26 [INFO]  parsing NC_034818.gb
+2026-05-22 21:39:26 [INFO]  parsing NC_034858.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034818
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034818
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034818
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034858
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034858
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034858
+2026-05-22 21:39:27 [INFO]  parsing NC_028005.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_034880.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_028005
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_028005
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_028005
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034880
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034880
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034880
+2026-05-22 21:39:27 [INFO]  parsing NC_034902.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_034883.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034902
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034902
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034902
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034883
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034883
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034883
+2026-05-22 21:39:27 [INFO]  parsing NC_034868.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_034832.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034868
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034868
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034868
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034832
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034832
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034832
+2026-05-22 21:39:27 [INFO]  parsing MG874804.gb
+2026-05-22 21:39:27 [INFO]  parsing KU295560.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in MG874804
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in MG874804
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in MG874804
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in KU295560
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in KU295560
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in KU295560
+2026-05-22 21:39:27 [INFO]  parsing NC_034648.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_028006.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034648
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034648
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034648
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_028006
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_028006
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_028006
+2026-05-22 21:39:27 [INFO]  parsing NC_034849.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_023113.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034849
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034849
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034849
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_023113
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_023113
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_023113
+2026-05-22 21:39:27 [INFO]  parsing NC_034882.gb
+2026-05-22 21:39:27 [INFO]  parsing NC_036504.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034882
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034882
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034882
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_036504
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_036504
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_036504
+2026-05-22 21:39:27 [INFO]  parsing NC_034321.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034321
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034321
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034321
+2026-05-22 21:39:27 [INFO]  parsing NC_034324.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034324
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034324
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034324
+2026-05-22 21:39:27 [INFO]  parsing NC_034874.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034874
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034874
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034874
+2026-05-22 21:39:27 [INFO]  parsing NC_034886.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_034886
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_034886
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_034886
+2026-05-22 21:39:27 [INFO]  parsing NC_023833.gb
+2026-05-22 21:39:27 [INFO]   resolving genes with compound locations in NC_023833
+2026-05-22 21:39:27 [INFO]    resolving cis-spliced genes in NC_023833
+2026-05-22 21:39:27 [INFO]    resolving trans-spliced genes in NC_023833
+2026-05-22 21:39:27 [INFO] cleaning extracted sequence annotations
+2026-05-22 21:39:27 [INFO]   removing annotations that occur in fewer than 2 taxa
+2026-05-22 21:39:27 [INFO]   removing annotations whose longest sequence is shorter than 3 bp
+2026-05-22 21:39:27 [INFO]     removing atpA_trnG_UCC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbZ_trnFM_CAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps4_trnL_UAA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_UAC_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnN_GUU_ndhF for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf1_trnR_ACG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl2_trnH_GUG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnS_trnC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnC_petN for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbM_trnD for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnD_trnY for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnY_trnE for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing atpA_trnR for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnR_trnG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnG_trnT for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnT_psbD for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbC_trnS for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnS_psbZ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbZ_trnG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnG_trnM for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnM_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf3_trnS for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnS_rps4 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps4_trnT for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnT_trnL for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnL_trnF for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnF_ndhJ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_trnM for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnM_atpE for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing petG_trnW for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnW_trnP for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnP_psaJ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl23_trnM for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnM_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf2_trnL for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnL_ndhB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps7_trnV for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_trnI for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnA_trnR for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnR_trnN for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnN_ndhF for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl32_trnL for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnL_ccsA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps15_trnN for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl22_rpl2 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps2_aptI for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing aptI_atpH for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl20_cplP for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing cplP_psbB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnR_UCU_trnG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnG_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhH_ndhI for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnK_UUU_trnQ_UUG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl14_rps3 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_GAC_ycf68 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf68_trnI_GAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnA_UGC_trnN_GUU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psaC_ccsA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhF_trnA_UGC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps19_trnH_GUG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_UAC_trnM_GAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnM_GAU_atpE for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps16_trnQ_UUC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnQ_UUC_psbK for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_GAC_SSU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing SSU_trnI_GAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnA_UGC_LSU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing LSU_4_5S for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing 4_5S_5S for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing 5S_trnR_ACG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhB_trnV_GAC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnN_GUU_rrn5 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhB_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnI_CAU_rpl2 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnA_UGC_trnV_GAC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rrn4_ycf1 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf1_trnI_GAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf2_trnI for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnI_rpl23 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnS_trnC_GCA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing atpE_rbcL for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnI_GAU_trnN_GUU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps16_psbK for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbI_petN for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbM_rpoB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing atpA_psbD for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbC_psbZ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbZ_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf3_rps4 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps4_ndhJ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhC_rbcL for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing petG_psaJ for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl20_psbB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbH_rpoA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rpl22_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf2_ycf1 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ccsA_rpl32 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhF_rps7 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps7_rpl23 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing clpP_psbT for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnS_GCU_petN for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psbC_trnG_UCC for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnT_UGU_trnF_GAA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ndhC_trnM_CAU for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing atpE_atpB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnV_GAC_trnR_ACG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnR_ACG_rps7 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing pbsC_lhbA for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnG_UCC_trnFM for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing trnFM_rps19 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing rps19_psaB for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing clpP_psi_psbT for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing psi_psbT_psbT for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf15_ycf68 for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO]     removing ycf68_trnR_ACG for not reaching the minimum number of taxa defined
+2026-05-22 21:39:27 [INFO] found MAFFT in system PATH
+2026-05-22 21:39:27 [INFO] configured MAFFT with 2 threads
+2026-05-22 21:39:27 [INFO] saving individual regions as unaligned nucleotide matrices
+2026-05-22 21:39:27 [INFO] conducting the alignment of extracted sequences
+2026-05-22 21:39:27 [INFO] conducting multiple sequence alignments based on nucleotide sequence data using 2 threads
+2026-05-22 21:39:31 [INFO]      successfully aligned nucl_trnK_UUU_rps16.unalign.fasta using MAFFT
+2026-05-22 21:39:31 [INFO]      successfully aligned nucl_psbA_trnK_UUU.unalign.fasta using MAFFT
+2026-05-22 21:39:36 [INFO]      successfully aligned nucl_rps16_trnQ_UUG.unalign.fasta using MAFFT
+2026-05-22 21:39:38 [INFO]      successfully aligned nucl_trnQ_UUG_psbK.unalign.fasta using MAFFT
+2026-05-22 21:39:40 [INFO]      successfully aligned nucl_psbI_trnS_GCU.unalign.fasta using MAFFT
+2026-05-22 21:39:47 [INFO]      successfully aligned nucl_psbK_psbI.unalign.fasta using MAFFT
+2026-05-22 21:40:13 [INFO]      successfully aligned nucl_trnC_GCA_petN.unalign.fasta using MAFFT
+2026-05-22 21:40:13 [INFO]      successfully aligned nucl_trnS_GCU_trnC_GCA.unalign.fasta using MAFFT
+2026-05-22 21:40:29 [INFO]      successfully aligned nucl_petN_psbM.unalign.fasta using MAFFT
+2026-05-22 21:40:31 [INFO]      successfully aligned nucl_trnD_GUC_trnY_GUA.unalign.fasta using MAFFT
+2026-05-22 21:40:35 [INFO]      successfully aligned nucl_trnY_GUA_rpoB.unalign.fasta using MAFFT
+2026-05-22 21:40:35 [INFO]      successfully aligned nucl_rpoB_rpoC1.unalign.fasta using MAFFT
+2026-05-22 21:40:36 [INFO]      successfully aligned nucl_psbM_trnD_GUC.unalign.fasta using MAFFT
+2026-05-22 21:40:37 [INFO]      successfully aligned nucl_rpoC1_rpoC2.unalign.fasta using MAFFT
+2026-05-22 21:40:41 [INFO]      successfully aligned nucl_rpoC2_rps2.unalign.fasta using MAFFT
+2026-05-22 21:40:41 [INFO]      successfully aligned nucl_rps2_atpI.unalign.fasta using MAFFT
+2026-05-22 21:40:45 [INFO]      successfully aligned nucl_atpI_atpH.unalign.fasta using MAFFT
+2026-05-22 21:40:46 [INFO]      successfully aligned nucl_atpF_atpA.unalign.fasta using MAFFT
+2026-05-22 21:40:50 [INFO]      successfully aligned nucl_atpH_atpF.unalign.fasta using MAFFT
+2026-05-22 21:40:50 [INFO]      successfully aligned nucl_trnG_UCC_psbD.unalign.fasta using MAFFT
+2026-05-22 21:40:53 [INFO]      successfully aligned nucl_psbC_trnS_UGA.unalign.fasta using MAFFT
+2026-05-22 21:40:55 [INFO]      successfully aligned nucl_trnFM_CAU_rps14.unalign.fasta using MAFFT
+2026-05-22 21:40:56 [INFO]      successfully aligned nucl_trnS_UGA_psbZ.unalign.fasta using MAFFT
+2026-05-22 21:40:56 [INFO]      successfully aligned nucl_rps14_psaB.unalign.fasta using MAFFT
+2026-05-22 21:40:57 [INFO]      successfully aligned nucl_psaB_psaA.unalign.fasta using MAFFT
+2026-05-22 21:41:01 [INFO]      successfully aligned nucl_psaA_ycf3.unalign.fasta using MAFFT
+2026-05-22 21:41:02 [INFO]      successfully aligned nucl_ycf3_trnS_GGA.unalign.fasta using MAFFT
+2026-05-22 21:41:02 [INFO]      successfully aligned nucl_trnS_GGA_rps4.unalign.fasta using MAFFT
+2026-05-22 21:41:09 [INFO]      successfully aligned nucl_trnL_UAA_trnF_GAA.unalign.fasta using MAFFT
+2026-05-22 21:41:11 [INFO]      successfully aligned nucl_ndhJ_ndhK.unalign.fasta using MAFFT
+2026-05-22 21:41:11 [INFO]      successfully aligned nucl_ndhK_ndhC.unalign.fasta using MAFFT
+2026-05-22 21:41:16 [INFO]      successfully aligned nucl_ndhC_trnV_UAC.unalign.fasta using MAFFT
+2026-05-22 21:41:16 [INFO]      successfully aligned nucl_trnT_GGU_atpE.unalign.fasta using MAFFT
+2026-05-22 21:41:22 [INFO]      successfully aligned nucl_trnF_GAA_ndhJ.unalign.fasta using MAFFT
+2026-05-22 21:41:41 [INFO]      successfully aligned nucl_rbcL_accD.unalign.fasta using MAFFT
+2026-05-22 21:41:47 [INFO]      successfully aligned nucl_accD_psaI.unalign.fasta using MAFFT
+2026-05-22 21:41:48 [INFO]      successfully aligned nucl_atpB_rbcL.unalign.fasta using MAFFT
+2026-05-22 21:41:56 [INFO]      successfully aligned nucl_psaI_ycf4.unalign.fasta using MAFFT
+2026-05-22 21:42:00 [INFO]      successfully aligned nucl_cemA_petA.unalign.fasta using MAFFT
+2026-05-22 21:42:27 [INFO]      successfully aligned nucl_ycf4_cemA.unalign.fasta using MAFFT
+2026-05-22 21:42:29 [INFO]      successfully aligned nucl_psbJ_psbL.unalign.fasta using MAFFT
+2026-05-22 21:42:29 [INFO]      successfully aligned nucl_psbL_psbF.unalign.fasta using MAFFT
+2026-05-22 21:42:29 [INFO]      successfully aligned nucl_psbF_psbE.unalign.fasta using MAFFT
+2026-05-22 21:42:35 [INFO]      successfully aligned nucl_psbE_petL.unalign.fasta using MAFFT
+2026-05-22 21:42:36 [INFO]      successfully aligned nucl_petA_psbJ.unalign.fasta using MAFFT
+2026-05-22 21:42:37 [INFO]      successfully aligned nucl_petG_trnW_CCA.unalign.fasta using MAFFT
+2026-05-22 21:42:38 [INFO]      successfully aligned nucl_petL_petG.unalign.fasta using MAFFT
+2026-05-22 21:42:40 [INFO]      successfully aligned nucl_trnW_CCA_trnP_UGG.unalign.fasta using MAFFT
+2026-05-22 21:42:43 [INFO]      successfully aligned nucl_trnP_UGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 21:42:46 [INFO]      successfully aligned nucl_rpl33_rps18.unalign.fasta using MAFFT
+2026-05-22 21:42:51 [INFO]      successfully aligned nucl_rps18_rpl20.unalign.fasta using MAFFT
+2026-05-22 21:42:52 [INFO]      successfully aligned nucl_psaJ_rpl33.unalign.fasta using MAFFT
+2026-05-22 21:42:54 [INFO]      successfully aligned nucl_rpl20_clpP.unalign.fasta using MAFFT
+2026-05-22 21:42:56 [INFO]      successfully aligned nucl_psbB_psbT.unalign.fasta using MAFFT
+2026-05-22 21:42:57 [INFO]      successfully aligned nucl_psbT_psbN.unalign.fasta using MAFFT
+2026-05-22 21:42:58 [INFO]      successfully aligned nucl_psbN_psbH.unalign.fasta using MAFFT
+2026-05-22 21:43:01 [INFO]      successfully aligned nucl_psbH_petB.unalign.fasta using MAFFT
+2026-05-22 21:43:06 [INFO]      successfully aligned nucl_petB_petD.unalign.fasta using MAFFT
+2026-05-22 21:43:07 [INFO]      successfully aligned nucl_clpP_psbB.unalign.fasta using MAFFT
+2026-05-22 21:43:08 [INFO]      successfully aligned nucl_rpoA_rps11.unalign.fasta using MAFFT
+2026-05-22 21:43:09 [INFO]      successfully aligned nucl_rps11_rpl36.unalign.fasta using MAFFT
+2026-05-22 21:43:10 [INFO]      successfully aligned nucl_petD_rpoA.unalign.fasta using MAFFT
+2026-05-22 21:43:11 [INFO]      successfully aligned nucl_rpl36_infA.unalign.fasta using MAFFT
+2026-05-22 21:43:11 [INFO]      successfully aligned nucl_infA_rps8.unalign.fasta using MAFFT
+2026-05-22 21:43:13 [INFO]      successfully aligned nucl_rpl14_rpl16.unalign.fasta using MAFFT
+2026-05-22 21:43:14 [INFO]      successfully aligned nucl_rps8_rpl14.unalign.fasta using MAFFT
+2026-05-22 21:43:16 [INFO]      successfully aligned nucl_rpl22_rps19.unalign.fasta using MAFFT
+2026-05-22 21:43:16 [INFO]      successfully aligned nucl_rps19_rpl2.unalign.fasta using MAFFT
+2026-05-22 21:43:17 [INFO]      successfully aligned nucl_rpl2_rpl23.unalign.fasta using MAFFT
+2026-05-22 21:43:18 [INFO]      successfully aligned nucl_rpl16_rps3.unalign.fasta using MAFFT
+2026-05-22 21:43:19 [INFO]      successfully aligned nucl_trnI_CAU_ycf2.unalign.fasta using MAFFT
+2026-05-22 21:43:19 [INFO]      successfully aligned nucl_rpl23_trnI_CAU.unalign.fasta using MAFFT
+2026-05-22 21:43:29 [INFO]      successfully aligned nucl_ycf2_trnL_CAA.unalign.fasta using MAFFT
+2026-05-22 21:43:34 [INFO]      successfully aligned nucl_ndhB_rps7.unalign.fasta using MAFFT
+2026-05-22 21:43:37 [INFO]      successfully aligned nucl_trnL_CAA_ndhB.unalign.fasta using MAFFT
+2026-05-22 21:43:39 [INFO]      successfully aligned nucl_ycf15_trnV_GAC.unalign.fasta using MAFFT
+2026-05-22 21:43:41 [INFO]      successfully aligned nucl_trnV_GAC_rrn16.unalign.fasta using MAFFT
+2026-05-22 21:43:45 [INFO]      successfully aligned nucl_rrn16_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 21:43:45 [INFO]      successfully aligned nucl_trnI_GAU_trnA_UGC.unalign.fasta using MAFFT
+2026-05-22 21:43:47 [INFO]      successfully aligned nucl_trnA_UGC_rrn23.unalign.fasta using MAFFT
+2026-05-22 21:43:47 [INFO]      successfully aligned nucl_rrn23_rrn4.unalign.fasta using MAFFT
+2026-05-22 21:43:49 [INFO]      successfully aligned nucl_rps7_ycf15.unalign.fasta using MAFFT
+2026-05-22 21:43:49 [INFO]      successfully aligned nucl_rrn4_rrn5.unalign.fasta using MAFFT
+2026-05-22 21:43:52 [INFO]      successfully aligned nucl_rrn5_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 21:43:57 [INFO]      successfully aligned nucl_trnN_GUU_ycf1.unalign.fasta using MAFFT
+2026-05-22 21:44:01 [INFO]      successfully aligned nucl_trnR_ACG_trnN_GUU.unalign.fasta using MAFFT
+2026-05-22 21:44:02 [INFO]      successfully aligned nucl_ycf1_rps15.unalign.fasta using MAFFT
+2026-05-22 21:44:02 [INFO]      successfully aligned nucl_rps15_ndhH.unalign.fasta using MAFFT
+2026-05-22 21:44:03 [INFO]      successfully aligned nucl_ndhA_ndhI.unalign.fasta using MAFFT
+2026-05-22 21:44:03 [INFO]      successfully aligned nucl_ndhH_ndhA.unalign.fasta using MAFFT
+2026-05-22 21:44:06 [INFO]      successfully aligned nucl_ndhG_ndhE.unalign.fasta using MAFFT
+2026-05-22 21:44:08 [INFO]      successfully aligned nucl_ndhI_ndhG.unalign.fasta using MAFFT
+2026-05-22 21:44:09 [INFO]      successfully aligned nucl_psaC_ndhD.unalign.fasta using MAFFT
+2026-05-22 21:44:11 [INFO]      successfully aligned nucl_ndhE_psaC.unalign.fasta using MAFFT
+2026-05-22 21:44:12 [INFO]      successfully aligned nucl_ccsA_trnL_UAG.unalign.fasta using MAFFT
+2026-05-22 21:44:13 [INFO]      successfully aligned nucl_ndhD_ccsA.unalign.fasta using MAFFT
+2026-05-22 21:44:18 [INFO]      successfully aligned nucl_rpl32_ndhF.unalign.fasta using MAFFT
+2026-05-22 21:44:19 [INFO]      successfully aligned nucl_ndhF_ycf1.unalign.fasta using MAFFT
+2026-05-22 21:44:26 [INFO]      successfully aligned nucl_trnH_GUG_psbA.unalign.fasta using MAFFT
+2026-05-22 21:44:28 [INFO]      successfully aligned nucl_atpA_trnR_UCU.unalign.fasta using MAFFT
+2026-05-22 21:44:31 [INFO]      successfully aligned nucl_trnR_UCU_trnG_UCC.unalign.fasta using MAFFT
+2026-05-22 21:44:35 [INFO]      successfully aligned nucl_trnG_UCC_trnT_GGU.unalign.fasta using MAFFT
+2026-05-22 21:44:40 [INFO]      successfully aligned nucl_trnT_GGU_psbD.unalign.fasta using MAFFT
+2026-05-22 21:44:43 [INFO]      successfully aligned nucl_trnL_UAG_rpl32.unalign.fasta using MAFFT
+2026-05-22 21:44:44 [INFO]      successfully aligned nucl_psbZ_trnG_UCC.unalign.fasta using MAFFT
+2026-05-22 21:44:46 [INFO]      successfully aligned nucl_trnG_UCC_trnFM_CAU.unalign.fasta using MAFFT
+2026-05-22 21:44:49 [INFO]      successfully aligned nucl_trnS_GCU_rps4.unalign.fasta using MAFFT
+2026-05-22 21:44:58 [INFO]      successfully aligned nucl_rps4_trnT_UGU.unalign.fasta using MAFFT
+2026-05-22 21:45:05 [INFO]      successfully aligned nucl_ycf3_trnS_GCU.unalign.fasta using MAFFT
+2026-05-22 21:45:07 [INFO]      successfully aligned nucl_trnV_UAC_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 21:45:11 [INFO]      successfully aligned nucl_trnM_CAU_atpE.unalign.fasta using MAFFT
+2026-05-22 21:45:15 [INFO]      successfully aligned nucl_rps7_trnV_GAC.unalign.fasta using MAFFT
+2026-05-22 21:45:16 [INFO]      successfully aligned nucl_trnY_GUA_trnE_UUC.unalign.fasta using MAFFT
+2026-05-22 21:45:20 [INFO]      successfully aligned nucl_trnE_UUC_rpoB.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_psbZ_trnG_GCC.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_trnT_UGU_trnL_UAA.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_trnG_GCC_trnFM_CAU.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_ycf68_trnA_UGC.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_ycf68_rrn16.unalign.fasta using MAFFT
+2026-05-22 21:45:21 [INFO]      successfully aligned nucl_trnS_UGA_lhbA.unalign.fasta using MAFFT
+2026-05-22 21:45:22 [INFO]      successfully aligned nucl_lhbA_trnG_UCC.unalign.fasta using MAFFT
+2026-05-22 21:45:23 [INFO]      successfully aligned nucl_trnR_UCU_trnT_GGU.unalign.fasta using MAFFT
+2026-05-22 21:45:23 [INFO]      successfully aligned nucl_trnA_UGC_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 21:45:24 [INFO]      successfully aligned nucl_trnV_GAC_rrn16S.unalign.fasta using MAFFT
+2026-05-22 21:45:24 [INFO]      successfully aligned nucl_rrn16S_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 21:45:24 [INFO]      successfully aligned nucl_trnA_UGC_rrn23S.unalign.fasta using MAFFT
+2026-05-22 21:45:24 [INFO]      successfully aligned nucl_rrn23S_rrn4.unalign.fasta using MAFFT
+2026-05-22 21:45:24 [INFO]      successfully aligned nucl_rrn4_rrn5S.unalign.fasta using MAFFT
+2026-05-22 21:45:25 [INFO]      successfully aligned nucl_rrn5S_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 21:45:25 [INFO]      successfully aligned nucl_trnH_GTG_psbA.unalign.fasta using MAFFT
+2026-05-22 21:45:25 [INFO]      successfully aligned nucl_psbA_rps16.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_rps16_trnQ_TTG.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_trnQ_TTG_psbK.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_psbI_trnS_GCT.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_trnV_GAC_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_trnS_GCT_trnC_GCA.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_trnD_GTC_trnY_GTA.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_psbM_trnD_GTC.unalign.fasta using MAFFT
+2026-05-22 21:45:26 [INFO]      successfully aligned nucl_trnY_GTA_trnE_TTC.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnE_TTC_rpoB.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_atpA_trnR_TCT.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnR_TCT_trnT_GGT.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnT_GGT_psbD.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_psbC_trnS_TGA.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnS_TGA_psbZ.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnG_GCC_trnM_CAT.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_trnM_CAT_rps14.unalign.fasta using MAFFT
+2026-05-22 21:45:27 [INFO]      successfully aligned nucl_rps4_trnT_TGT.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnT_TGT_trnF_GAA.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_ndhC_trnM_CAT.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnM_CAT_atpE.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnW_CCA_trnP_TGG.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnP_TGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_rpl23_trnI_CAT.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnI_CAT_ycf2.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnR_ACG_trnN_GTT.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_rrn16S_rrn23S.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_trnN_GTT_ycf1.unalign.fasta using MAFFT
+2026-05-22 21:45:28 [INFO]      successfully aligned nucl_ccsA_trnL_TAG.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_trnV_GAC_rrb16.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_trnL_TAG_rpl32.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_rrb16_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_trnH_psbA.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_psbA_trnK.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_trnK_rps16.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_trnQ_psbK.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_rps16_trnQ.unalign.fasta using MAFFT
+2026-05-22 21:45:29 [INFO]      successfully aligned nucl_psbI_trnS.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnE_rpoB.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnI_trnA.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_ndhC_trnV.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnY_GUA_trnE.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnP_GGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnV_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 21:45:30 [INFO]      successfully aligned nucl_trnV_GAC_trnI.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_trnA_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_ndhK_psbG.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_trnW_CCA_trnP_UUG.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_trnP_UUG_psaJ.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_rbcL_psaI.unalign.fasta using MAFFT
+2026-05-22 21:45:31 [INFO]      successfully aligned nucl_trnI_GAU_trnA.unalign.fasta using MAFFT
+2026-05-22 21:45:32 [INFO]      successfully aligned nucl_trnA_rrn23.unalign.fasta using MAFFT
+2026-05-22 21:45:32 [INFO]      successfully aligned nucl_rpoB_rpoC2.unalign.fasta using MAFFT
+2026-05-22 21:45:32 [INFO]      successfully aligned nucl_trnL_CAA_trnI_CAU.unalign.fasta using MAFFT
+2026-05-22 21:45:32 [INFO]      successfully aligned nucl_trnN_GUU_rps15.unalign.fasta using MAFFT
+2026-05-22 21:45:32 [INFO]      successfully aligned nucl_trnL_UAA_ndhJ.unalign.fasta using MAFFT
+2026-05-22 21:45:33 [INFO]      successfully aligned nucl_trnV_UAC_atpE.unalign.fasta using MAFFT
+2026-05-22 21:45:33 [INFO]      successfully aligned nucl_psbJ_psbF.unalign.fasta using MAFFT
+2026-05-22 21:45:33 [INFO] converting all successful alignments to NEXUS format using 2 threads
+
+end of script
+
+Script directory: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2
+Dataset folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_YangEtAl2022_Asteraceae
+Output folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_YangEtAl2022_Asteraceae_output_igs_2threads
+Running plastburstalign with 2 threads, mode: igs...
+	Command being timed: "python ./test_script.py benchmark_YangEtAl2022_Asteraceae 2 igs"
+	User time (seconds): 1384.14
+	System time (seconds): 35.22
+	Percent of CPU this job got: 385%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:08.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 250404
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 58
+	Minor (reclaiming a frame) page faults: 9918420
+	Voluntary context switches: 364036
+	Involuntary context switches: 5677
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 69664
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
