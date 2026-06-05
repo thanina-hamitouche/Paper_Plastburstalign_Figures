@@ -49,9 +49,12 @@ Status: Needs to be made
 ---
 
 ### Figure 5: Optimization of thread allocation for runtime and memory efficiency
-_Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization. (As your preliminary tests have shown, it will demonstrate that allocating an equal number of threads to both the general software workflow and the alignment software provides the most effective overall performance.)_
+_Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
 
-Status: Needs to be made
+```bash
+python CODE_Visualize_peakMem_speedup_across_datasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_peakMem_speedup/peakMem_speedup_across_datasets
+```
+![Visualization of peak memory and speedup](VIZ_peakMem_speedup/peakMem_speedup_across_datasets.png)
 
 ---
 

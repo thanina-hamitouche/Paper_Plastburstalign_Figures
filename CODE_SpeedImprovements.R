@@ -25,10 +25,34 @@ if (!dir.exists(ouDr)) {
 
 plotData = read.csv(inFn, header = TRUE)
 
+dataset_order = c(
+  "benchmark_ZhangNNEtAl2025_53angiosperms",
+  "benchmark_YangEtAl2022_Asteraceae",
+  "benchmark_YangEtAl2022_monocots",
+  "benchmark_YangEtAl2022_angiosperms",
+  "benchmark_ZhangNNEtAl2025_13724angiosperms"
+)
+
+dataset_labels = c(
+  "benchmark_ZhangNNEtAl2025_53angiosperms" = "Angiosperms (n=53)",
+  "benchmark_YangEtAl2022_Asteraceae" = "Asteraceae (n=155)",
+  "benchmark_YangEtAl2022_monocots" = "Monocot (n=733)",
+  "benchmark_YangEtAl2022_angiosperms" = "Angiosperms (n=2,585)",
+  "benchmark_ZhangNNEtAl2025_13724angiosperms" = "Angiosperms (n=13,724)"
+)
+
+dataset_colors = c(
+  "benchmark_ZhangNNEtAl2025_53angiosperms" = "#377eb8",
+  "benchmark_YangEtAl2022_Asteraceae" = "#4daf4a",
+  "benchmark_YangEtAl2022_monocots" = "#984ea3",
+  "benchmark_YangEtAl2022_angiosperms" = "#ff7f00",
+  "benchmark_ZhangNNEtAl2025_13724angiosperms" = "#e41a1c"
+)
+
 # Ensure factors
 plotData$MARKER  = toupper(as.character(plotData$MARKER))
-plotData$MARKER  = factor(plotData$MARKER, levels = c("CDS", "IGS", "INT"))
-plotData$DATASET = factor(plotData$DATASET)
+plotData$MARKER  = factor(plotData$MARKER, levels = c("CDS", "INT", "IGS"))
+plotData$DATASET = factor(plotData$DATASET, levels = dataset_order)
 plotData$TIME_MIN = plotData$TIME / 60
 max_cpus = max(plotData$CPUS, na.rm = TRUE)
 x_breaks = unique(2^(0:ceiling(log(max_cpus, base = 2))))
@@ -127,21 +151,9 @@ myPlot = ggplot(
     expand = expansion(mult = c(0, 0.02))
   ) +
   scale_color_manual(
-  values = c(
-    "benchmark_YangEtAl2022_Asteraceae"  = "darkgreen",
-    "benchmark_YangEtAl2022_monocots"    = "blue",
-    "benchmark_YangEtAl2022_angiosperms" = "maroon"
-  ),
-  breaks = c(
-    "benchmark_YangEtAl2022_Asteraceae",
-    "benchmark_YangEtAl2022_monocots",
-    "benchmark_YangEtAl2022_angiosperms"
-  ),
-  labels = c(
-    "Asteraceae (n=155)",
-    "Monocot (n=733)",
-    "Angiosperms (n=2,585)"
-  )
+  values = dataset_colors,
+  breaks = dataset_order,
+  labels = unname(dataset_labels[dataset_order])
 ) +
   scale_linetype_manual(
     values = c(

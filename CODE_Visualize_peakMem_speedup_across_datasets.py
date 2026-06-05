@@ -281,8 +281,8 @@ def plot_side_by_side(
     add_horizontal_top_legends(fig, datasets=all_datasets, dataset_colors=dataset_colors)
 
     fig.subplots_adjust(left=0.055, right=0.985, top=0.80, bottom=0.11, wspace=0.14)
-    out_png = output_stem.with_name(f"{output_stem.name}_combined.png")
-    out_svg = output_stem.with_name(f"{output_stem.name}_combined.svg")
+    out_png = output_stem.with_name(f"{output_stem.name}.png")
+    out_svg = output_stem.with_name(f"{output_stem.name}.svg")
     fig.savefig(out_png, dpi=300)
     fig.savefig(out_svg)
     plt.close(fig)
