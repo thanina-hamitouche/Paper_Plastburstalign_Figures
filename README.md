@@ -44,6 +44,10 @@ Rscript CODE_SpeedImprovements.R ./input_data/plastburst_benchmark_Final.csv ./V
 ### Figure 4: Relative contributions of software and alignment multithreading to performance improvement
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
+```bash
+Foo bar baz
+```
+
 Status: Needs to be made
 
 ---
@@ -58,7 +62,17 @@ python CODE_Visualize_peakMem_speedup_across_datasets.py ./input_data/benchmarki
 
 ---
 
-### Supplemental Figure 1: Flowchart of Exon Splicing
+### Supplemental Figure 1: Overview of various optimizations
+_Purpose: This figure gives us a detailed look at trhe various optimizations._
+
+```bash
+python CODE_Compare_factors_across_datasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_Compare_factors_across_datasets/Comparing_factors_grid
+```
+![Visualization of speed improvements](VIZ_Compare_factors_across_datasets/Comparing_factors_grid.png)
+
+---
+
+### Supplemental Figure 2: Flowchart of Exon Splicing
 _Purpose: This figure shall illustrate the exon splicing procedure implemented in the software, which is one of the more complex components of the software. It is intended to provide interested readers with a detailed understanding of how exon splicing is handled internally and will be of particular interest to algorithm nerds._
 
 ```bash
