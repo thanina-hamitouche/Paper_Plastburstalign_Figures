@@ -168,8 +168,8 @@ myPlot = ggplot(
     linetype = guide_legend(order = 2)
   ) +
   coord_cartesian(clip = "off") +
-  xlab("\nNumber of CPUs\n(log2 scale)") +
-  ylab("Computation Time\n(log10 scale)\n") +
+  xlab("\nNumber of CPUs (log2 scale)") +
+  ylab("Computation Time (log10 scale)\n") +
   ggtitle("Speed improvements through MPI implementation\n") +
   theme_minimal(base_family = "Arial") +
   theme(

@@ -136,21 +136,30 @@ def add_legends(ax: plt.Axes, datasets: list[str], dataset_colors: dict[str, str
 
 
 def add_horizontal_top_legends(fig: plt.Figure, datasets: list[str], dataset_colors: dict[str, str]) -> None:
+    dataset_prefix = Line2D([], [], linestyle="None", label="DATASET")
     dataset_handles = [
-        Line2D([0], [0], color=dataset_colors[d], lw=2.8, label=DATASET_LABELS.get(d, d.replace("benchmark_", "")))
+        Line2D(
+            [0],
+            [0],
+            color=dataset_colors[d],
+            lw=2.8,
+            marker="o",
+            markersize=6,
+            label=DATASET_LABELS.get(d, d.replace("benchmark_", "")),
+        )
         for d in datasets
     ]
+    marker_prefix = Line2D([], [], linestyle="None", label="MARKER")
     marker_handles = [
         Line2D([0], [0], color="black", lw=2.8, linestyle=LINESTYLE_BY_MARKER[m], label=m)
         for m in ["CDS", "INT", "IGS"]
     ]
 
     dataset_legend = fig.legend(
-        handles=dataset_handles,
-        title="Dataset",
+        handles=[dataset_prefix, *dataset_handles],
         loc="upper center",
         bbox_to_anchor=(0.5, 0.985),
-        ncol=max(1, len(dataset_handles)),
+        ncol=max(1, len(dataset_handles) + 1),
         columnspacing=0.9,
         handletextpad=0.5,
         labelspacing=0.4,
@@ -160,11 +169,10 @@ def add_horizontal_top_legends(fig: plt.Figure, datasets: list[str], dataset_col
     fig.add_artist(dataset_legend)
 
     fig.legend(
-        handles=marker_handles,
-        title="Marker",
+        handles=[marker_prefix, *marker_handles],
         loc="upper center",
-        bbox_to_anchor=(0.5, 0.922),
-        ncol=3,
+        bbox_to_anchor=(0.5, 0.935),
+        ncol=4,
         columnspacing=0.9,
         handletextpad=0.5,
         labelspacing=0.4,
