@@ -1,0 +1,645 @@
+2026-05-22 20:51:26 [INFO] parsing GenBank flatfiles and extracting their sequence annotations using 16 processes
+2026-05-22 20:51:26 [INFO]  parsing NC_061667.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_061667
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_061667
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_061667
+2026-05-22 20:51:26 [INFO]  parsing NC_082200.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_001666.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_046492.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_007407.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_032368.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_031187.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_052791.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_009962.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_046796.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_086774.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_070477.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_059807.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_002762.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_087718.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_025554.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_034692.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_082200
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_082200
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_046492
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_046492
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_082200
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_046492
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_032368
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_032368
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_032368
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_086774
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_086774
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_087718
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_087718
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_086774
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_087718
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_034692
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_034692
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_034692
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_052791
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_052791
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_009962
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_009962
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_070477
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_059807
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_070477
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_059807
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_052791
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_002762
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_009962
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_002762
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_031187
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_059807
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_070477
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_031187
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_002762
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_031187
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_007407
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_007407
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_046796
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_046796
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_007407
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_046796
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_001666
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_001666
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_025554
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_025554
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_001666
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_025554
+2026-05-22 20:51:26 [INFO]  parsing NC_009600.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_021425.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_009600
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_009600
+2026-05-22 20:51:26 [INFO]  parsing NC_056348.gb
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_009600
+2026-05-22 20:51:26 [INFO]  parsing NC_048890.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_021425
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_021425
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_021425
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_056348
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_056348
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_056348
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_048890
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_048890
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_048890
+2026-05-22 20:51:26 [INFO]  parsing NC_021649.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_042747.gb
+2026-05-22 20:51:26 [INFO]  parsing MH362765.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_021649
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_021649
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_021649
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in MH362765
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in MH362765
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_042747
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_042747
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in MH362765
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_042747
+2026-05-22 20:51:26 [INFO]  parsing NC_057568.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_077481.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_032038.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_057568
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_057568
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_057568
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_077481
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_077481
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_077481
+2026-05-22 20:51:26 [INFO]  parsing PV216845.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_032038
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_032038
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_032038
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in PV216845
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in PV216845
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in PV216845
+2026-05-22 20:51:26 [INFO]  parsing NC_044825.gb
+2026-05-22 20:51:26 [INFO]  parsing NC_009963.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_044825
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_044825
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_044825
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_009963
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_009963
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_009963
+2026-05-22 20:51:26 [INFO]  parsing NC_034700.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_034700
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_034700
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_034700
+2026-05-22 20:51:26 [INFO]  parsing NC_065199.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_065199
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_065199
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_065199
+2026-05-22 20:51:26 [INFO]  parsing NC_052769.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_052769
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_052769
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_052769
+2026-05-22 20:51:26 [INFO]  parsing NC_041437.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_041437
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_041437
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_041437
+2026-05-22 20:51:26 [INFO]  parsing NC_062798.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_062798
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_062798
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_062798
+2026-05-22 20:51:26 [INFO]  parsing NC_044828.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_044828
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_044828
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_044828
+2026-05-22 20:51:26 [INFO]  parsing NC_068043.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_068043
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_068043
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_068043
+2026-05-22 20:51:26 [INFO]  parsing NC_085602.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_085602
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_085602
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_085602
+2026-05-22 20:51:26 [INFO]  parsing NC_026565.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_026565
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_026565
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_026565
+2026-05-22 20:51:26 [INFO]  parsing NC_000932.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_000932
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_000932
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_000932
+2026-05-22 20:51:26 [INFO]  parsing NC_005086.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_005086
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_005086
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_005086
+2026-05-22 20:51:26 [INFO]  parsing NC_050163.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_050163
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_050163
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_050163
+2026-05-22 20:51:26 [INFO]  parsing NC_041087.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_041087
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_041087
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_041087
+2026-05-22 20:51:26 [INFO]  parsing NC_009599.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_009599
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_009599
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_009599
+2026-05-22 20:51:26 [INFO]  parsing NC_036977.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_036977
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_036977
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_036977
+2026-05-22 20:51:26 [INFO]  parsing NC_058273.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_058273
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_058273
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_058273
+2026-05-22 20:51:26 [INFO]  parsing NC_086746.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_086746
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_086746
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_086746
+2026-05-22 20:51:26 [INFO]  parsing NC_071948.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_071948
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_071948
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_071948
+2026-05-22 20:51:26 [INFO]  parsing NC_057151.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_057151
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_057151
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_057151
+2026-05-22 20:51:26 [INFO]  parsing NC_036971.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_036971
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_036971
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_036971
+2026-05-22 20:51:26 [INFO]  parsing NC_031333.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_031333
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_031333
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_031333
+2026-05-22 20:51:26 [INFO]  parsing NC_049006.gb
+2026-05-22 20:51:26 [INFO]   resolving genes with compound locations in NC_049006
+2026-05-22 20:51:26 [INFO]    resolving cis-spliced genes in NC_049006
+2026-05-22 20:51:26 [INFO]    resolving trans-spliced genes in NC_049006
+2026-05-22 20:51:27 [INFO]  parsing NC_077569.gb
+2026-05-22 20:51:27 [INFO]   resolving genes with compound locations in NC_077569
+2026-05-22 20:51:27 [INFO]    resolving cis-spliced genes in NC_077569
+2026-05-22 20:51:27 [INFO]    resolving trans-spliced genes in NC_077569
+2026-05-22 20:51:27 [INFO] cleaning extracted sequence annotations
+2026-05-22 20:51:27 [INFO]   removing annotations that occur in fewer than 2 taxa
+2026-05-22 20:51:27 [INFO]   removing annotations whose longest sequence is shorter than 3 bp
+2026-05-22 20:51:27 [INFO]     removing psbH_petD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_trnA_UGC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn23S_rrn5S for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhA_ndhH for not reaching the minimum sequence length defined
+2026-05-22 20:51:27 [INFO]     removing rpl2_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnH_GTG_psbA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnK_UUU_trnQ_TTG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnQ_TTG_psbK for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbI_trnS_GCT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_GCT_trnG_UCC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_UCC_trnR_TCT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnR_TCT_atpA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbM_trnD_GTC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnD_GTC_trnY_GTA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnY_GTA_trnE_TTC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnE_TTC_trnT_GGT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnT_GGT_psbD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbC_trnS_TGA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_TGA_psbZ for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_GCC_trnFM_CAT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnFM_CAT_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps4_trnT_TGT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnT_TGT_trnL_UAA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnV_UAC_trnM_CAT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnM_CAT_atpE for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnW_CCA_trnP_TGG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnP_TGG_psaJ for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_trnI_CAT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_CAT_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnR_ACG_trnN_GTT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnN_GTT_ycf1 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhF_trnL_TAG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnL_TAG_ccsA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps16_trnS_GCU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnQ_UUG_trnG_UCC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps14_trnG_GCC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_GCC_trnA_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_CAU_trnFM_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl20_psbB for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_trnH_GUG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnH_GUG_trnI_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_trnI for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps12A_trnT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnR_trnFM for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_psaI for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing pstB_petD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbM_trnA_GUC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps19_trnA_GUG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_GUG_rpl2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_trnA_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_CAU_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_GAC_16S_rRNA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing 16S_rRNA_trnA_GAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing 5S_rRNA_trnA_ACG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing infA_rpl14 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_trnT for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnR_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnW_CCA_trnP_GGG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_trnM for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnM_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhC_trnC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnC_trnM for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_trnM for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnM_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ycf15_trnL for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn5S_trnR for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnN_ndhF for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl2_trnQ for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_trnR for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbZ_rps16 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbA_trnH for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing lhbA_trnG_GCC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnK_UUU_rbcL for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps16_accD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psaI_cemA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_UGC_trnI_UAG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_UAG_rrn16 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnC_GCA_trnE_UUC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing petN_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_UCC_trnM_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnF_GAA_ndhK for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn5S_ccsA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl32_ndhD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhG_rps15 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhA_rps15 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_GCU_trnR for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_GCC_trnI_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_CAU_rps14 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbA_rps16 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnF_GAA_psbE for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnV_UAC_petL for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnN_GUU_rpl32 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl32_ccsA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnL_UAG_ndhD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psaC_rps15 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing lhbA_trnG_UCC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbL_psbE for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnL_UAA_trnL_CAA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnL_CAA_trnF_GAA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnE_UUC_trnT_UGU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnT_UGU_psbD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ycf3_trnS_GCU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_GCU_rps4 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnF_GAA_trnV_UAC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl22_trnH_GUG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnL_CAA_rpl32 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ccsA_psaC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhE_ndhI for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhI_rps15 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps7_trnL_UAG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnV_GAC_16S_rRNA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing 16S_rRNA_trnI_GAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing 5S_rRNA_trnR_ACG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psaA_pafI for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing pafI_trnS_GGA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psaI_pafII for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing pafII_cemA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl20_clpP1 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing clpP1_psbB for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing psbT_pbf1 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing pbf1_psbH for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_trnG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_trnR for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rps4_trnL for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ycf2_trnL for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn4_trnR for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_rps7 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing petN_trnA_GUC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing accD_ycf4 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl23_ycf2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_GAC_rrn16S for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn16S_trnA_GAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_UGC_trnA_ACG for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_ACG_rrn5S for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnA_GAU_trnA_GAC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnV_UAC_atpE for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rrn16_trnA_UGC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_GCU_trnC_GCA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnE_UUC_rpoB for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnG_UCC_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing rpl22_rpl2 for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnS_GCU_psbD for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnFM_CAU_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnM_CAU_trnT_GGU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnR_UCU_trnFM_CAU for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnI_CAU_trnL_CAA for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing trnV_GAC_trnA_UGC for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO]     removing ndhF_ndhE for not reaching the minimum number of taxa defined
+2026-05-22 20:51:27 [INFO] found MAFFT in system PATH
+2026-05-22 20:51:27 [INFO] configured MAFFT with 16 threads
+2026-05-22 20:51:27 [INFO] saving individual regions as unaligned nucleotide matrices
+2026-05-22 20:51:27 [INFO] conducting the alignment of extracted sequences
+2026-05-22 20:51:27 [INFO] conducting multiple sequence alignments based on nucleotide sequence data using 16 threads
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_trnT_CGU_trnR_UCU.unalign.fasta using MAFFT
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_trnS_GCU_trnT_CGU.unalign.fasta using MAFFT
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_atpA_atpF.unalign.fasta using MAFFT
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_rpoC1_rpoB.unalign.fasta using MAFFT
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_rpoC2_rpoC1.unalign.fasta using MAFFT
+2026-05-22 20:51:27 [INFO]      successfully aligned nucl_psbI_trnS_GCU.unalign.fasta using MAFFT
+2026-05-22 20:51:28 [INFO]      successfully aligned nucl_psbA_trnK_UUU.unalign.fasta using MAFFT
+2026-05-22 20:51:28 [INFO]      successfully aligned nucl_trnR_UCU_atpA.unalign.fasta using MAFFT
+2026-05-22 20:51:28 [INFO]      successfully aligned nucl_rps2_rpoC2.unalign.fasta using MAFFT
+2026-05-22 20:51:29 [INFO]      successfully aligned nucl_atpI_rps2.unalign.fasta using MAFFT
+2026-05-22 20:51:29 [INFO]      successfully aligned nucl_trnY_GUA_trnE_UUC.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_trnH_GUG_psbA.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_trnQ_UUG_psbK.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_trnD_GUC_trnY_GUA.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_psbC_trnS_UGA.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_trnG_GCC_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_trnM_CAU_rps14.unalign.fasta using MAFFT
+2026-05-22 20:51:30 [INFO]      successfully aligned nucl_psaB_psaA.unalign.fasta using MAFFT
+2026-05-22 20:51:31 [INFO]      successfully aligned nucl_rps14_psaB.unalign.fasta using MAFFT
+2026-05-22 20:51:31 [INFO]      successfully aligned nucl_psbK_psbI.unalign.fasta using MAFFT
+2026-05-22 20:51:31 [INFO]      successfully aligned nucl_trnS_UGA_psbZ.unalign.fasta using MAFFT
+2026-05-22 20:51:32 [INFO]      successfully aligned nucl_trnS_GGA_rps4.unalign.fasta using MAFFT
+2026-05-22 20:51:33 [INFO]      successfully aligned nucl_atpF_atpH.unalign.fasta using MAFFT
+2026-05-22 20:51:34 [INFO]      successfully aligned nucl_rps4_trnT_UGU.unalign.fasta using MAFFT
+2026-05-22 20:51:35 [INFO]      successfully aligned nucl_trnL_UAA_trnF_GAA.unalign.fasta using MAFFT
+2026-05-22 20:51:35 [INFO]      successfully aligned nucl_psbZ_trnG_GCC.unalign.fasta using MAFFT
+2026-05-22 20:51:35 [INFO]      successfully aligned nucl_ndhK_ndhC.unalign.fasta using MAFFT
+2026-05-22 20:51:35 [INFO]      successfully aligned nucl_ndhJ_ndhK.unalign.fasta using MAFFT
+2026-05-22 20:51:37 [INFO]      successfully aligned nucl_ndhC_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:51:38 [INFO]      successfully aligned nucl_trnM_CAU_atpE.unalign.fasta using MAFFT
+2026-05-22 20:51:40 [INFO]      successfully aligned nucl_trnE_UUC_trnT_GGU.unalign.fasta using MAFFT
+2026-05-22 20:51:41 [INFO]      successfully aligned nucl_psbM_trnD_GUC.unalign.fasta using MAFFT
+2026-05-22 20:51:42 [INFO]      successfully aligned nucl_ycf3_trnS_GGA.unalign.fasta using MAFFT
+2026-05-22 20:51:42 [INFO]      successfully aligned nucl_trnF_GAA_ndhJ.unalign.fasta using MAFFT
+2026-05-22 20:51:43 [INFO]      successfully aligned nucl_trnC_GCA_petN.unalign.fasta using MAFFT
+2026-05-22 20:51:43 [INFO]      successfully aligned nucl_psbJ_psbF.unalign.fasta using MAFFT
+2026-05-22 20:51:44 [INFO]      successfully aligned nucl_psaI_ycf4.unalign.fasta using MAFFT
+2026-05-22 20:51:44 [INFO]      successfully aligned nucl_psbF_psbE.unalign.fasta using MAFFT
+2026-05-22 20:51:45 [INFO]      successfully aligned nucl_cemA_petA.unalign.fasta using MAFFT
+2026-05-22 20:51:46 [INFO]      successfully aligned nucl_petG_trnW_CCA.unalign.fasta using MAFFT
+2026-05-22 20:51:46 [INFO]      successfully aligned nucl_psaA_ycf3.unalign.fasta using MAFFT
+2026-05-22 20:51:46 [INFO]      successfully aligned nucl_trnK_UUU_rps16.unalign.fasta using MAFFT
+2026-05-22 20:51:46 [INFO]      successfully aligned nucl_petL_petG.unalign.fasta using MAFFT
+2026-05-22 20:51:48 [INFO]      successfully aligned nucl_trnW_CCA_trnP_UGG.unalign.fasta using MAFFT
+2026-05-22 20:51:49 [INFO]      successfully aligned nucl_trnP_UGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 20:51:52 [INFO]      successfully aligned nucl_rps18_rpl20.unalign.fasta using MAFFT
+2026-05-22 20:51:52 [INFO]      successfully aligned nucl_rpl33_rps18.unalign.fasta using MAFFT
+2026-05-22 20:51:55 [INFO]      successfully aligned nucl_psbB_psbT.unalign.fasta using MAFFT
+2026-05-22 20:51:57 [INFO]      successfully aligned nucl_psbT_psbN.unalign.fasta using MAFFT
+2026-05-22 20:51:57 [INFO]      successfully aligned nucl_atpB_rbcL.unalign.fasta using MAFFT
+2026-05-22 20:51:57 [INFO]      successfully aligned nucl_atpH_atpI.unalign.fasta using MAFFT
+2026-05-22 20:51:58 [INFO]      successfully aligned nucl_clpP_psbB.unalign.fasta using MAFFT
+2026-05-22 20:51:59 [INFO]      successfully aligned nucl_psbN_psbH.unalign.fasta using MAFFT
+2026-05-22 20:51:59 [INFO]      successfully aligned nucl_rpoA_rps11.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_rpl36_infA.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_rps11_rpl36.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_psaJ_rpl33.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_infA_rps8.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_petD_rpoA.unalign.fasta using MAFFT
+2026-05-22 20:52:00 [INFO]      successfully aligned nucl_accD_psaI.unalign.fasta using MAFFT
+2026-05-22 20:52:01 [INFO]      successfully aligned nucl_rps3_rpl22.unalign.fasta using MAFFT
+2026-05-22 20:52:01 [INFO]      successfully aligned nucl_ycf4_cemA.unalign.fasta using MAFFT
+2026-05-22 20:52:01 [INFO]      successfully aligned nucl_rps19_rpl2.unalign.fasta using MAFFT
+2026-05-22 20:52:01 [INFO]      successfully aligned nucl_rpl23_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:01 [INFO]      successfully aligned nucl_rpl2_rpl23.unalign.fasta using MAFFT
+2026-05-22 20:52:02 [INFO]      successfully aligned nucl_trnM_CAU_ycf2.unalign.fasta using MAFFT
+2026-05-22 20:52:02 [INFO]      successfully aligned nucl_rps8_rpl14.unalign.fasta using MAFFT
+2026-05-22 20:52:02 [INFO]      successfully aligned nucl_rpl22_rps19.unalign.fasta using MAFFT
+2026-05-22 20:52:02 [INFO]      successfully aligned nucl_rpl14_rpl16.unalign.fasta using MAFFT
+2026-05-22 20:52:03 [INFO]      successfully aligned nucl_trnV_GAC_rrn16S.unalign.fasta using MAFFT
+2026-05-22 20:52:03 [INFO]      successfully aligned nucl_rrn16S_trnI.unalign.fasta using MAFFT
+2026-05-22 20:52:03 [INFO]      successfully aligned nucl_trnA_UGC_rrn23S.unalign.fasta using MAFFT
+2026-05-22 20:52:03 [INFO]      successfully aligned nucl_ndhB_rps7.unalign.fasta using MAFFT
+2026-05-22 20:52:03 [INFO]      successfully aligned nucl_rrn5S_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 20:52:04 [INFO]      successfully aligned nucl_ycf1_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:52:05 [INFO]      successfully aligned nucl_ycf2_trnL_CAA.unalign.fasta using MAFFT
+2026-05-22 20:52:05 [INFO]      successfully aligned nucl_trnL_CAA_ndhB.unalign.fasta using MAFFT
+2026-05-22 20:52:06 [INFO]      successfully aligned nucl_trnL_UAG_ccsA.unalign.fasta using MAFFT
+2026-05-22 20:52:06 [INFO]      successfully aligned nucl_trnT_GGU_psbD.unalign.fasta using MAFFT
+2026-05-22 20:52:06 [INFO]      successfully aligned nucl_ndhF_trnL_UAG.unalign.fasta using MAFFT
+2026-05-22 20:52:06 [INFO]      successfully aligned nucl_petN_psbM.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_trnR_ACG_trnN_GUU.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_ccsA_ndhD.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_ndhD_psaC.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_trnN_GUU_ycf1.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_ndhI_ndhA.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_rpl16_rps3.unalign.fasta using MAFFT
+2026-05-22 20:52:07 [INFO]      successfully aligned nucl_ndhH_rps15.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_ndhE_ndhG.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_rbcL_accD.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_trnFM_CAU_rps14.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_trnG_GCC_trnFM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_trnV_UAC_trnM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_psbL_psbF.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_psbJ_psbL.unalign.fasta using MAFFT
+2026-05-22 20:52:08 [INFO]      successfully aligned nucl_trnS_GCU_trnR_UCU.unalign.fasta using MAFFT
+2026-05-22 20:52:09 [INFO]      successfully aligned nucl_rrn16S_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 20:52:09 [INFO]      successfully aligned nucl_rpl20_clpP.unalign.fasta using MAFFT
+2026-05-22 20:52:09 [INFO]      successfully aligned nucl_rrn23S_rrn4.unalign.fasta using MAFFT
+2026-05-22 20:52:09 [INFO]      successfully aligned nucl_trnI_GAU_trnA_UGC.unalign.fasta using MAFFT
+2026-05-22 20:52:09 [INFO]      successfully aligned nucl_rrn4_rrn5S.unalign.fasta using MAFFT
+2026-05-22 20:52:10 [INFO]      successfully aligned nucl_psaC_ndhE.unalign.fasta using MAFFT
+2026-05-22 20:52:10 [INFO]      successfully aligned nucl_ndhG_ndhI.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_psbH_petB.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_trnG_UCC_trnR_UCU.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_rpl23_trnI_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_trnI_CAU_ycf2.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_ycf2_ycf15.unalign.fasta using MAFFT
+2026-05-22 20:52:11 [INFO]      successfully aligned nucl_trnV_GAC_rrn16.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_trnK_UUU_trnQ_UUG.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_rrn16_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_trnA_UGC_rrn23.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_ycf15_trnL_CAA.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_rrn23_rrn4.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_rrn4_rrn5.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_trnT_UGU_trnL_UAA.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_atpE_atpB.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_petB_petD.unalign.fasta using MAFFT
+2026-05-22 20:52:12 [INFO]      successfully aligned nucl_rrn5_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_trnG_GCC_trnR_UCU.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_rpl36_rps8.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_ndhH_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_trnG_UCC_trnFM_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_psbZ_trnG_UCC.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_psbA_trnK.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_trnK_rps16.unalign.fasta using MAFFT
+2026-05-22 20:52:13 [INFO]      successfully aligned nucl_trnN_GUU_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_rps16_trnQ.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_rps15_trnN_GUU.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnQ_psbK.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_psbI_trnS.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnS_psbD.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_psbC_trnS.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnS_psbZ.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnM_CAU_psbD.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_psbZ_trnG.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnT_trnE.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnG_trnFM.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnE_trnY.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnY_trnD.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnD_psbM.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_atpA_trnR.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnS_GCU_trnG_GCC.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnFM_rps14.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_petN_trnC.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_trnC_rpoB.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_rpoB_trnC_GCA.unalign.fasta using MAFFT
+2026-05-22 20:52:14 [INFO]      successfully aligned nucl_rps4_trnT.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnS_rps4.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_ycf3_trnS.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnL_trnF.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnV_trnM.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnT_trnL.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnM_atpE.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnF_ndhJ.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_petG_trnW.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnW_trnP.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_rps19_trnH.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_ndhC_trnV.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnH_rpl2.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_rpl23_trnI.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnP_psaJ.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnI_trnA.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnI_trnL.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnL_ndhB.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_rps15_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnV_trnI.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnR_trnN.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnA_trnR.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnN_rps15.unalign.fasta using MAFFT
+2026-05-22 20:52:15 [INFO]      successfully aligned nucl_trnL_ccsA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnH_GUG_rpl2.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_rps19_trnH_GUG.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GUG_psbA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_ycf68_rrn16.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_ycf68_trnA_UGC.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_psbA_trnA_UUU.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UUU_rps16.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UUG_psbK.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_rpl32_trnL.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_psbI_trnA_GCU.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_rps16_trnA_UUG.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UCU_atpA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UCC_trnA_UCU.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GCU_trnA_UCC.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GCA_petN.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_rpoB_trnA_GCA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GUC_trnA_GUA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GUA_trnA_UUC.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UUC_trnA_GGU.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_psbC_trnA_UGA.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_UGA_psbZ.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GCC_trnA_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_psbZ_trnA_GCC.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_CAU_rps14.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_trnA_GGU_psbD.unalign.fasta using MAFFT
+2026-05-22 20:52:16 [INFO]      successfully aligned nucl_rps7_trnV.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_GGA_rps4.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_ycf3_trnA_GGA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rps4_trnA_UGU.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UGU_trnA_UAA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UAA_trnA_GAA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_GAA_ndhJ.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UAC_trnA_CAU.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_CAU_atpE.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_petG_trnA_CCA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_CCA_trnA_UGG.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rps7_trnV_GAC.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_CAA_ndhB.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rps15_ycf1.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_ycf2_trnA_CAA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_GAU_trnA_UGC.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_ndhC_trnA_UAC.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UGC_23S_rRNA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_23S_rRNA_4_5S_rRNA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_4_5S_rRNA_5S_rRNA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_ACG_trnA_GUU.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_UAG_ccsA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_ycf1_trnA_GUU.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnT_GGU_atpE.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rpl32_trnA_UAG.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnV_rrn16S.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_GUU_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rps7_trnA_GAC.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnA_rrn23S.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_ycf1_trnN.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnP_GGG_psaJ.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnS_UGA_lhbA.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_rps3_rps19.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnV_GAC_ycf15.unalign.fasta using MAFFT
+2026-05-22 20:52:17 [INFO]      successfully aligned nucl_trnT_psbD.unalign.fasta using MAFFT
+2026-05-22 20:52:18 [INFO]      successfully aligned nucl_ycf15_rps7.unalign.fasta using MAFFT
+2026-05-22 20:52:18 [INFO]      successfully aligned nucl_psbE_petG.unalign.fasta using MAFFT
+2026-05-22 20:52:18 [INFO]      successfully aligned nucl_rbcL_psaI.unalign.fasta using MAFFT
+2026-05-22 20:52:18 [INFO]      successfully aligned nucl_trnA_UGC_trnR_ACG.unalign.fasta using MAFFT
+2026-05-22 20:52:18 [INFO]      successfully aligned nucl_trnV_GAC_trnI_GAU.unalign.fasta using MAFFT
+2026-05-22 20:52:21 [INFO]      successfully aligned nucl_ndhF_rpl32.unalign.fasta using MAFFT
+2026-05-22 20:52:22 [INFO]      successfully aligned nucl_petA_psbJ.unalign.fasta using MAFFT
+2026-05-22 20:52:23 [INFO]      successfully aligned nucl_rpl32_trnL_UAG.unalign.fasta using MAFFT
+2026-05-22 20:52:28 [INFO]      successfully aligned nucl_trnS_GCU_trnG_UCC.unalign.fasta using MAFFT
+2026-05-22 20:52:31 [INFO]      successfully aligned nucl_ndhC_trnV_UAC.unalign.fasta using MAFFT
+2026-05-22 20:52:31 [INFO]      successfully aligned nucl_psbE_petL.unalign.fasta using MAFFT
+2026-05-22 20:52:34 [INFO]      successfully aligned nucl_rps16_trnQ_UUG.unalign.fasta using MAFFT
+2026-05-22 20:52:34 [INFO] converting all successful alignments to NEXUS format using 16 threads
+
+end of script
+
+Script directory: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2
+Dataset folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_ZhangNNEtAl2025_53angiosperms
+Output folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_ZhangNNEtAl2025_53angiosperms_output_igs_16threads
+Running plastburstalign with 16 threads, mode: igs...
+	Command being timed: "python ./test_script.py benchmark_ZhangNNEtAl2025_53angiosperms 16 igs"
+	User time (seconds): 5024.36
+	System time (seconds): 243.76
+	Percent of CPU this job got: 7607%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:09.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1843956
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 698
+	Minor (reclaiming a frame) page faults: 51537237
+	Voluntary context switches: 3528148
+	Involuntary context switches: 123761
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 32344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

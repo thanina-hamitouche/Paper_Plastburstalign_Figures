@@ -1,0 +1,181 @@
+2026-05-22 20:50:39 [INFO] parsing GenBank flatfiles and extracting their sequence annotations using 16 processes
+2026-05-22 20:50:39 [INFO]  parsing NC_061667.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_082200.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_001666.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_046492.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_007407.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_031187.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_032368.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_052791.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_009962.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_086774.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_046796.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_070477.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_087718.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_002762.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_025554.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_059807.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_034692.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_009600.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_021425.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_056348.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_048890.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_021649.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_042747.gb
+2026-05-22 20:50:39 [INFO]  parsing MH362765.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_077481.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_057568.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_032038.gb
+2026-05-22 20:50:39 [INFO]  parsing PV216845.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_044825.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_009963.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_034700.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_065199.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_052769.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_041437.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_062798.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_044828.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_068043.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_085602.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_026565.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_000932.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_005086.gb
+2026-05-22 20:50:39 [WARNING] parsing of gene 'rpl2' in NC_005086 skipped due to potential reading frame error of this feature in input file; associated protein will be skipped as well
+2026-05-22 20:50:39 [INFO]  parsing NC_050163.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_041087.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_009599.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_036977.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_058273.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_086746.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_071948.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_057151.gb
+2026-05-22 20:50:39 [INFO]  parsing NC_036971.gb
+2026-05-22 20:50:40 [INFO]  parsing NC_031333.gb
+2026-05-22 20:50:40 [INFO]  parsing NC_049006.gb
+2026-05-22 20:50:40 [INFO]  parsing NC_077569.gb
+2026-05-22 20:50:40 [INFO] cleaning extracted sequence annotations
+2026-05-22 20:50:40 [INFO]   removing annotations that occur in fewer than 2 taxa
+2026-05-22 20:50:40 [INFO]   removing annotations whose longest sequence is shorter than 3 bp
+2026-05-22 20:50:40 [INFO]     removing ycf68 for not reaching the minimum number of taxa defined
+2026-05-22 20:50:40 [INFO]     removing pafI for not reaching the minimum number of taxa defined
+2026-05-22 20:50:40 [INFO]     removing pafII for not reaching the minimum number of taxa defined
+2026-05-22 20:50:40 [INFO]     removing clpP1 for not reaching the minimum number of taxa defined
+2026-05-22 20:50:40 [INFO]     removing pbf1 for not reaching the minimum number of taxa defined
+2026-05-22 20:50:40 [INFO] found MAFFT in system PATH
+2026-05-22 20:50:40 [INFO] configured MAFFT with 16 threads
+2026-05-22 20:50:40 [INFO] saving individual regions as unaligned nucleotide matrices
+2026-05-22 20:50:40 [INFO] conducting the alignment of extracted sequences
+2026-05-22 20:50:40 [INFO]  conducting multiple sequence alignments based on protein sequence data, followed by back-translation to nucleotides using 16 threads
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_petN.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbI.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbM.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbK.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_atpH.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_rps16.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_atpF.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_atpI.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_rps2.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbZ.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbD.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_rps14.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_psbA.unalign.fasta using MAFFT
+2026-05-22 20:50:40 [INFO]      successfully aligned prot_ycf3.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_rps4.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_ndhJ.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_ndhC.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_atpE.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_atpA.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_ndhK.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_psaI.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_psbC.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_ycf4.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_psbF.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_psbJ.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_petL.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_cemA.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_psbE.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_matK.unalign.fasta using MAFFT
+2026-05-22 20:50:41 [INFO]      successfully aligned prot_petG.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psaJ.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl33.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpoC1.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rbcL.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps18.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl20.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_atpB.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psbT.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_petA.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psbN.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psbH.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_clpP.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl36.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psaA.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_infA.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psaB.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_petD.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps11.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps8.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl16.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl14.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps19.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl22.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpl23.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps3.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_accD.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rpoA.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_rps7.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psbB.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_ndhE.unalign.fasta using MAFFT
+2026-05-22 20:50:42 [INFO]      successfully aligned prot_psaC.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_rpl2.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhG.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhI.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_psbL.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_rps15.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ccsA.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_lhbA.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_rpl32.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ycf15.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_petB.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhB.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [WARNING] translation check failed for protein 'ndhB' in NC_002762
+2026-05-22 20:50:43 [WARNING] translation check failed for protein 'ndhB' in NC_021649
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhA.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhH.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_ndhD.unalign.fasta using MAFFT
+2026-05-22 20:50:43 [INFO]      successfully aligned prot_rpoB.unalign.fasta using MAFFT
+2026-05-22 20:50:44 [INFO]      successfully aligned prot_ndhF.unalign.fasta using MAFFT
+2026-05-22 20:50:45 [INFO]      successfully aligned prot_rpoC2.unalign.fasta using MAFFT
+2026-05-22 20:50:53 [INFO]      successfully aligned prot_ycf2.unalign.fasta using MAFFT
+2026-05-22 20:50:55 [INFO]      successfully aligned prot_ycf1.unalign.fasta using MAFFT
+2026-05-22 20:50:55 [INFO] converting all successful alignments to NEXUS format using 16 threads
+
+end of script
+
+Script directory: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2
+Dataset folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_ZhangNNEtAl2025_53angiosperms
+Output folder: /home/gruenstaeudl/git/michaelgruenstaeudl_PlastomeBurstAndAlign_ANALYSES/benchmarking2/benchmark_ZhangNNEtAl2025_53angiosperms_output_cds_16threads
+Running plastburstalign with 16 threads, mode: cds...
+	Command being timed: "python ./test_script.py benchmark_ZhangNNEtAl2025_53angiosperms 16 cds"
+	User time (seconds): 452.71
+	System time (seconds): 27.11
+	Percent of CPU this job got: 2756%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1283524
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 274
+	Minor (reclaiming a frame) page faults: 4778559
+	Voluntary context switches: 826742
+	Involuntary context switches: 23115
+	Swaps: 0
+	File system inputs: 8
+	File system outputs: 31856
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
