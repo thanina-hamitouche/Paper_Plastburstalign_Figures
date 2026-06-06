@@ -63,7 +63,7 @@ python CODE_Visualize_peakMem_speedup_across_datasets.py ./input_data/benchmarki
 ---
 
 ### Supplemental Figure 1: Overview of various optimizations
-_Purpose: This figure gives us a detailed look at trhe various optimizations._
+_Purpose: This figure gives us a detailed look at the various optimizations._
 
 ```bash
 python CODE_Compare_factors_across_datasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_Compare_factors_across_datasets/Comparing_factors_grid
