@@ -27,7 +27,14 @@ python CODE_MethodOverview.py --output-dir ./VIZ_MethodOverview --output-name VI
 ### Table 1: Comparison of competitor software
 _Purpose: This table may be the only table in the manuscript and shall provide a comparative overview of the capabilities of competing software packages alongside our own software. The comparison criteria should include, among others, the maximum number of input genomes supported, the number of genomes that can be analyzed within a fixed time period (e.g., one hour), the genomic features processed (CDSs, intergenic regions, introns/exons, or combinations thereof), the availability of the source code, the deployment model (server-based or executable on a personal computer), and the user interface type (command-line or graphical). This table should allow readers to quickly assess the functionality, accessibility, scalability, performance, and overall strengths and limitations of each software package._
 
-Status: Needs to be made
+| Tool                            | Publication               | Extracts CDS, INT, and IGS | Dataset limitation                               | Auto extraction | Auto alignment | Alignment software choice    | Source code            | Deployment | Interface |
+| ------------------------------- | ------------------------- | -------------------------- | ------------------------------------------------ | --------------- | -------------- | ---------------------------- | ---------------------- | ---------- | --------- |
+| PhyloSuite                      | Zhang D. *et al.* 2019    | Yes                        | N/S                                              | Yes             | Yes            | MAFFT, MUSCLE, MACSE         | Open-source            | Local      | GUI       |
+| TBtools-II                      | Chen *et al.* 2023        | No (CDS only)              | N/S                                              | Yes             | Limited        | External aligners            | Not publicly available | Local      | GUI       |
+| OGU                             | Wu *et al.* 2024          | Yes                        | N/S                                              | Yes             | Yes            | MAFFT                        | Open-source            | Local      | CLI + GUI |
+| PartitioningExonsIntronsSpacers | de Mestier *et al.* 2025  | Yes                        | 1 genome                                         | Yes             | No             | N/A                          | Open-source            | Local      | CLI       |
+| PlastidHub                      | Zhang N.-N. *et al.* 2025 | Yes                        | 50 genomes (extraction); 150 genomes (alignment) | Yes             | Yes            | **Unclear**                  | Open-source            | Web        | Web GUI   |
+| PlastBurstAlign                 | This study                | Yes                        | Hardware-dependent                               | Yes             | Yes            | MAFFT, Clustal Omega, MUSCLE | Open-source            | Local      | CLI       |
 
 ---
 
