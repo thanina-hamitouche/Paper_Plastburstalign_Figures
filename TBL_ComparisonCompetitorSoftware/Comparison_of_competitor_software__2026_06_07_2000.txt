@@ -3,21 +3,21 @@ PHYLOSUITE (ZHANG D. ET AL. 2019)
 ########################################################################
 
 GENERAL SOFTWARE STRUCTURE:
-- GUI-based software suite containing numerous predefined functions for sequence extraction, alignment, phylogenetic analysis, and data management.
+- GUI-based software suite containing numerous predefined functions for sequence standardization, sequence extraction, alignment, and phylogenetic analysis. [Is this correct?]
 - Provides predefined settings for six locus types: Mitogenome, Chloroplast Genome, General, cox1, 16S, and 18S.
 
 EXTRACTION OF DNA SEQUENCES:
-- Standardizes GenBank annotations, including gene name standardization.
-- Provides an editing window that reports annotation errors and warnings, including missing genes and non-standardized annotations.
+- Standardizes sequence annotations, including gene names.
+- Provides an editing window that reports annotation errors and warnings, including missing genes and non-standardized annotations. [Editing window works on mitogenome datasets only! Why?]
 - Supports feature selection through the 'Names unification table'.
 - Restricts extraction to features listed in the 'Names unification table' through the 'Only extract these genes' option.
 - Imports and exports 'Names unification table' settings as CSV files.
 - Extracts coding sequences (CDS) by default.
-- Supports recognition of non-coding regions through the 'Set NCR threshold' option, allowing users to define a minimum NCR length for subsequent extraction.
+- Supports recognition of non-coding regions through the 'Set NCR threshold' option, allowing users to define a minimum NCR length for subsequent extraction. [Does not work with our dataset. Why?]
 - Identifies and removes duplicated sequences using the 'Highlight Identical Sequences' function.
-- Imports FASTA and Word document files into the work folder.
+- Imports FASTA and Word document files into the work folder. [Why not GenBank flatfiles?]
 - Extracts CDS features into separate output folders containing amino acid sequences ('CDS_AA') and nucleotide sequences ('CDS_NUC').
-- Generates a 'self-translated_AA' folder in the Mitogenome workflow containing amino acid sequences translated from CDS nucleotide sequences.
+- In the Mitogenome workflow only, generates a 'self-translated_AA' folder containing amino acid sequences translated from CDS nucleotide sequences.
 - Detects duplicated genes within individual records and appends copy numbers according to occurrence order.
 - Supports automatic removal of duplicated genes through the 'Resolve gene duplicates' function.
 
@@ -34,7 +34,8 @@ ALIGNMENT OF DNA SEQUENCES:
 
 OTHER FEATURES:
 - Automates phylogenetic workflows through the 'Flowchart' function.
-- Integrates MAFFT, MACSE, Gblocks, trimAl,HmmCleaner, Concatenation, ModelFinder, PartitionFinder, MrBayes, and IQ-TREE.
+- Integrates sequence alignment (MAFFT, MACSE), removal of poorly aligned positions and divergent regions (Gblocks, trimAl, HmmCleaner), model selection (ModelFinder, PartitionFinder), and phylogenetic tree reconstruction (MrBayes, IQ-TREE).
+
 
 
 ########################################################################
@@ -43,20 +44,21 @@ TBTOOLS-II (CHEN ET AL. 2023)
 
 GENERAL SOFTWARE STRUCTURE:
 - GUI-based software suite with a modular plugin architecture.
-- Allows users to develop, install, manage, activate, and remove custom plugins.
+- Allows users to develop and use custom plugins.
 - Includes the 'CLI Program Wrapper Creator' plugin for integrating external command-line software, pipelines, and scripts into a graphical interface.
 
 EXTRACTION OF DNA SEQUENCES:
 - Extracts coding sequences (CDS) only.
-- Additional extraction functionality not documented in the source material.
+[Additional on extraction MISSING!]
 
 ALIGNMENT OF DNA SEQUENCES:
-- Alignment functionality not documented in the source material.
+[Additional on alignment MISSING!]
 
 OTHER FEATURES:
-- Provides the 'One Step ML Tree' workflow for automated phylogenetic analysis.
-- Integrates MUSCLE, trimAl, and IQ-TREE2 into a single workflow.
+- Provides the 'One Step ML Tree' workflow for automated phylogenetic analysis, as it integrates MUSCLE, trimAl, and IQ-TREE2 into a single workflow.
 
+
+%% CONTINUE HERE %%
 
 ########################################################################
 OGU (WU ET AL. 2024)
