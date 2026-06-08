@@ -1,0 +1,1 @@
+For phylogenetic studies and species identification, it is common to split complete plastid or mitochondrial genomes into coding gene fragments, align these homologous fragments, and then analyze the aligned fragments. Several tools exist (e.g., PhyloSuite, TBtools) that attempt to automate these processes.
