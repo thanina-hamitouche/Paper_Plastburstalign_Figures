@@ -1,165 +1,266 @@
 ########################################################################
 PHYLOSUITE (ZHANG D. ET AL. 2019)
+https://doi.org/10.1111/1755-0998.13096
+https://github.com/dongzhang0725/PhyloSuite
 ########################################################################
+
+PROGRAMMING LANGUAGE:
+[INFORMATION MISSING!]
 
 GENERAL SOFTWARE STRUCTURE:
 - GUI-based software suite containing numerous predefined functions for sequence standardization, sequence extraction, alignment, and phylogenetic analysis. [Is this correct?]
 - Provides predefined settings for six locus types: Mitogenome, Chloroplast Genome, General, cox1, 16S, and 18S.
 
-EXTRACTION OF DNA SEQUENCES:
+STANDARDIZATION OF GENE NAMES:
 - Standardizes sequence annotations, including gene names.
 - Provides an editing window that reports annotation errors and warnings, including missing genes and non-standardized annotations. [Editing window works on mitogenome datasets only! Why?]
 - Supports feature selection through the 'Names unification table'.
 - Restricts extraction to features listed in the 'Names unification table' through the 'Only extract these genes' option.
 - Imports and exports 'Names unification table' settings as CSV files.
+
+EXTRACTION OF DNA SEQUENCES:
+- Done via tool 'Extract GenBank file (EGBF)'
 - Extracts coding sequences (CDS) by default.
 - Supports recognition of non-coding regions through the 'Set NCR threshold' option, allowing users to define a minimum NCR length for subsequent extraction. [Does not work with our dataset. Why?]
 - Identifies and removes duplicated sequences using the 'Highlight Identical Sequences' function.
 - Imports FASTA and Word document files into the work folder. [Why not GenBank flatfiles?]
 - Extracts CDS features into separate output folders containing amino acid sequences ('CDS_AA') and nucleotide sequences ('CDS_NUC').
 - In the Mitogenome workflow only, generates a 'self-translated_AA' folder containing amino acid sequences translated from CDS nucleotide sequences.
+
+ACCOUNTING FOR GENE DUPLICATION (E.G., IRs):
 - Detects duplicated genes within individual records and appends copy numbers according to occurrence order.
 - Supports automatic removal of duplicated genes through the 'Resolve gene duplicates' function.
 
 ALIGNMENT OF DNA SEQUENCES:
 - Performs batch conversion among FASTA, PHYLIP, PAML, AXT, and NEXUS alignment formats.
 - Executes MAFFT on multiple input files simultaneously using a common parameter set. 
-- Supports three MAFFT alignment modes: 
-	• Normal mode: aligns input sequences directly.
-	• Codon mode: translates CDS nucleotide sequences into amino acids, aligns them, and back-translates the resulting alignment into codons.
-	• N2P mode: translates CDS nucleotide sequences into amino acids and outputs amino acid alignments without back-translation.
 - Refines alignments in batch mode using MACSE.
 - Optimizes ambiguously aligned regions using trimAl, HmmCleaner, or Gblocks.
 - Concatenates multiple alignments and generates partition files for downstream phylogenetic analyses.
+
+ENABLES GENE ALIGNMENT BASED ON AAs:
+- Supports three MAFFT alignment modes: 
+	* Normal mode: aligns input sequences directly.
+	* Codon mode: translates CDS nucleotide sequences into amino acids, aligns them, and back-translates the resulting alignment into codons.
+	* N2P mode: translates CDS nucleotide sequences into amino acids and outputs amino acid alignments without back-translation.
 
 OTHER FEATURES:
 - Automates phylogenetic workflows through the 'Flowchart' function.
 - Integrates sequence alignment (MAFFT, MACSE), removal of poorly aligned positions and divergent regions (Gblocks, trimAl, HmmCleaner), model selection (ModelFinder, PartitionFinder), and phylogenetic tree reconstruction (MrBayes, IQ-TREE).
 
+TIME FOR EXECUTION:
+[INFORMATION MISSING!]
+
+MPI IMPLEMENTATION:
+[INFORMATION MISSING!]
+
+MAIN RESTRICTION:
+[INFORMATION MISSING!]
 
 
 ########################################################################
 TBTOOLS-II (CHEN ET AL. 2023)
+https://doi.org/10.1016/j.molp.2023.09.010
+https://github.com/CJ-Chen/TBtools-II
 ########################################################################
+
+PROGRAMMING LANGUAGE:
+[INFORMATION MISSING!]
 
 GENERAL SOFTWARE STRUCTURE:
 - GUI-based software suite with a modular plugin architecture.
 - Allows users to develop and use custom plugins.
-- Includes the 'CLI Program Wrapper Creator' plugin for integrating external command-line software, pipelines, and scripts into a graphical interface.
+- Includes the 'CLI Program Wrapper Creator' plugin for integrating external command-line software and scripts.
+
+STANDARDIZATION OF GENE NAMES:
+[INFORMATION MISSING!]
 
 EXTRACTION OF DNA SEQUENCES:
+- Done via tool 'Bulk Sequence Extraction'
 - Extracts coding sequences (CDS) only.
 [Additional on extraction MISSING!]
 
+ACCOUNTING FOR GENE DUPLICATION (E.G., IRs):
+[INFORMATION MISSING!]
+
 ALIGNMENT OF DNA SEQUENCES:
-[Additional on alignment MISSING!]
+[INFORMATION MISSING!]
+
+ENABLES GENE ALIGNMENT BASED ON AAs:
+[INFORMATION MISSING!]
 
 OTHER FEATURES:
 - Provides the 'One Step ML Tree' workflow for automated phylogenetic analysis, as it integrates MUSCLE, trimAl, and IQ-TREE2 into a single workflow.
 
+TIME FOR EXECUTION:
+[INFORMATION MISSING!]
 
-%% CONTINUE HERE %%
+MPI IMPLEMENTATION:
+[INFORMATION MISSING!]
+
+MAIN RESTRICTION:
+[INFORMATION MISSING!]
+
 
 ########################################################################
 OGU (WU ET AL. 2024)
+https://doi.org/10.1111/1755-0998.14044
+https://github.com/wpwupingwp/OGU
 ########################################################################
+
+PROGRAMMING LANGUAGE:
+[INFORMATION MISSING!]
 
 GENERAL SOFTWARE STRUCTURE:
 - Consists of three modules (GB2FASTA, Evaluate, and Primer) together with an automated results visualization pipeline.
-- Modules can be executed independently or combined into integrated workflows.
+- Modules can be executed independently or in combination.
+
+STANDARDIZATION OF GENE NAMES:
+- Standardizes non-standard gene names using the '-rename' option.
+- Conducts sequence validation
 
 EXTRACTION OF DNA SEQUENCES:
-- Uses the GB2FASTA module for sequence retrieval, validation, and organization.
+- Done via module 'GB2fasta'
 - Extracts coding and non-coding genomic regions, including CDS, introns, and intergenic spacers.
 - Extracts sequences on a per-locus basis and generates one output file per locus.
-- Extracts intergenic spacers based on annotations of flanking features, including spacers not explicitly annotated.
-- Standardizes non-standard gene names using the '-rename' option.
+- Extracts intergenic spacers based on annotations of flanking features (i.e., even if spacers not explicitly annotated).
+- Tested on multiple benchmarking datasets: GenBank records of different sizes (mostly smaller than complete genomes), plastid genomic data from the Lamiaceae, mitochondrial data from rodents, and 308 complete plastid genomes across angiosperms
+
+ACCOUNTING FOR GENE DUPLICATION (E.G., IRs):
 - Supports handling of repeat regions:
-	• Retains only the longest duplicate locus by default.
-	• Retains all duplicate loci with '-allow_repeat'.
-	• Standardizes inverted-repeat locus names with '-allow_invert_repeat'.
+	* Retains only the longest duplicate locus by default.
+	* Retains all duplicate loci with '-allow_repeat'.
+	* Standardizes inverted-repeat locus names with '-allow_invert_repeat'.
 - Retains only complete loci at inverted-repeat boundaries.
 - Removes redundant sequences.
 - Retains a single representative sequence per organism and locus by default.
-- Tested on multiple benchmarking datasets, including plastid and mitochondrial genome collections.
 
 ALIGNMENT OF DNA SEQUENCES:
-- Uses the Evaluate module for sequence alignment and sequence-variation assessment.
+- Uses the module 'Evaluate' for sequence alignment and sequence-variation assessment.
 - Executes MAFFT v7.475 using the '–auto' option.
-- Automatically evaluates aligned datasets using indicators such as missing data, alignment gaps, and ambiguous bases.
-- Calculates sequence-variation metrics, including stem and terminal phylogenetic diversity.
+
+ENABLES GENE ALIGNMENT BASED ON AAs:
+[INFORMATION MISSING!]
 
 OTHER FEATURES:
-- Designs universal primers through the Primer module.
-- Infers plant taxonomic rank levels from lineage information using standardized rank suffixes.
+- Automatically evaluates aligned datasets using indicators such as missing data, alignment gaps, and ambiguous bases.
+- Calculates sequence-variation metrics, including stem and terminal phylogenetic diversity.
+- Designs universal primers through the module 'Primer'.
+
+TIME FOR EXECUTION:
+308 complete plastid genomes across angiosperms: [INFORMATION MISSING!]
+
+MPI IMPLEMENTATION:
+[INFORMATION MISSING!]
+
+MAIN RESTRICTION:
+[INFORMATION MISSING!]
 
 
 ########################################################################
 PARTITIONING_EXONS_INTRONS_SPACERS (DE MESTIER ET AL. 2025)
+https://doi.org/10.1093/aob/mcaf148
+https://github.com/sannalda/PartitioningExonsIntronsSpacers
 ########################################################################
 
+PROGRAMMING LANGUAGE:
+Python
+
 GENERAL SOFTWARE STRUCTURE:
-- Python script designed for extraction of loci from a single annotated genome at a time.
+- Single script designed for extraction of loci from a single annotated genome at a time.
+
+STANDARDIZATION OF GENE NAMES:
+[INFORMATION MISSING!]
 
 EXTRACTION OF DNA SEQUENCES:
 - Extracts exons, introns, and intergenic spacers from annotated genomes.
 - Validates coding sequences using start-codon, stop-codon, internal-stop-codon, and reading-frame checks.
 - Searches up to 50 bp upstream and downstream for alternative start and stop codons when validation criteria are not met.
-- Extracts loci from a single inverted-repeat region to avoid duplicate sampling.
 - Retains genes containing minor premature stop codons considered likely functional.
 - Requires external extraction of rRNA and tRNA genes using Geneious.
 - Requires manual inspection of gene synteny prior to extraction.
-- Requires detection of genome rearrangements, inversions, and gene synteny using progressive MAUVE in Geneious.
+- Requires manual detection of genome rearrangements, inversions, and gene synteny using progressive MAUVE in Geneious.
 - Requires manual post-extraction dataset curation.
-- Requires removal of problematic genes, associated introns and spacers, rearrangement-associated spacers, putative pseudogenes, and other non-functional sequences.
+- Requires manual removal of problematic genes, associated introns and spacers, rearrangement-associated spacers, putative pseudogenes, and other non-functional sequences.
+
+ACCOUNTING FOR GENE DUPLICATION (E.G., IRs):
+- Extracts loci from a single inverted-repeat region to avoid duplicate sampling.
 
 ALIGNMENT OF DNA SEQUENCES:
-- Does not provide alignment functionality.
-- Requires external alignment using third-party software such as MAFFT in Geneious and PhyDE.
+- Does not provide alignment functionality; instead requires external alignment using third-party software such as MAFFT in Geneious and PhyDE.
 - Requires manual post-alignment curation.
-- Requires identification and exclusion of regions with uncertain homology.
-- Requires reverse-complementation of small sequence inversions when necessary.
+- Requires manual identification and exclusion of regions with uncertain homology.
+
+ENABLES GENE ALIGNMENT BASED ON AAs:
+- No
 
 OTHER FEATURES:
 - None.
 
+TIME FOR EXECUTION:
+[INFORMATION MISSING!]
+
+MPI IMPLEMENTATION:
+- No
+
+MAIN RESTRICTION:
+- No automatic multiple sequence alignment
+
 
 ########################################################################
 PLASTIDHUB (ZHANG N.-N. ET AL. 2025)
+https://doi.org/10.1016/j.pld.2025.05.005
+https://github.com/quxiaojian/PlastidHub
 ########################################################################
 
-GENERAL SOFTWARE STRUCTURE:
-- Suite of cloud-based web applications for plastome analysis.
-- Supports quadripartite structure standardization, annotation consistency improvement, annotation completeness assessment, feature extraction, molecular marker identification, and gene-level comparative analyses.
-- Supports batch processing across all tools.
-- Supports modular workflows in which applications can be executed independently or combined.
-- Provides user interaction through static and dynamic pop-up interfaces.
+PROGRAMMING LANGUAGE:
+[INFORMATION MISSING!]
 
-EXTRACTION OF DNA SEQUENCES:
+GENERAL SOFTWARE STRUCTURE:
+- Suite of cloud-based web applications for quadripartite structure standardization, annotation consistency improvement, annotation completeness assessment, feature extraction, molecular marker identification, and gene-level comparative analyses.
+- Supports batch processing across all tools.
+- Supports modular workflows in which applications can be executed independently or in combination.
+- Enables user interaction through static and dynamic pop-up interfaces.
+
+STANDARDIZATION OF GENE NAMES:
 - Standardizes plastome structure and annotations.
 - Evaluates annotation quality and completeness.
 - Identifies and standardizes quadripartite plastome structure, including inverted-repeat positions and lengths.
+
+EXTRACTION OF DNA SEQUENCES:
+- Done via tool 'Extraction'
 - Extracts coding and non-coding genomic regions, including protein-coding genes, tRNAs, rRNAs, intron-containing genes, intron-free genes, cis-spliced genes, trans-spliced genes, overlapping genes, non-overlapping genes, nested genes, non-nested genes, single-copy genes, and multi-copy genes.
 - Supports standardized extraction of complex trans-spliced genes such as rps12.
 - Identifies pseudogenes and redundant genes.
+- Reports potentially problematic duplicated entries in 'warning.txt'.
+- Reports invalid or problematic codons in 'bad_codons.txt'.
+
+ACCOUNTING FOR GENE DUPLICATION (E.G., IRs):
 - Supports batch removal of duplicated sequences across multiple FASTA files.
 - Automatically removes entries containing duplicated gene names and identical sequences.
-- Reports potentially problematic duplicated entries in 'warning.txt'.
-- Performs batch translation of intron-free CDS nucleotide sequences into amino acid sequences.
-- Reports invalid or problematic codons in 'bad_codons.txt'.
+- Performs batch translation of intron-free CDS nucleotide sequences into amino acid sequences. [IMPORTANT: Why not CDS with introns as well?]
 
 ALIGNMENT OF DNA SEQUENCES:
 - Performs automated pre-alignment and post-alignment sequence processing.
 - Supports automated batch alignment using MAFFT with the predefined strategy '–localpair –maxiterate 16'.
-- Processes multiple sequence matrices automatically.
+- Batch processing of multiple sequence matrices.
 - Restricts alignment to datasets containing at most 50 sequences and sequence lengths of at most 10 kb.
 - Records skipped datasets and warning messages in 'warning.txt'.
+
+ENABLES GENE ALIGNMENT BASED ON AAs:
+- Assesses codon status of protein-coding genes.
 
 OTHER FEATURES:
 - Screens molecular markers based on sequence variation.
 - Performs gene-level comparisons of structural variation, annotation completeness, gene number, gene length, and sequence similarity.
-- Assesses codon status of protein-coding genes.
-- Identifies missing taxa.
 - Generates PartitionFinder-compatible alignments.
-- Supports automated marker screening.
 - Integrates with HomBlocks, ORPA, and OGU.
+
+TIME FOR EXECUTION:
+[INFORMATION MISSING!]
+
+MPI IMPLEMENTATION:
+[INFORMATION MISSING!]
+
+MAIN RESTRICTION:
+- Restricts alignment to datasets containing at most 50 sequences and sequence lengths of at most 10 kb.

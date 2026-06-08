@@ -92,3 +92,35 @@ convert -density 300 ./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.pdf .
 python CODE_FlowchartExonSplicing.py --output-dir ./VIZ_FlowchartExonSplicing --output-name VIZ_FlowchartExonSplicing_Python
 ```
 ![Flowchart of exon splicing](VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png)
+
+---
+
+### Information
+#### Benchmarking
+```bash
+cd benchmarking
+# CDS
+python test_script_cds.py benchmark_YangEtAl2022_Asteraceae 5
+# INT
+python test_script_int.py benchmark_YangEtAl2022_Asteraceae 5
+# IGS
+python test_script_igs.py benchmark_YangEtAl2022_Asteraceae 5
+```
+- Dataset `benchmark_ZhangNNEtAl2025_53angiosperms`: the same dataset (angiosperms; n=53) as used in [Zhang N.-N. et al. 2025](https://doi.org/10.1016/j.pld.2025.05.005)
+- Dataset `benchmark_YangEtAl2022_Asteraceae.tar.gz`: all Asteraceae (n=155) listed in [Yang et al. 2022](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.808156)
+- Dataset `benchmark_YangEtAl2022_monocots`: all monocots (n=733) listed in [Yang et al. 2022](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.808156)
+- Dataset `benchmark_YangEtAl2022_angiosperms`: all angiosperms (n=2585) listed in [Yang et al. 2022](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.808156)
+- Dataset `benchmark_ZhangNNEtAl2025_13724angiosperms`: the same dataset (angiosperms; n=13724 instead of n=13731) as used in [Zhang N.-N. et al. 2025](https://doi.org/10.1016/j.pld.2025.05.005) but not including records AC_000188, NC_029253, NC_029254, NC_029331, NC_029333, NC_071962, and NC_085618, which have been removed by NCBI from NCBI RefSeq as a result of standard genome annotation processing.
+
+#### Comparison against similar software
+Specifically, we want to compare `PlastomeBurstAndAlign` against the functionality of these five competitor software tools:
+ 
+- the tool '*Extract GenBank file*' (EGBF) of PhyloSuite (Zhang D. et al. 2019; [https://doi.org/10.1111/1755-0998.13096](https://doi.org/10.1111/1755-0998.13096)) -- Source code: [https://github.com/dongzhang0725/PhyloSuite](https://github.com/dongzhang0725/PhyloSuite)
+
+- the tools '*Bulk Sequence Extraction*' of TBtools-II (Chen et al. 2023; [https://doi.org/10.1016/j.molp.2023.09.010](https://doi.org/10.1016/j.molp.2023.09.010)) -- Source code: [https://github.com/CJ-Chen/TBtools-II](https://github.com/CJ-Chen/TBtools-II)
+  
+- the tool '*GB2fasta module*' of OGU (Wu etal. 2024; [https://doi.org/10.1111/1755-0998.14044](https://doi.org/10.1111/1755-0998.14044)) -- Source code: [https://github.com/wpwupingwp/OGU](https://github.com/wpwupingwp/OGU)
+  
+- the Python script '*PartitioningExonsIntronsSpacers*' by [deMestier et al. 2025](https://doi.org/10.1093/aob/mcaf148) -- Source code: [https://github.com/sannalda/PartitioningExonsIntronsSpacers](https://github.com/sannalda/PartitioningExonsIntronsSpacers)
+  
+- the tool '*Extraction*' of PlastidHub (Zhang N.-N. et al. 2025; [https://doi.org/10.1016/j.pld.2025.05.005](https://doi.org/10.1016/j.pld.2025.05.005)) -- Source code: [https://github.com/quxiaojian/PlastidHub](https://github.com/quxiaojian/PlastidHub) -- see especially perl script [5.extraction_v1.pl](https://github.com/quxiaojian/PlastidHub/blob/main/scripts/5.extraction_v1.pl)
