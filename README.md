@@ -34,7 +34,7 @@ _Purpose: This table may be the only table in the manuscript and shall provide a
 | OGU                             | Wu *et al.* 2024          | **Unclear**    | Yes                        | **Unclear**                                           | **Unclear**      | Yes              | Yes             | MAFFT                         | Open-source            | **Unclear**          | Local      | CLI + GUI |
 | PartitioningExonsIntronsSpacers | de Mestier *et al.* 2025  | **Unclear**    | Yes                        | Yes; only 1 genome per run                            | **Unclear**      | No               | No              | N/A                           | Open-source            | Python               | Local      | CLI       |
 | PlastidHub                      | Zhang N.-N. *et al.* 2025 | **Unclear**    | Yes                        | Yes; 50 genomes (extraction), 150 genomes (alignment) | **Unclear**      | Yes              | Yes             | **Unclear**                   | Open-source            | **Unclear** (Perl?)  | Web        | Web GUI   |
-| PlastBurstAlign                 | This study                | 0.9.8          | Yes                        | No                                                    | Fast (MPI-based) | Yes              | Yes             | any commandline-based aligner | Open-source            | Python               | Local      | CLI       |
+| PlastBurstAlign                 | This study                | 0.9.8          | Yes                        | No                                                    | Fast (MPI-based) | Yes              | Yes             | MAFFT, MUSCLE, Clustal Omega | Open-source            | Python               | Local      | CLI       |
 
 ---
 
