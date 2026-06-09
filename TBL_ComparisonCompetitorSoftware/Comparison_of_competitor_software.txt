@@ -49,7 +49,10 @@ OTHER FEATURES:
 - Automates phylogenetic workflows through the 'Flowchart' function:
 	* Integrates model selection (ModelFinder, PartitionFinder) and phylogenetic tree reconstruction (MrBayes, IQ-TREE).
 
-APPROX. TIME FOR EXECUTION:
+INPUT DATA LIMITATIONS:
+[INFORMATION MISSING!]
+
+RUNTIME DURATION:
 [INFORMATION MISSING!]
 
 MPI IMPLEMENTATION:
@@ -103,7 +106,10 @@ ENABLES GENE ALIGNMENT BASED ON AAs:
 OTHER FEATURES:
 - Provides the 'One Step ML Tree' workflow for automated phylogenetic analysis, as it integrates MUSCLE, trimAl, and IQ-TREE2 into a single workflow.
 
-APPROX. TIME FOR EXECUTION:
+INPUT DATA LIMITATIONS:
+[INFORMATION MISSING!]
+
+RUNTIME DURATION:
 [INFORMATION MISSING!]
 
 MPI IMPLEMENTATION:
@@ -167,8 +173,11 @@ OTHER FEATURES:
 - Identification of candidate barcode regions
 - Automated primer design using the module 'Primer' based on variability analyses
 
-APPROX. TIME FOR EXECUTION:
-308 complete plastid genomes across angiosperms: [INFORMATION MISSING!]
+INPUT DATA LIMITATIONS:
+- Authors have successfully tested dataset of 308 complete plastid genomes across angiosperms
+
+RUNTIME DURATION:
+[INFORMATION MISSING!]
 
 MPI IMPLEMENTATION:
 - No native MPI implementation
@@ -217,7 +226,10 @@ ENABLES GENE ALIGNMENT BASED ON AAs:
 OTHER FEATURES:
 - None.
 
-APPROX. TIME FOR EXECUTION:
+INPUT DATA LIMITATIONS:
+[INFORMATION MISSING!]
+
+RUNTIME DURATION:
 [INFORMATION MISSING!]
 
 MPI IMPLEMENTATION:
@@ -272,7 +284,7 @@ ALIGNMENT OF DNA SEQUENCES:
 - Alignment workflow includes both pre-alignment and post-alignment processing.
 - Batch processing of multiple sequence matrices.
 - Records skipped datasets and warning messages in 'warning.txt'.
-- Restricts alignment to datasets containing at most 50 sequences and sequence lengths of at most 10 kb.
+
 
 ENABLES GENE ALIGNMENT BASED ON AAs:
 - Performs CDS quality assessment and codon checking
@@ -286,7 +298,10 @@ OTHER FEATURES:
 - Submission support for GenBank records.
 - Partitioned Phylogenetic reconstruction functionality through integrated tools.
 
-APPROX. TIME FOR EXECUTION:
+INPUT DATA LIMITATIONS:
+- Restricts alignment to datasets containing at most 50 sequences and sequence lengths of at most 10 kb.
+
+RUNTIME DURATION:
 [INFORMATION MISSING!]
 
 MPI IMPLEMENTATION:
