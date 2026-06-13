@@ -20,10 +20,21 @@ args <- parser$parse_args()
 
 
 # --- Plotting Range ---
-plot_start_year <- 2000
-plot_end_year <- 2026
-plot_start_date <- as.Date(paste0(plot_start_year, "-01-01"))
-plot_end_date <- as.Date(paste0(plot_end_year, "-12-31"))
+plot_start_date <- as.Date(args$start_date)
+plot_end_date <- as.Date(args$end_date)
+
+if (is.na(plot_start_date) || is.na(plot_end_date)) {
+    stop("Start date and end date must be valid YYYY-MM-DD values.", call. = FALSE)
+}
+
+if (plot_start_date > plot_end_date) {
+    stop("Start date must be on or before end date.", call. = FALSE)
+}
+
+plot_start_year <- as.integer(format(plot_start_date, "%Y"))
+plot_end_year <- as.integer(format(plot_end_date, "%Y"))
+plot_start_month <- as.Date(format(plot_start_date, "%Y-%m-01"))
+plot_end_month <- as.Date(format(plot_end_date, "%Y-%m-01"))
 
 
 output_base <- tools::file_path_sans_ext(args$output)
@@ -57,8 +68,8 @@ if (length(record_dates) == 0) {
 }
 
 month_seq <- seq(
-    from = as.Date(paste0(plot_start_year, "-01-01")),
-    to = as.Date(paste0(plot_end_year, "-12-01")),
+    from = plot_start_month,
+    to = plot_end_month,
     by = "month"
 )
 
@@ -101,7 +112,7 @@ plot_publications$publications[is.na(plot_publications$publications)] <- 0
 plot_publications <- plot_publications[order(plot_publications$year), ]
 
 plot_publications$CUM_PUBLICATIONS <- cumsum(plot_publications$publications)
-plot_publications$DATE <- as.Date(paste0(plot_publications$year, "-01-01"))
+plot_publications$DATE <- as.Date(paste0(plot_publications$year, "-07-01"))
 
 
 # --- Axis Scaling ---
@@ -117,12 +128,12 @@ if (max_publications <= 0) {
     stop("Publication cumulative total is zero; unable to plot secondary axis.", call. = FALSE)
 }
 
-records_ylim <- ceiling(max_records / 5000) * 5000
-records_ylim <- records_ylim + 5000
+records_ylim <- ceiling(max_records * 1.05)
 
-publications_ylim <- ceiling(max_publications * 1.20)
+publications_ylim <- ceiling(max_publications * 1.05)
 
-records_breaks <- seq(0, records_ylim, by = 5000)
+records_breaks <- pretty(c(0, records_ylim), n = 8)
+records_breaks <- records_breaks[records_breaks >= 0 & records_breaks <= records_ylim]
 
 scale_factor <- records_ylim / publications_ylim
 
@@ -225,8 +236,15 @@ myPlot <- ggplot() +
     ) +
 
     scale_x_date(
-        breaks = as.Date(paste0(seq(plot_start_year, plot_end_year, by = 1), "-01-01")),
-        date_labels = "%Y",
+        breaks = unique(c(
+            as.Date(paste0(seq(plot_start_year, plot_end_year, by = 1), "-01-01")),
+            plot_end_date
+        )),
+        labels = function(x) {
+            labels <- format(x, "%Y")
+            labels[x == plot_end_date] <- ""
+            labels
+        },
         minor_breaks = NULL,
         expand = expansion(mult = c(0.01, 0.01))
     ) +
