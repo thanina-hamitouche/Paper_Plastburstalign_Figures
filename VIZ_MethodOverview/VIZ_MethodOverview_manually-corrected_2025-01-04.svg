@@ -5,11 +5,11 @@
    viewBox="0 0 877.92345 740.19326"
    version="1.1"
    id="svg1122"
-   sodipodi:docname="PlastomeBurstAndAlign_Figure1_manually-corrected.svg"
-   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="VIZ_MethodOverview_manually-corrected_2025-01-04.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    inkscape:export-filename="PlastomeBurstAndAlign_Figure1_manually-corrected.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -28,20 +28,30 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.50758074"
-     inkscape:cx="495.48767"
-     inkscape:cy="534.89027"
+     inkscape:zoom="0.35891378"
+     inkscape:cx="376.1349"
+     inkscape:cy="210.35693"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-y="1063"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1122"
      showguides="true">
     <sodipodi:guide
-       position="350.1906,508.94925"
+       position="332.82883,678.50356"
        orientation="1,0"
        id="guide1122"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="-16.622972,712.1189"
+       orientation="0,-1"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="377.15675,518.18424"
+       orientation="0,-1"
+       id="guide2"
        inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
@@ -62,6 +72,12 @@
   </metadata>
   <defs
      id="defs1">
+    <rect
+       x="762.44028"
+       y="575.27794"
+       width="273.84806"
+       height="226.56494"
+       id="rect1" />
     <style
        type="text/css"
        id="style1">*{stroke-linejoin: round; stroke-linecap: butt}</style>
@@ -72,6 +88,18 @@
          d="M 0,-2.95804 -2.95804,2.95804 H 2.95804 Z"
          style="stroke:#000000" />
     </defs>
+    <rect
+       x="762.44031"
+       y="575.27795"
+       width="273.84805"
+       height="226.56494"
+       id="rect1-9" />
+    <rect
+       x="762.44031"
+       y="575.27795"
+       width="273.84805"
+       height="226.56494"
+       id="rect1-9-8" />
   </defs>
   <path
      d="m 148.00328,231.79837 c 7.89137,11.39658 17.97892,21.10405 29.67003,28.55211 11.69111,7.44806 24.75226,12.48793 38.4161,14.82354 l 17.55023,-102.67308 z"
@@ -4940,7 +4968,7 @@
        id="use851" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,496.94222,73.656762)"
+     transform="matrix(0.12,0,0,-0.12,504.44222,73.656762)"
      id="g857">
     <defs
        id="defs851">
@@ -4974,7 +5002,7 @@
        id="use857" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,586.25516,73.656762)"
+     transform="matrix(0.12,0,0,-0.12,593.75516,73.656762)"
      id="g863">
     <defs
        id="defs857">
@@ -5008,7 +5036,7 @@
        id="use863" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,682.15843,73.656762)"
+     transform="matrix(0.12,0,0,-0.12,671.65843,73.656762)"
      id="g869">
     <defs
        id="defs863">
@@ -5231,7 +5259,7 @@
        id="use905" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,495.47404,254.58204)"
+     transform="matrix(0.12,0,0,-0.12,505.97404,254.58204)"
      id="g911">
     <use
        xlink:href="#DejaVuSans-47"
@@ -5258,7 +5286,7 @@
        id="use911" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,574.41818,254.58204)"
+     transform="matrix(0.12,0,0,-0.12,589.41818,254.58204)"
      id="g917">
     <use
        xlink:href="#DejaVuSans-47"
@@ -5551,7 +5579,7 @@
        id="use974" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,413.18253,616.20615)"
+     transform="matrix(0.12,0,0,-0.12,420.68253,616.20615)"
      id="g979">
     <use
        xlink:href="#DejaVuSans-49"
@@ -5574,7 +5602,7 @@
        id="use979" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,482.76669,616.20615)"
+     transform="matrix(0.12,0,0,-0.12,487.26669,616.20615)"
      id="g984">
     <use
        xlink:href="#DejaVuSans-49"
@@ -5597,7 +5625,7 @@
        id="use984" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,540.39577,616.20615)"
+     transform="matrix(0.12,0,0,-0.12,547.89577,616.20615)"
      id="g989">
     <use
        xlink:href="#DejaVuSans-49"
@@ -5643,7 +5671,7 @@
        id="use994" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,644.3832,616.20615)"
+     transform="matrix(0.12,0,0,-0.12,651.8832,616.20615)"
      id="g999">
     <use
        xlink:href="#DejaVuSans-49"
@@ -5666,7 +5694,7 @@
        id="use999" />
   </g>
   <g
-     transform="matrix(0.12,0,0,-0.12,698.01343,616.20615)"
+     transform="matrix(0.12,0,0,-0.12,720.51343,616.20615)"
      id="g1004">
     <use
        xlink:href="#DejaVuSans-49"
@@ -6398,4 +6426,34 @@
          id="rect1122" />
     </clipPath>
   </defs>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.75,0,0,0.75,-569.49195,-426.68607)"
+     id="text1"
+     style="font-weight:bold;font-size:32px;line-height:1;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1);display:inline;fill:#0000ff;stroke:#0000ff;stroke-width:2;stroke-linecap:square;stroke-linejoin:round"><tspan
+       x="762.43945"
+       y="600.10149"
+       id="tspan6"><tspan
+         style="font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-linecap:butt"
+         id="tspan5">(a)</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.75,0,0,0.75,-268.2141,-427.05254)"
+     id="text1-4"
+     style="font-weight:bold;font-size:32px;line-height:1;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1-9);display:inline;fill:#0000ff;stroke:#0000ff;stroke-width:2;stroke-linecap:square;stroke-linejoin:round"><tspan
+       x="762.43945"
+       y="600.10149"
+       id="tspan8"><tspan
+         style="font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-linecap:butt"
+         id="tspan7">(b)</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.75,0,0,0.75,-268.71789,-233.47286)"
+     id="text1-4-2"
+     style="font-weight:bold;font-size:32px;line-height:1;font-family:Arial, Helvetica, sans-serif;-inkscape-font-specification:'Arial, Helvetica, sans-serif Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1-9-8);display:inline;fill:#0000ff;stroke:#0000ff;stroke-width:2;stroke-linecap:square;stroke-linejoin:round"><tspan
+       x="762.43945"
+       y="600.10149"
+       id="tspan10"><tspan
+         style="font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none;stroke-linecap:butt"
+         id="tspan9">(c)</tspan></tspan></text>
 </svg>
