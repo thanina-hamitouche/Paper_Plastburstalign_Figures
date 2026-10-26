@@ -8,7 +8,7 @@ _Purpose: This figure shall illustrate that plastid genomics remains an active r
 # Dependencies
 Rscript -e "install.packages(c('argparse','ggplot2','ggrepel', 'ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
 # Figure creation
-Rscript "CODE_AccumulationGraph__recordsAndPublications.R" --input-records "./input_data/output_script1.sorted.unique_2026_06_01.tsv" --input-publications "./input_data/plastome_publications_per_year_2026-04-27.csv" --start-date "2000-01-01" --end-date "2025-12-31" --output "./VIZ_AccumulationGraphs/AccumulationGraph__recordsAndPublications"
+Rscript "CODE_AccumulationGraph__recordsAndPublications.R" --input-records "./input_data/output_script1.sorted.unique_2026_06_01.tsv" --input-publications "./input_data/plastome_publications_per_year_2026-10-25.csv" --start-date "2000-01-01" --end-date "2025-12-31" --output "./VIZ_AccumulationGraphs/AccumulationGraph__recordsAndPublications"
 ```
 ![Combined accumulation graph](VIZ_AccumulationGraphs/AccumulationGraph__recordsAndPublications.png)
 

@@ -1,40 +1,80 @@
 #!/bin/bash
+set -euo pipefail
 
 # Global variables
 green='\e[1;32m'
 yellow='\e[0;33m'
 nocolor='\e[0m'
 
-TITLE="simple_location_mining_via_entrez.sh"
-DESCRIPTION="Shell script to extract location information from records stored on NCBI Nucleotide"
+TITLE="pubmed_plastid_phylogenomics_by_year.sh"
+DESCRIPTION="Count PubMed publications on plastid phylogenomics by publication year"
 AUTHOR="Michael Gruenstaeudl, PhD"
-CONTACT="m_gruenstaeudl@fhsu.edu"
-VERSION="2026.04.27"
-USAGE="bash <this_script> <input_file> <output_location_data> <output_frequency_table>"
+VERSION="2026.10.25"
+USAGE="bash $0 <output_file.csv>"
 
 ################################################################################
-
 # STEP 1: INTRO DISPLAY
 
-echo ""
-echo -e " ${green}Title: $TITLE | Version: $VERSION | Author: $AUTHOR${nocolor}"
-echo -e " ${yellow}Usage: $USAGE${nocolor}"
-echo ""
+printf '\n%bTitle: %s | Version: %s | Author: %s%b\n' \
+    "$green" "$TITLE" "$VERSION" "$AUTHOR" "$nocolor"
+printf '%b%s%b\n' "$yellow" "$DESCRIPTION" "$nocolor"
+printf '%bUsage: %s%b\n\n' "$yellow" "$USAGE" "$nocolor"
 
 ################################################################################
+# STEP 2: VALIDATE ARGUMENTS AND DEPENDENCIES
 
-if [ $# -lt 1 ]; then
-    echo "Usage: $0 <output_file>" >&2
+if [ "$#" -ne 1 ]; then
+    printf 'Usage: %s\n' "$USAGE" >&2
     exit 1
 fi
 
+for program in esearch efetch xtract; do
+    if ! command -v "$program" >/dev/null 2>&1; then
+        printf 'Error: required program not found: %s\n' "$program" >&2
+        exit 1
+    fi
+done
+
 OUTFILE="$1"
 
-QUERY="(((plastid genome[TITLE] OR chloroplast genome[TITLE] OR plastome[TITLE]) OR (plastid genomKEYWKEYW] OR chloroplast genomKEYWKEYW] OR plastomKEYWKEYW])) AND (phylogenomic[TITLE] OR phylogenomicKEYWKEYW]))"
+# Use a temporary file to preserve any existing output if the query fails.
+TMPFILE=$(mktemp)
+trap 'rm -f "$TMPFILE"' EXIT
 
-esearch -db pubmed -query "$QUERY" | \
-efetch -format docsum | \
-grep -oP "(?<=<PubDate>)[^<]+" | \
-awk '{print $1}' | sort | uniq -c | \
-awk '{print $1","$2}' | \
-sort -t ',' -k2 -rn > "$OUTFILE"
+################################################################################
+# STEP 3: SEARCH PUBMED AND COUNT PUBLICATIONS BY YEAR
+
+# Keep the query on one line.
+QUERY='("plastid genome"[tiab] OR "chloroplast genome"[tiab] OR plastome[tiab]) AND phylogenomic*[tiab]'
+
+if ! esearch -db pubmed \
+        -query "$QUERY" \
+        -datetype PDAT \
+        -mindate 2000/01/01 \
+        -maxdate 2025/12/31 |
+    efetch -format docsum |
+    xtract -pattern DocumentSummary -element PubDate |
+    awk 'match($0, /^[0-9]{4}/) {print substr($0, 1, 4)}' |
+    sort |
+    uniq -c |
+    awk '{print $1 "," $2}' |
+    sort -t ',' -k2,2nr > "$TMPFILE"
+then
+    printf 'Error: PubMed retrieval failed. Output was not updated.\n' >&2
+    exit 1
+fi
+
+if [ ! -s "$TMPFILE" ]; then
+    printf 'No publication years retrieved. Check the query and EDirect messages.\n' >&2
+    exit 1
+fi
+
+mv -- "$TMPFILE" "$OUTFILE"
+
+################################################################################
+# STEP 4: DISPLAY TOTAL
+
+awk -F ',' '{total += $1}
+    END {printf "Total publications: %d\n", total}' "$OUTFILE"
+
+printf 'Results saved to: %s\n' "$OUTFILE"
