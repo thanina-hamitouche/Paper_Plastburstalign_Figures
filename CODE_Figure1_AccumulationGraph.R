@@ -12,10 +12,10 @@ library(ggtext)  # For colored annotation in plot title
 parser <- ArgumentParser(description = "Generate a combined accumulation graph of plastid genome records (bars) and publications (line).")
 parser$add_argument("--input-records", required = TRUE)
 parser$add_argument("--input-publications", required = TRUE)
-parser$add_argument("--start-date", default = "2000-01-01")
-parser$add_argument("--end-date", default = "2026-12-31")
+parser$add_argument("--start-date", default = "2016-01-01")
+parser$add_argument("--end-date", default = "2025-12-31")
 parser$add_argument("--date-column", default = "CREATE_DATE")
-parser$add_argument("--output", default = "./VIZ_a_AccumulationGraphs/AccumulationGraph__recordsAndPublications")
+parser$add_argument("--output", default = "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph__recordsAndPublications")
 args <- parser$parse_args()
 
 
@@ -35,6 +35,8 @@ plot_start_year <- as.integer(format(plot_start_date, "%Y"))
 plot_end_year <- as.integer(format(plot_end_date, "%Y"))
 plot_start_month <- as.Date(format(plot_start_date, "%Y-%m-01"))
 plot_end_month <- as.Date(format(plot_end_date, "%Y-%m-01"))
+accumulation_start_year <- 2000
+accumulation_start_date <- as.Date(paste0(accumulation_start_year, "-01-01"))
 
 
 output_base <- tools::file_path_sans_ext(args$output)
@@ -61,11 +63,19 @@ if (!(args$date_column %in% colnames(records_data))) {
 
 record_dates <- as.Date(records_data[[args$date_column]], format = "%Y-%m-%d")
 record_dates <- record_dates[!is.na(record_dates)]
-record_dates <- record_dates[record_dates >= plot_start_date & record_dates <= plot_end_date]
+record_dates_since_2000 <- record_dates[
+    record_dates >= accumulation_start_date &
+    record_dates <= plot_end_date
+]
 
-if (length(record_dates) == 0) {
-    stop("No valid genome record dates found in the selected date range.", call. = FALSE)
+if (length(record_dates_since_2000) == 0) {
+    stop("No valid genome record dates found since 2000.", call. = FALSE)
 }
+
+baseline_records <- sum(record_dates_since_2000 < plot_start_date)
+plotted_record_dates <- record_dates_since_2000[
+    record_dates_since_2000 >= plot_start_date
+]
 
 month_seq <- seq(
     from = plot_start_month,
@@ -73,12 +83,12 @@ month_seq <- seq(
     by = "month"
 )
 
-monthly_counts <- table(cut(record_dates, "month"))
+monthly_counts <- table(cut(plotted_record_dates, "month"))
 
 plot_records <- data.frame(DATE = month_seq, stringsAsFactors = FALSE)
 plot_records$FREQ_RECORDS <- as.integer(monthly_counts[as.character(plot_records$DATE)])
 plot_records$FREQ_RECORDS[is.na(plot_records$FREQ_RECORDS)] <- 0
-plot_records$CUM_RECORDS <- cumsum(plot_records$FREQ_RECORDS)
+plot_records$CUM_RECORDS <- baseline_records + cumsum(plot_records$FREQ_RECORDS)
 
 
 # --- Read and Process Publications ---
@@ -95,15 +105,23 @@ pub_data$year <- as.integer(pub_data$year)
 pub_data$publications <- as.numeric(pub_data$publications)
 
 pub_data <- pub_data[!is.na(pub_data$year) & !is.na(pub_data$publications), ]
-pub_data <- pub_data[pub_data$year >= plot_start_year & pub_data$year <= plot_end_year, ]
+pub_data <- pub_data[
+    pub_data$year >= accumulation_start_year &
+    pub_data$year <= plot_end_year
+, ]
 
 if (nrow(pub_data) == 0) {
-    stop("No valid publication data found in the selected year range.", call. = FALSE)
+    stop("No valid publication data found since 2000.", call. = FALSE)
 }
 
 pub_data <- pub_data %>%
     group_by(year) %>%
     summarize(publications = sum(publications), .groups = "drop")
+
+baseline_publications <- sum(
+    pub_data$publications[pub_data$year < plot_start_year],
+    na.rm = TRUE
+)
 
 plot_publications <- data.frame(year = seq(plot_start_year, plot_end_year, by = 1))
 
@@ -111,7 +129,8 @@ plot_publications <- merge(plot_publications, pub_data, by = "year", all.x = TRU
 plot_publications$publications[is.na(plot_publications$publications)] <- 0
 plot_publications <- plot_publications[order(plot_publications$year), ]
 
-plot_publications$CUM_PUBLICATIONS <- cumsum(plot_publications$publications)
+plot_publications$CUM_PUBLICATIONS <- baseline_publications +
+    cumsum(plot_publications$publications)
 plot_publications$DATE <- as.Date(paste0(plot_publications$year, "-07-01"))
 
 
@@ -149,9 +168,7 @@ publication_breaks <- publication_breaks[
 publication_breaks_scaled <- publication_breaks * scale_factor
 
 
-# --- Calculate Average Yearly Growth (last 5 years) ---
-
-growth_years <- (plot_end_year - 4):plot_end_year
+# --- Calculate Average Yearly Growth (displayed years) ---
 
 records_by_year <- plot_records %>%
     mutate(year = as.integer(format(DATE, "%Y"))) %>%
@@ -159,44 +176,55 @@ records_by_year <- plot_records %>%
     summarize(yearly_records = sum(FREQ_RECORDS), .groups = "drop")
 
 avg_records_growth <- records_by_year %>%
-    filter(year %in% growth_years) %>%
     summarize(avg = mean(yearly_records, na.rm = TRUE)) %>%
     pull(avg)
 
 avg_publications_growth <- plot_publications %>%
-    filter(year %in% growth_years) %>%
     summarize(avg = mean(publications, na.rm = TRUE)) %>%
     pull(avg)
 
-label_records <- if (length(avg_records_growth) == 1 && !is.na(avg_records_growth)) {
-    paste0(
-        "Estimated yearly growth of records: ",
-        format(round(avg_records_growth, 1), big.mark = ",")
-    )
-} else {
-    "Estimated yearly growth of records: n/a"
-}
-
-label_publications <- if (length(avg_publications_growth) == 1 && !is.na(avg_publications_growth)) {
-    paste0(
-        "Estimated yearly growth of publications: ",
-        format(round(avg_publications_growth, 1), big.mark = ",")
-    )
-} else {
-    "Estimated yearly growth of publications: n/a"
+format_growth <- function(value) {
+    if (length(value) == 1 && !is.na(value)) {
+        format(round(value, 1), big.mark = ",")
+    } else {
+        "n/a"
+    }
 }
 
 
 # --- Compose Annotation Text (with blue publications line) ---
 annotation_text <- paste0(
-    label_records,
-    "<br><span style='color:#1f77b4;'>",
-    label_publications,
+    "Avg. yearly growth (", plot_start_year, "-", plot_end_year, ") of",
+    "<br>plastome records: ", format_growth(avg_records_growth),
+    "<br><span style='color:#1f77b4;'>publications: ",
+    format_growth(avg_publications_growth),
     "</span>"
+)
+
+# Right-aligned label on a white box placed over the top-left panel corner
+annotation_grob <- gridtext::richtext_grob(
+    annotation_text,
+    x = unit(0.02, "npc"),
+    y = unit(0.98, "npc"),
+    hjust = 0,
+    vjust = 1,
+    halign = 1,
+    gp = grid::gpar(fontsize = 12, fontfamily = "Arial", fontface = "bold", lineheight = 1.6),
+    box_gp = grid::gpar(fill = NA, col = NA),
+    padding = unit(c(6, 8, 6, 8), "pt")
 )
 
 
 # --- Plot ---
+
+year_boundaries <- unique(c(
+    plot_start_date,
+    as.Date(paste0(seq(plot_start_year, plot_end_year, by = 1), "-01-01")),
+    plot_end_date
+))
+year_boundaries <- year_boundaries[
+    year_boundaries >= plot_start_date & year_boundaries <= plot_end_date
+]
 
 myPlot <- ggplot() +
 
@@ -230,21 +258,23 @@ myPlot <- ggplot() +
         size = 2.0
     ) +
 
+    geom_rug(
+        data = data.frame(DATE = year_boundaries),
+        aes(x = DATE),
+        sides = "b",
+        outside = TRUE,
+        length = unit(0.2, "cm")
+    ) +
+
+    annotation_custom(annotation_grob) +
+
     labs(
-        x = "Year",
-        title = annotation_text
+        x = "Year"
     ) +
 
     scale_x_date(
-        breaks = unique(c(
-            as.Date(paste0(seq(plot_start_year, plot_end_year, by = 1), "-01-01")),
-            plot_end_date
-        )),
-        labels = function(x) {
-            labels <- format(x, "%Y")
-            labels[x == plot_end_date] <- ""
-            labels
-        },
+        breaks = as.Date(paste0(seq(plot_start_year, plot_end_year, by = 1), "-07-01")),
+        date_labels = "%Y",
         minor_breaks = NULL,
         expand = expansion(mult = c(0.01, 0.01))
     ) +
@@ -272,21 +302,15 @@ myPlot <- ggplot() +
     theme_minimal(base_family = "Arial") +
     theme(
         text = element_text(family = "Arial"),
-        plot.title = ggtext::element_markdown(
-            size = 14,
-            face = "bold",
-            hjust = 0.5,
-            margin = margin(b = 12)
-        ),
         axis.text = element_text(size = 12),
-        axis.text.x = element_text(size = 11, angle = 90, hjust = 0.5, vjust = 2.0),
-        axis.ticks.x = element_line(color = "black"),
+        axis.text.x = element_text(size = 12, angle = 0, hjust = 0.5, margin = margin(t = 8)),
+        axis.ticks.x = element_blank(),
         axis.ticks.length = unit(0.2, "cm"),
-        axis.title.x = element_text(size = 16, face = "bold"),
-        axis.title.y.left = element_text(size = 15, face = "bold"),
-        axis.title.y.right = element_text(size = 15, face = "bold", color = "#1f77b4"),
+        axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 12)),
+        axis.title.y.left = element_text(size = 12, face = "bold", margin = margin(r = 12)),
+        axis.title.y.right = element_text(size = 12, face = "bold", color = "#1f77b4", margin = margin(l = 12)),
         axis.text.y.right = element_text(color = "#1f77b4"),
-        plot.margin = unit(c(0.4, 1.2, 0.1, 0.1), "cm")
+        plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm")
     )
 
 # --- Save Plot ---

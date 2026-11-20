@@ -1,16 +1,18 @@
 # Paper_Plastburstalign_Figures
 Code for generating publication-quality figures and tables for the manuscript.
 
-### Figure 1: Estimated yearly growth of plastid genome records and plastid genome publications
+### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
 _Purpose: This figure shall illustrate that plastid genomics remains an active research field with sustained annual publication output and a rapidly expanding body of available genomes. The scale of available genomes now necessitates specialized software (namely ours!) that is capable of efficiently processing and analyzing thousands of plastid genomes simultaneously._
+
+The growth annotations average annual additions over the displayed years; cumulative totals include data from 2000 onward.
 
 ```bash
 # Dependencies
 Rscript -e "install.packages(c('argparse','ggplot2','ggrepel', 'ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
 # Figure creation
-Rscript "CODE_AccumulationGraph__recordsAndPublications.R" --input-records "./input_data/output_script1.sorted.unique_2026_06_01.tsv" --input-publications "./input_data/plastome_publications_per_year_2026-10-25.csv" --start-date "2000-01-01" --end-date "2025-12-31" --output "./VIZ_AccumulationGraphs/AccumulationGraph__recordsAndPublications"
+Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/output_script1.sorted.unique_2026_06_01.tsv" --input-publications "./input_data/plastome_publications_per_year_2026-10-25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph__recordsAndPublications"
 ```
-![Combined accumulation graph](VIZ_AccumulationGraphs/AccumulationGraph__recordsAndPublications.png)
+![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph__recordsAndPublications.png)
 
 ---
 
