@@ -244,7 +244,7 @@ def plot_side_by_side(
     all_datasets = [d for d in DATASET_ORDER if d in set(memory_df["dataset"].unique())]
     dataset_colors = make_dataset_color_map(all_datasets)
 
-    fig, axes = plt.subplots(1, 2, figsize=(15, 8))
+    fig, axes = plt.subplots(1, 2, figsize=(15, 7.5))
 
     plot_panel(
         ax=axes[0],

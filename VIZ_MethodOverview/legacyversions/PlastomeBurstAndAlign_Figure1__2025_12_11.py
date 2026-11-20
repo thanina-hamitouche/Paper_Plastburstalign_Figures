@@ -30,7 +30,7 @@ def draw_box(ax, x, y_center, w, h, color):
 # ---------------------------
 # Layout parameters
 # ---------------------------
-fig, ax = plt.subplots(figsize=(14, 10))
+fig, ax = plt.subplots(figsize=(14, 7))
 ax.set_aspect('equal')
 ax.axis('off')
 

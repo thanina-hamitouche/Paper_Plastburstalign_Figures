@@ -14,7 +14,7 @@ genes = [
 SCALE = 0.05  # each bp = 0.05 cm equivalent
 
 # --- Plot setup ---
-fig, ax = plt.subplots(figsize=(8, 2))
+fig, ax = plt.subplots(figsize=(8, 4))
 ax.set_xlim(0, (genes[-1][1] + 20) * SCALE)
 ax.set_ylim(-0.5, 2.0)
 ax.axis('off')

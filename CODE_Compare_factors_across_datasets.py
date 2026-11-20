@@ -129,7 +129,7 @@ def main() -> None:
     fig, axes = plt.subplots(
         n_rows,
         n_cols,
-        figsize=(3.8 * n_cols, 12),
+        figsize=(3.8 * n_cols, 1.9 * n_cols),
         squeeze=False,
         sharey="row",
     )

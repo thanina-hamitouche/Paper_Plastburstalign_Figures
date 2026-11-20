@@ -321,7 +321,7 @@ svg_device <- if (requireNamespace("svglite", quietly = TRUE)) {
     grDevices::svg
 }
 
-ggsave(file = svg_outfile, plot = myPlot, width = 10, height = 6.5, device = svg_device)
-ggsave(file = png_outfile, plot = myPlot, width = 10, height = 6.5, dpi = 300)
+ggsave(file = svg_outfile, plot = myPlot, width = 10, height = 5, device = svg_device)
+ggsave(file = png_outfile, plot = myPlot, width = 10, height = 5, dpi = 300)
 
 ################################################################################

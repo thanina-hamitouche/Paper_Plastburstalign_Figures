@@ -738,7 +738,7 @@ def main():
     args = parse_args()
     svg_path, png_path = resolve_output_paths(args.output_dir, args.output_name)
 
-    fig, ax = plt.subplots(figsize=(16, 12))
+    fig, ax = plt.subplots(figsize=(16, 8))
     ax.set_aspect('equal')
     ax.axis('off')
 
@@ -860,8 +860,8 @@ def main():
     plt.tight_layout(pad=1.0)
     
     # Save figure as SVG and PNG.
-    plt.savefig(svg_path, format='svg', dpi=300, bbox_inches='tight')
-    plt.savefig(png_path, format='png', dpi=300, bbox_inches='tight')
+    plt.savefig(svg_path, format='svg', dpi=300)
+    plt.savefig(png_path, format='png', dpi=300)
     plt.close(fig)
 
 if __name__ == "__main__":
