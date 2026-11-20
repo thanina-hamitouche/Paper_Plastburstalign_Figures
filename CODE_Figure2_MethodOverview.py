@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import Arc, Rectangle, Wedge
+from matplotlib.colors import to_rgba
+from matplotlib.patches import Arc, Polygon, Rectangle, Wedge
 import os
 import argparse
 
@@ -12,6 +13,12 @@ LEFT_PANEL_RIGHT = 7.0
 GENE_ARC_LINEWIDTH = 14
 ARC_OUTLINE_EXTRA_WIDTH = 1
 BAR_OUTLINE_LINEWIDTH = 0.5
+GENE_ARROWHEAD_LENGTH = 0.55
+IR_SPANS = {
+    "T1": (219.2, 255.8, 284.2, 329.8),
+    "T2": (210, 257, 283, 324),
+    "T3": (219, 251, 289, 321),
+}
 
 # ---------------------------
 # Helper functions
@@ -19,6 +26,36 @@ BAR_OUTLINE_LINEWIDTH = 0.5
 def polar_to_cart(r, theta_deg):
     theta = np.deg2rad(theta_deg)
     return r * np.cos(theta), r * np.sin(theta)
+
+def circular_gene_vertices(center, radius, start, end, height, clockwise=False):
+    span = (end - start) % 360
+    head_angle = min(np.rad2deg(GENE_ARROWHEAD_LENGTH / radius), span / 2)
+    shaft_start = start + head_angle if clockwise else start
+    shaft_end = start + span if clockwise else start + span - head_angle
+    angles = np.deg2rad(np.linspace(shaft_start, shaft_end, max(2, int(np.ceil(span)) + 1)))
+    outer = np.column_stack((center[0] + (radius + height / 2) * np.cos(angles),
+                             center[1] + (radius + height / 2) * np.sin(angles)))
+    inner = np.column_stack((center[0] + (radius - height / 2) * np.cos(angles[::-1]),
+                             center[1] + (radius - height / 2) * np.sin(angles[::-1])))
+    tip_x, tip_y = polar_to_cart(radius, start if clockwise else start + span)
+    tip = (center[0] + tip_x, center[1] + tip_y)
+    return np.vstack((outer, inner, tip)) if clockwise else np.vstack((outer, tip, inner))
+
+def linear_gene_vertices(x, y, width, height):
+    head_length = min(GENE_ARROWHEAD_LENGTH, width / 2)
+    return [
+        (x, y - height / 2),
+        (x + width - head_length, y - height / 2),
+        (x + width, y),
+        (x + width - head_length, y + height / 2),
+        (x, y + height / 2),
+    ]
+
+def draw_gene_arrow(ax, x, y, width, height, color):
+    arrow = Polygon(linear_gene_vertices(x, y, width, height), closed=True,
+                    facecolor=color, edgecolor='black', linewidth=BAR_OUTLINE_LINEWIDTH, zorder=2)
+    ax.add_patch(arrow)
+    return arrow
 
 def draw_arc(ax, center, r, start, end, color, lw=4, alpha=0.95, hatch=None, fill=False, edgecolor=None, add_outline=False):
     cx, cy = center
@@ -128,11 +165,10 @@ def draw_box(ax, x, y_center, w, h, color, is_intron=False):
     rect = Rectangle((x, y_center - rect_h/2), w, rect_h, fill=True, facecolor=color, 
                      edgecolor='black', linewidth=BAR_OUTLINE_LINEWIDTH, zorder=2)
     ax.add_patch(rect)
-    return rect
 
 def draw_striped_box(ax, x, y_center, w, h, color1, color2):
     """Draw a box with alternating vertical stripes of two colors."""
-    segment_width = 0.15  # Fixed stripe width
+    segment_width = min(0.15, w / 2)
     num_segments = int(w / segment_width)
     
     for i in range(num_segments):
@@ -301,6 +337,7 @@ def draw_left_panel(ax, gene_data, R, InnerR, igs_width):
     centers = [(0, y_top), (0, y_top + spacing), (0, y_top + 2*spacing)]
     labels = ["T1", "T2", "T3"]
     genomes = ["T1", "T2", "T3"]
+    gene_arrows = []
 
     panel_left = LEFT_PANEL_LEFT
     panel_right = LEFT_PANEL_RIGHT
@@ -327,21 +364,11 @@ def draw_left_panel(ax, gene_data, R, InnerR, igs_width):
     
     IGS_R = InnerR - 1.2  # Inner circle for IGS markers (smaller diameter)
     
-    for idx, (center, label, genome_key) in enumerate(zip(centers, labels, genomes)):
+    for center, label, genome_key in zip(centers, labels, genomes):
         # Draw inverted-repeat background wedges behind genes
-        if idx == 0:  # T1:
-            wedge1_start, wedge1_end = 219.2, 255.8
-            wedge2_start, wedge2_end = 284.2, 329.8
-        elif idx == 1:  # T2: 
-            wedge1_start, wedge1_end = 210, 257
-            wedge2_start, wedge2_end = 283, 324
-        else:  # T3: 20% reduced span
-            wedge1_start, wedge1_end = 219, 251
-            wedge2_start, wedge2_end = 289, 321
-        
         # Normalize wedge spans to ensure both wedges have equal angular extent
         wedge1_start, wedge1_end, wedge2_start, wedge2_end = normalize_wedge_spans(
-            wedge1_start, wedge1_end, wedge2_start, wedge2_end)
+            *IR_SPANS[genome_key])
         
         ir_wedge1 = Wedge(center, InnerR, to_plot_angle(wedge1_start), to_plot_angle(wedge1_end),
                           facecolor='#d96c6c', edgecolor='none', alpha=0.3, zorder=0)
@@ -379,27 +406,39 @@ def draw_left_panel(ax, gene_data, R, InnerR, igs_width):
                 # Introns: much thinner than genes
                 draw_arc(ax, center, InnerR, start_angle, end_angle, color=element["color"], lw=3, add_outline=True)
             elif element.get("type") == "gene":
-                # Thicker arcs to match right-side bar thickness
-                draw_arc(ax, center, InnerR, start_angle, end_angle, color=element["color"], lw=GENE_ARC_LINEWIDTH, add_outline=True)
+                clockwise = element.get("clockwise", False)
+                arrow = Polygon(circular_gene_vertices(center, InnerR, start_angle, end_angle, igs_width, clockwise),
+                                closed=True, facecolor=to_rgba(element["color"], 0.95),
+                                edgecolor='black', linewidth=BAR_OUTLINE_LINEWIDTH, zorder=2)
+                ax.add_patch(arrow)
+                gene_arrows.append((arrow, center, InnerR, start_angle, end_angle, clockwise))
         ax.text(center[0], center[1], label, ha='center', va='center', fontsize=LABEL_FONTSIZE)
     
-    return centers
+    return centers, gene_arrows
 
 # ---------------------------
 # Right-side panels
 # ---------------------------
 
 def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
-    """Gene-wise columns: each gene gets its own column, dotted per column, rows stacked tightly. Introns excluded."""
+    """Draw gene-wise columns, excluding introns and duplicated IR portions."""
     linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
 
-    genes_by_genome = {g: [e for e in get_genes_no_introns(g, gene_data)] for g in ["T1", "T2", "T3"]}
+    genes_by_genome = {}
+    for genome in ["T1", "T2", "T3"]:
+        groups = []
+        for gene in get_genes_no_introns(genome, gene_data):
+            if groups and groups[-1][-1].get("merge_next_cds", False):
+                groups[-1].append(gene)
+            else:
+                groups.append([gene])
+        genes_by_genome[genome] = groups[:-1]
     gene_count = len(genes_by_genome["T1"])
 
     # Column widths: max width for each gene across genomes
     col_widths = []
     for i in range(gene_count):
-        widths = [get_width(genes_by_genome[g][i], InnerR) for g in ["T1", "T2", "T3"]]
+        widths = [sum(get_width(segment, InnerR) for segment in genes_by_genome[g][i]) for g in ["T1", "T2", "T3"]]
         col_widths.append(max(widths))
 
     # Column start positions
@@ -415,11 +454,11 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
         genes = genes_by_genome[genome_key]
         result = []
         for i in range(gene_count):
-            gene = genes[i]
+            segments = genes[i]
             result.append({
                 "x": panel_x0 + col_starts[i],
-                "w": get_width(gene, InnerR),
-                "color": gene["color"]
+                "w": sum(get_width(segment, InnerR) for segment in segments),
+                "color": segments[0]["color"]
             })
         return result
 
@@ -428,6 +467,17 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
         (build_row("T2"), y_positions[1]),
         (build_row("T3"), y_positions[2]),
     ]
+
+    _, _, _, t3_ir_end = normalize_wedge_spans(*IR_SPANS["T3"])
+    remaining_gene = {**get_genes_no_introns("T3", gene_data)[-1], "start": t3_ir_end}
+    remaining_width = get_width(remaining_gene, InnerR)
+    col_starts.append(col_starts[-1] + col_widths[-1] + linear_gap)
+    col_widths.append(remaining_width)
+    rows[2][0].append({
+        "x": panel_x0 + col_starts[-1],
+        "w": remaining_width,
+        "color": remaining_gene["color"],
+    })
 
     # Dotted lines per column
     for row, y in rows:
@@ -440,15 +490,15 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
         ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars
-    gene_bars = []
+    gene_arrows = []
     for row, y in rows:
         for entry in row:
-            gene_bars.append(draw_box(ax, entry["x"], y, entry["w"], box_h, entry["color"]))
+            gene_arrows.append(draw_gene_arrow(ax, entry["x"], y, entry["w"], box_h, entry["color"]))
 
     x_max = panel_x0 + col_starts[-1] + col_widths[-1]
     y_min = min(y_positions) - box_h / 2.0
     y_max = max(header_y, max(y_positions) + box_h / 2.0)
-    return {"x_max": x_max, "y_min": y_min, "y_max": y_max, "gene_bars": gene_bars}
+    return {"x_max": x_max, "y_min": y_min, "y_max": y_max, "gene_arrows": gene_arrows}
 
 
 def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
@@ -548,6 +598,15 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
     if igs_count == 0:
         return {"x_max": panel_x0, "y_min": base_y, "y_max": base_y}
 
+    for genome, igs_list in igs_by_genome.items():
+        _, _, ir_start, _ = normalize_wedge_spans(*IR_SPANS[genome])
+        second_repeat_igs = igs_list[-2]
+        second_repeat_igs["end"] = max(second_repeat_igs["start"], min(second_repeat_igs["end"], ir_start))
+    if all(igs_list[-2]["start"] == igs_list[-2]["end"] for igs_list in igs_by_genome.values()):
+        for igs_list in igs_by_genome.values():
+            del igs_list[-2]
+        igs_count -= 1
+
     # Column widths: max width for each IGS across genomes
     col_widths = []
     for i in range(igs_count):
@@ -585,7 +644,8 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
     # Dotted lines per column
     for row, y in rows:
         for entry, col_w in zip(row, col_widths):
-            dotted_line(ax, entry["x"], y, entry["x"] + col_w, y, lw=1.0)
+            if entry["w"] > 0:
+                dotted_line(ax, entry["x"], y, entry["x"] + col_w, y, lw=1.0)
 
     # Row labels
     label_x = panel_x0 - 0.5
@@ -595,6 +655,8 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
     # Bars with striped pattern
     for row, y in rows:
         for entry in row:
+            if entry["w"] == 0:
+                continue
             if entry["prev_color"] and entry["next_color"]:
                 draw_striped_box(ax, entry["x"], y, entry["w"], box_h, 
                                entry["prev_color"], entry["next_color"])
@@ -687,18 +749,19 @@ def alignment_unsplit(ax, InnerR, gene_data, panel_x0, panel_left_guide_x, box_h
         ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars - draw all segments
-    gene_bars = []
+    gene_arrows = []
     for row, y in rows:
         for entry in row:
             for seg in entry["segments"]:
                 is_intron = seg.get("is_intron", False)
-                bar = draw_box(ax, seg["x"], y, seg["w"], box_h, seg["color"], is_intron)
-                if not is_intron:
-                    gene_bars.append(bar)
+                if is_intron:
+                    draw_box(ax, seg["x"], y, seg["w"], box_h, seg["color"], is_intron=True)
+                else:
+                    gene_arrows.append(draw_gene_arrow(ax, seg["x"], y, seg["w"], box_h, seg["color"]))
 
     y_min = min(y_positions) - box_h / 2.0
     y_max = max(header_y, max(y_positions) + box_h / 2.0)
-    return {"x_max": row_max_x, "y_min": y_min, "y_max": y_max, "gene_bars": gene_bars}
+    return {"x_max": row_max_x, "y_min": y_min, "y_max": y_max, "gene_arrows": gene_arrows}
 
 # ---------------------------
 # Draw bracket between panels
@@ -778,69 +841,69 @@ def main():
             {"type": "IGS", "start": 0, "end": 3},
             {"type": "gene", "color": col_orange, "start": 3, "end": 27},
             {"type": "IGS", "start": 27, "end": 35},
-            {"type": "gene", "color": col_skyblue, "start": 35, "end": 58},
+            {"type": "gene", "color": col_skyblue, "start": 35, "end": 58, "clockwise": True},
             {"type": "IGS", "start": 58, "end": 76},
-            {"type": "gene", "color": col_green, "start": 76, "end": 89},
+            {"type": "gene", "color": col_green, "start": 76, "end": 89, "merge_next_cds": True},
             {"type": "intron", "color": col_green, "start": 89, "end": 97},
             {"type": "gene", "color": col_green, "start": 97, "end": 115},
             {"type": "IGS", "start": 115, "end": 124},
             {"type": "gene", "color": col_yellow, "start": 124, "end": 167},
             {"type": "IGS", "start": 167, "end": 189},
-            {"type": "gene", "color": col_purple, "start": 189, "end": 195},
+            {"type": "gene", "color": col_purple, "start": 189, "end": 195, "merge_next_cds": True},
             {"type": "intron", "color": col_purple, "start": 195, "end": 197},
-            {"type": "gene", "color": col_purple, "start": 197, "end": 202},
+            {"type": "gene", "color": col_purple, "start": 197, "end": 202, "clockwise": True},
             {"type": "IGS", "start": 202, "end": 217},
             {"type": "gene", "color": col_blue, "start": 217, "end": 236},
             {"type": "IGS", "start": 236, "end": 260},
             {"type": "gene", "color": col_beige, "start": 260, "end": 280},
             {"type": "IGS", "start": 280, "end": 298},
-            {"type": "gene", "color": col_blue, "start": 298, "end": 323},
+            {"type": "gene", "color": col_blue, "start": 298, "end": 323, "clockwise": True},
             {"type": "IGS", "start": 323, "end": 360},
         ],
         "T2": [
             {"type": "IGS", "start": 0, "end": 5},
             {"type": "gene", "color": col_orange, "start": 5, "end": 23},
             {"type": "IGS", "start": 23, "end": 40},
-            {"type": "gene", "color": col_skyblue, "start": 40, "end": 55},
+            {"type": "gene", "color": col_skyblue, "start": 40, "end": 55, "clockwise": True},
             {"type": "IGS", "start": 55, "end": 83},
-            {"type": "gene", "color": col_green, "start": 83, "end": 94},
+            {"type": "gene", "color": col_green, "start": 83, "end": 94, "merge_next_cds": True},
             {"type": "intron", "color": col_green, "start": 94, "end": 98},
             {"type": "gene", "color": col_green, "start": 98, "end": 105},
             {"type": "IGS", "start": 105, "end": 120},
             {"type": "gene", "color": col_yellow, "start": 120, "end": 155},
             {"type": "IGS", "start": 155, "end": 170},
-            {"type": "gene", "color": col_purple, "start": 170, "end": 181},
+            {"type": "gene", "color": col_purple, "start": 170, "end": 181, "merge_next_cds": True},
             {"type": "intron", "color": col_purple, "start": 181, "end": 193},
-            {"type": "gene", "color": col_purple, "start": 193, "end": 202},
+            {"type": "gene", "color": col_purple, "start": 193, "end": 202, "clockwise": True},
             {"type": "IGS", "start": 202, "end": 217},
             {"type": "gene", "color": col_blue, "start": 217, "end": 245},
             {"type": "IGS", "start": 245, "end": 261},
             {"type": "gene", "color": col_beige, "start": 261, "end": 279},
             {"type": "IGS", "start": 279, "end": 295},
-            {"type": "gene", "color": col_blue, "start": 295, "end": 323},
+            {"type": "gene", "color": col_blue, "start": 295, "end": 323, "clockwise": True},
             {"type": "IGS", "start": 323, "end": 360},
         ],
         "T3": [
             {"type": "IGS", "start": 0, "end": 2},
             {"type": "gene", "color": col_orange, "start": 2, "end": 23},
             {"type": "IGS", "start": 23, "end": 38},
-            {"type": "gene", "color": col_skyblue, "start": 38, "end": 53},
+            {"type": "gene", "color": col_skyblue, "start": 38, "end": 53, "clockwise": True},
             {"type": "IGS", "start": 53, "end": 72},
-            {"type": "gene", "color": col_green, "start": 72, "end": 85},
+            {"type": "gene", "color": col_green, "start": 72, "end": 85, "merge_next_cds": True},
             {"type": "intron", "color": col_green, "start": 85, "end": 97},
             {"type": "gene", "color": col_green, "start": 97, "end": 109},
             {"type": "IGS", "start": 109, "end": 131},
             {"type": "gene", "color": col_yellow, "start": 131, "end": 159},
             {"type": "IGS", "start": 159, "end": 175},
-            {"type": "gene", "color": col_purple, "start": 175, "end": 184},
+            {"type": "gene", "color": col_purple, "start": 175, "end": 184, "merge_next_cds": True},
             {"type": "intron", "color": col_purple, "start": 184, "end": 187},
-            {"type": "gene", "color": col_purple, "start": 187, "end": 197},
+            {"type": "gene", "color": col_purple, "start": 187, "end": 197, "clockwise": True},
             {"type": "IGS", "start": 197, "end": 211},
             {"type": "gene", "color": col_blue, "start": 211, "end": 245},
             {"type": "IGS", "start": 245, "end": 261},
             {"type": "gene", "color": col_beige, "start": 261, "end": 276},
             {"type": "IGS", "start": 276, "end": 292},
-            {"type": "gene", "color": col_blue, "start": 292, "end": 326},
+            {"type": "gene", "color": col_blue, "start": 292, "end": 326, "clockwise": True},
             {"type": "IGS", "start": 326, "end": 360},
         ],
     }
@@ -851,7 +914,7 @@ def main():
     box_h = 0.7
     panel_left_guide_x = panel_x0 - 1.8
 
-    centers = draw_left_panel(ax, gene_data, R, InnerR, igs_width=box_h)
+    centers, circular_gene_arrows = draw_left_panel(ax, gene_data, R, InnerR, igs_width=box_h)
 
     # Right-side panels (stacked, expanding downwards)
     unsplit_base_y = 20.5
@@ -914,10 +977,13 @@ def main():
     # Match the outlined CDS arc thickness in physical units after layout.
     pixels_per_data_unit = ax.transData.transform((0, 1))[1] - ax.transData.transform((0, 0))[1]
     gene_bar_height = (GENE_ARC_LINEWIDTH + ARC_OUTLINE_EXTRA_WIDTH - BAR_OUTLINE_LINEWIDTH) * fig.dpi / (72 * pixels_per_data_unit)
-    for bar in unsplit_ext["gene_bars"] + genewise_ext["gene_bars"]:
-        center_y = bar.get_y() + bar.get_height() / 2
-        bar.set_y(center_y - gene_bar_height / 2)
-        bar.set_height(gene_bar_height)
+    for arrow in unsplit_ext["gene_arrows"] + genewise_ext["gene_arrows"]:
+        vertices = arrow.get_xy()
+        x, y = vertices[0, 0], vertices[2, 1]
+        width = vertices[2, 0] - x
+        arrow.set_xy(linear_gene_vertices(x, y, width, gene_bar_height))
+    for arrow, center, radius, start, end, clockwise in circular_gene_arrows:
+        arrow.set_xy(circular_gene_vertices(center, radius, start, end, gene_bar_height, clockwise))
 
     taxon_label = next(text for text in ax.texts if text.get_text() == "T1" and text.get_position()[0] == label_x)
     taxon_left = taxon_label.get_window_extent(fig.canvas.get_renderer()).x0
