@@ -41,7 +41,7 @@ InnerR = 5.3
 y_top = 18.0   # choose positions so panel aligns nicely
 spacing = -11.0
 centers = [(0, y_top), (0, y_top + spacing), (0, y_top + 2*spacing)]
-labels = ["T₃", "T₂", "T₁"]
+labels = ["T3", "T2", "T1"]
 
 # Colors
 col_red   = (228/255, 26/255, 28/255)
@@ -77,7 +77,7 @@ headers = ["Gene 1", "Gene 2", "Gene 3", "Gene 4"]
 for i, h in enumerate(headers):
     hx = panel_x0 + i*col_gap + 1.6
     hy = panel_top_y
-    ax.text(hx, hy, h, ha='center', va='center', fontsize=12)
+    ax.text(hx, hy, h, ha='center', va='center', fontsize=14)
 
 # Box geometry defaults
 box_h = 1.0

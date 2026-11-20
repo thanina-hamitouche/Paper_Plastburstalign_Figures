@@ -4,6 +4,15 @@ from matplotlib.patches import Arc, Rectangle, Wedge
 import os
 import argparse
 
+LABEL_FONTSIZE = 14
+PANEL_LABEL_FONTSIZE = 20
+SPLIT_ALIGNMENT_GAP_STRETCH = 2.0
+LEFT_PANEL_LEFT = -7.0
+LEFT_PANEL_RIGHT = 7.0
+GENE_ARC_LINEWIDTH = 14
+ARC_OUTLINE_EXTRA_WIDTH = 1
+BAR_OUTLINE_LINEWIDTH = 0.5
+
 # ---------------------------
 # Helper functions
 # ---------------------------
@@ -19,7 +28,7 @@ def draw_arc(ax, center, r, start, end, color, lw=4, alpha=0.95, hatch=None, fil
         outline_arc = Arc((cx, cy),
                          width=2*r, height=2*r,
                          theta1=start, theta2=end,
-                         color='black', lw=lw + 1, alpha=1.0)
+                         color='black', lw=lw + ARC_OUTLINE_EXTRA_WIDTH, alpha=1.0)
         ax.add_patch(outline_arc)
         
         # Add radial lines at start and end of arc (the "sides")
@@ -54,10 +63,9 @@ def draw_arc(ax, center, r, start, end, color, lw=4, alpha=0.95, hatch=None, fil
                   color=color, lw=lw, alpha=alpha)
     ax.add_patch(arc)
 
-def draw_hatched_arc(ax, center, r, start, end, color1, color2, lw=8):
+def draw_hatched_arc(ax, center, r, start, end, color1, color2, width):
     """Draw a thick arc with slanted ribbon pattern showing two colors."""
     cx, cy = center
-    width = 0.4  # Width of the arc band
     
     # Fixed segment width in degrees for consistent ribbon pattern
     segment_size = 3.0  # degrees
@@ -118,8 +126,9 @@ def dotted_line(ax, x1, y1, x2, y2, dotsize=4, lw=1.0, zorder=0):
 def draw_box(ax, x, y_center, w, h, color, is_intron=False):
     rect_h = h / 2.0 if is_intron else h
     rect = Rectangle((x, y_center - rect_h/2), w, rect_h, fill=True, facecolor=color, 
-                     edgecolor='black', linewidth=0.5, zorder=2)
+                     edgecolor='black', linewidth=BAR_OUTLINE_LINEWIDTH, zorder=2)
     ax.add_patch(rect)
+    return rect
 
 def draw_striped_box(ax, x, y_center, w, h, color1, color2):
     """Draw a box with alternating vertical stripes of two colors."""
@@ -286,17 +295,40 @@ def normalize_wedge_spans(wedge1_start, wedge1_end, wedge2_start, wedge2_end):
 # Left-side panel (circles and arcs)
 # ---------------------------
 
-def draw_left_panel(ax, gene_data, R, InnerR):
+def draw_left_panel(ax, gene_data, R, InnerR, igs_width):
     """Draw circles with arcs using gene position data (start and end angles)."""
     y_top, spacing = 18.0, -11.0
     centers = [(0, y_top), (0, y_top + spacing), (0, y_top + 2*spacing)]
-    labels = ["T₁", "T₂", "T₃"]
+    labels = ["T1", "T2", "T3"]
     genomes = ["T1", "T2", "T3"]
+
+    panel_left = LEFT_PANEL_LEFT
+    panel_right = LEFT_PANEL_RIGHT
+    panel_bottom = centers[-1][1] - R - 1.0
+    panel_top = centers[0][1] + R + 1.0
+    ax.add_patch(Rectangle(
+        (panel_left, panel_bottom),
+        panel_right - panel_left,
+        panel_top - panel_bottom,
+        facecolor="#f2f2f2",
+        edgecolor="none",
+        zorder=-10,
+    ))
+    ax.text(
+        panel_left + 0.7,
+        panel_top - 0.7,
+        "A",
+        ha="left",
+        va="top",
+        fontsize=PANEL_LABEL_FONTSIZE,
+        fontweight="bold",
+        zorder=20,
+    )
     
     IGS_R = InnerR - 1.2  # Inner circle for IGS markers (smaller diameter)
     
     for idx, (center, label, genome_key) in enumerate(zip(centers, labels, genomes)):
-        # Draw gray background wedges behind genes (draw first so they're in the back)
+        # Draw inverted-repeat background wedges behind genes
         if idx == 0:  # T1:
             wedge1_start, wedge1_end = 219.2, 255.8
             wedge2_start, wedge2_end = 284.2, 329.8
@@ -311,12 +343,12 @@ def draw_left_panel(ax, gene_data, R, InnerR):
         wedge1_start, wedge1_end, wedge2_start, wedge2_end = normalize_wedge_spans(
             wedge1_start, wedge1_end, wedge2_start, wedge2_end)
         
-        gray_wedge1 = Wedge(center, InnerR, to_plot_angle(wedge1_start), to_plot_angle(wedge1_end), 
-                           facecolor='lightgray', edgecolor='none', alpha=0.3, zorder=0)
-        ax.add_patch(gray_wedge1)
-        gray_wedge2 = Wedge(center, InnerR, to_plot_angle(wedge2_start), to_plot_angle(wedge2_end), 
-                           facecolor='lightgray', edgecolor='none', alpha=0.3, zorder=0)
-        ax.add_patch(gray_wedge2)
+        ir_wedge1 = Wedge(center, InnerR, to_plot_angle(wedge1_start), to_plot_angle(wedge1_end),
+                          facecolor='#d96c6c', edgecolor='none', alpha=0.3, zorder=0)
+        ax.add_patch(ir_wedge1)
+        ir_wedge2 = Wedge(center, InnerR, to_plot_angle(wedge2_start), to_plot_angle(wedge2_end),
+                          facecolor='#d96c6c', edgecolor='none', alpha=0.3, zorder=0)
+        ax.add_patch(ir_wedge2)
         
         # Draw fine black circle at gene/intron radius
         ax.add_patch(plt.Circle(center, InnerR, fill=False, color='black', lw=1))
@@ -335,7 +367,7 @@ def draw_left_panel(ax, gene_data, R, InnerR):
                 
                 # Draw with ribbon pattern using both colors
                 if prev_gene_color and next_gene_color:
-                    draw_hatched_arc(ax, center, IGS_R, start_angle, end_angle, prev_gene_color, next_gene_color, lw=8)
+                    draw_hatched_arc(ax, center, IGS_R, start_angle, end_angle, prev_gene_color, next_gene_color, width=igs_width)
                 else:
                     draw_arc(ax, center, IGS_R, start_angle, end_angle, color='gray', lw=8)
         
@@ -348,8 +380,8 @@ def draw_left_panel(ax, gene_data, R, InnerR):
                 draw_arc(ax, center, InnerR, start_angle, end_angle, color=element["color"], lw=3, add_outline=True)
             elif element.get("type") == "gene":
                 # Thicker arcs to match right-side bar thickness
-                draw_arc(ax, center, InnerR, start_angle, end_angle, color=element["color"], lw=14, add_outline=True)
-        ax.text(center[0], center[1], label, ha='center', va='center', fontsize=14)
+                draw_arc(ax, center, InnerR, start_angle, end_angle, color=element["color"], lw=GENE_ARC_LINEWIDTH, add_outline=True)
+        ax.text(center[0], center[1], label, ha='center', va='center', fontsize=LABEL_FONTSIZE)
     
     return centers
 
@@ -359,7 +391,7 @@ def draw_left_panel(ax, gene_data, R, InnerR):
 
 def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
     """Gene-wise columns: each gene gets its own column, dotted per column, rows stacked tightly. Introns excluded."""
-    linear_gap = (10.0 / 180.0) * np.pi * InnerR
+    linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
 
     genes_by_genome = {g: [e for e in get_genes_no_introns(g, gene_data)] for g in ["T1", "T2", "T3"]}
     gene_count = len(genes_by_genome["T1"])
@@ -376,10 +408,6 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
         col_starts.append(col_starts[-1] + col_widths[i] + linear_gap)
 
     header_y = base_y + header_offset
-    headers = ["Gene 1", "Gene 2", "Gene 3", "Gene 4", "Gene 5", "Gene 6", "Gene 7", "Gene 8"]
-    for i, h in enumerate(headers[:gene_count]):
-        hx = panel_x0 + col_starts[i] + col_widths[i] / 2.0
-        ax.text(hx, header_y, h, ha='center', va='center', fontsize=12)
 
     y_positions = [base_y + i * row_spacing for i in range(3)]
 
@@ -408,23 +436,24 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
 
     # Row labels
     label_x = panel_x0 - 0.5
-    for i, (label, y) in enumerate(zip(["T₁", "T₂", "T₃"], y_positions)):
-        ax.text(label_x, y, label, ha='right', va='center', fontsize=11)
+    for i, (label, y) in enumerate(zip(["T1", "T2", "T3"], y_positions)):
+        ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars
+    gene_bars = []
     for row, y in rows:
         for entry in row:
-            draw_box(ax, entry["x"], y, entry["w"], box_h, entry["color"])
+            gene_bars.append(draw_box(ax, entry["x"], y, entry["w"], box_h, entry["color"]))
 
     x_max = panel_x0 + col_starts[-1] + col_widths[-1]
     y_min = min(y_positions) - box_h / 2.0
     y_max = max(header_y, max(y_positions) + box_h / 2.0)
-    return {"x_max": x_max, "y_min": y_min, "y_max": y_max}
+    return {"x_max": x_max, "y_min": y_min, "y_max": y_max, "gene_bars": gene_bars}
 
 
 def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
     """Display only introns in gene-wise columns."""
-    linear_gap = (10.0 / 180.0) * np.pi * InnerR
+    linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
 
     # Get introns only
     def get_introns_only(genome_key):
@@ -448,10 +477,6 @@ def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacin
         col_starts.append(col_starts[-1] + col_widths[i] + linear_gap)
 
     header_y = base_y + header_offset
-    headers = ["Intron 1", "Intron 2", "Intron 3", "Intron 4"]
-    for i, h in enumerate(headers[:intron_count]):
-        hx = panel_x0 + col_starts[i] + col_widths[i] / 2.0
-        ax.text(hx, header_y, h, ha='center', va='center', fontsize=12)
 
     y_positions = [base_y + i * row_spacing for i in range(3)]
 
@@ -480,8 +505,8 @@ def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacin
 
     # Row labels
     label_x = panel_x0 - 0.5
-    for i, (label, y) in enumerate(zip(["T₁", "T₂", "T₃"], y_positions)):
-        ax.text(label_x, y, label, ha='right', va='center', fontsize=11)
+    for i, (label, y) in enumerate(zip(["T1", "T2", "T3"], y_positions)):
+        ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars
     for row, y in rows:
@@ -496,7 +521,7 @@ def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacin
 
 def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
     """Display only intergenic spacers (IGS) in gene-wise columns with two-color striped pattern."""
-    linear_gap = (10.0 / 180.0) * np.pi * InnerR
+    linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
 
     # Get IGS only and their flanking gene colors
     def get_IGS_with_flanking_colors(genome_key):
@@ -514,7 +539,8 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
                     "next_color": next_gene_color
                 })
         
-        return igs_list
+        # Exclude the initial IGS from the extracted-spacer alignment.
+        return igs_list[1:]
     
     igs_by_genome = {g: get_IGS_with_flanking_colors(g) for g in ["T1", "T2", "T3"]}
     igs_count = len(igs_by_genome["T1"])
@@ -534,10 +560,6 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
         col_starts.append(col_starts[-1] + col_widths[i] + linear_gap)
 
     header_y = base_y + header_offset
-    headers = ["IGS 1", "IGS 2", "IGS 3", "IGS 4", "IGS 5", "IGS 6", "IGS 7"]
-    for i, h in enumerate(headers[:igs_count]):
-        hx = panel_x0 + col_starts[i] + col_widths[i] / 2.0
-        ax.text(hx, header_y, h, ha='center', va='center', fontsize=12)
 
     y_positions = [base_y + i * row_spacing for i in range(3)]
 
@@ -567,8 +589,8 @@ def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, h
 
     # Row labels
     label_x = panel_x0 - 0.5
-    for i, (label, y) in enumerate(zip(["T₁", "T₂", "T₃"], y_positions)):
-        ax.text(label_x, y, label, ha='right', va='center', fontsize=11)
+    for i, (label, y) in enumerate(zip(["T1", "T2", "T3"], y_positions)):
+        ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars with striped pattern
     for row, y in rows:
@@ -609,14 +631,7 @@ def alignment_unsplit(ax, InnerR, gene_data, panel_x0, panel_left_guide_x, box_h
     }
 
     genes_by_genome = {g: group_gene_segments(g, gene_data) for g in ["T1", "T2", "T3"]}
-    headers = ["Gene 1", "Gene 2", "Gene 3", "Gene 4", "Gene 5", "Gene 6", "Gene 7", "Gene 8"]
     header_y = base_y + header_offset
-
-    # Header centers based on T1 layout
-    genes_T1 = genes_by_genome["T1"]
-    for i, h in enumerate(headers[:len(genes_T1)]):
-        hx = panel_x0 + 0.8 + sum(get_group_width(genes_T1[j]) for j in range(i)) + get_group_width(genes_T1[i]) / 2.0
-        ax.text(hx, header_y, h, ha='center', va='center', fontsize=12)
 
     def build_row(genome_key):
         genes = genes_by_genome[genome_key]
@@ -668,29 +683,33 @@ def alignment_unsplit(ax, InnerR, gene_data, panel_x0, panel_left_guide_x, box_h
 
     # Row labels
     label_x = panel_x0 - 0.5
-    for i, (label, y) in enumerate(zip(["T₁", "T₂", "T₃"], y_positions)):
-        ax.text(label_x, y, label, ha='right', va='center', fontsize=11)
+    for i, (label, y) in enumerate(zip(["T1", "T2", "T3"], y_positions)):
+        ax.text(label_x, y, label, ha='right', va='center', fontsize=LABEL_FONTSIZE)
 
     # Bars - draw all segments
+    gene_bars = []
     for row, y in rows:
         for entry in row:
             for seg in entry["segments"]:
-                draw_box(ax, seg["x"], y, seg["w"], box_h, seg["color"], seg.get("is_intron", False))
+                is_intron = seg.get("is_intron", False)
+                bar = draw_box(ax, seg["x"], y, seg["w"], box_h, seg["color"], is_intron)
+                if not is_intron:
+                    gene_bars.append(bar)
 
     y_min = min(y_positions) - box_h / 2.0
     y_max = max(header_y, max(y_positions) + box_h / 2.0)
-    return {"x_max": row_max_x, "y_min": y_min, "y_max": y_max}
+    return {"x_max": row_max_x, "y_min": y_min, "y_max": y_max, "gene_bars": gene_bars}
 
 # ---------------------------
 # Draw bracket between panels
 # ---------------------------
 
-def draw_bracket(ax, centers, R, panel_left_guide_x, tick_width=0.8, lw=2):
-    """Draw a vertical bracket halfway between the circle edge (x=R) and the dotted-line guide.
+def draw_bracket(ax, centers, R, right_panel_left, tick_width=0.5, lw=2):
+    """Draw a vertical bracket between the left and right panels.
 
     The bracket spans from the top edge of the top circle to the bottom edge of the bottom circle.
     """
-    bracket_x = (panel_left_guide_x + R) / 2.0
+    bracket_x = (LEFT_PANEL_RIGHT + right_panel_left) / 2.0
     # top edge of top circle (centers[0]) and bottom edge of bottom circle (centers[2])
     bracket_top = centers[0][1] + R
     bracket_bottom = centers[2][1] - R
@@ -709,7 +728,7 @@ def draw_bracket(ax, centers, R, panel_left_guide_x, tick_width=0.8, lw=2):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Create method overview figure and export both SVG and PNG files."
+        description="Create Figure 2 method overview and export both SVG and PNG files."
     )
     parser.add_argument(
         "--output-dir",
@@ -718,7 +737,7 @@ def parse_args():
     )
     parser.add_argument(
         "--output-name",
-        default="PlastomeBurstAndAlign_Figure1",
+        default="Figure2_MethodOverview",
         help="Output filename (with or without extension); script writes both .svg and .png.",
     )
     return parser.parse_args()
@@ -827,37 +846,84 @@ def main():
     }
 
     panel_x0 = 11.5
+    content_shift = 2.0
+    alignment_x0 = panel_x0 + content_shift
     box_h = 0.7
     panel_left_guide_x = panel_x0 - 1.8
 
-    centers = draw_left_panel(ax, gene_data, R, InnerR)
+    centers = draw_left_panel(ax, gene_data, R, InnerR, igs_width=box_h)
 
     # Right-side panels (stacked, expanding downwards)
-    unsplit_base_y = 20.0
-    genewise_base_y = 12.01
-    introns_base_y = 4.03
-    igs_base_y = -3.96
-    row_spacing = -1.3  # tight stacking
+    unsplit_base_y = 20.5
+    genewise_base_y = 10.81
+    introns_base_y = 2.83
+    igs_base_y = -5.16
+    row_spacing = -1.5
 
-    unsplit_ext = alignment_unsplit(ax, InnerR, gene_data, panel_x0, panel_left_guide_x, box_h, base_y=unsplit_base_y, row_spacing=row_spacing)
-    genewise_ext = alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y=genewise_base_y, row_spacing=row_spacing)
-    introns_ext = alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y=introns_base_y, row_spacing=row_spacing)
-    igs_ext = alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y=igs_base_y, row_spacing=row_spacing)
+    unsplit_ext = alignment_unsplit(ax, InnerR, gene_data, alignment_x0, panel_left_guide_x, box_h, base_y=unsplit_base_y, row_spacing=row_spacing)
+    genewise_ext = alignment_genewise(ax, InnerR, gene_data, alignment_x0, box_h, base_y=genewise_base_y, row_spacing=row_spacing)
+    introns_ext = alignment_introns(ax, InnerR, gene_data, alignment_x0, box_h, base_y=introns_base_y, row_spacing=row_spacing)
+    igs_ext = alignment_IGS(ax, InnerR, gene_data, alignment_x0, box_h, base_y=igs_base_y, row_spacing=row_spacing)
+
+    c_left = panel_left_guide_x - 1.2
+    c_bottom = centers[-1][1] - R - 1.0
+    c_top = 15.0
+    b_bottom = c_top + 1.0
+    b_top = centers[0][1] + R + 1.0
+    panel_right = LEFT_PANEL_LEFT + 2 * (b_top - c_bottom)
+    ax.add_patch(Rectangle(
+        (c_left, b_bottom),
+        panel_right - c_left,
+        b_top - b_bottom,
+        facecolor="#f2f2f2",
+        edgecolor="none",
+        zorder=-10,
+    ))
+    ax.text(c_left + 0.6, b_top - 0.7, "B", ha="left", va="top",
+            fontsize=PANEL_LABEL_FONTSIZE, fontweight="bold", zorder=20)
+    ax.add_patch(Rectangle(
+        (c_left, c_bottom),
+        panel_right - c_left,
+        c_top - c_bottom,
+        facecolor="#f2f2f2",
+        edgecolor="none",
+        zorder=-10,
+    ))
+    ax.text(c_left + 0.6, c_top - 0.7, "C", ha="left", va="top",
+            fontsize=PANEL_LABEL_FONTSIZE, fontweight="bold", zorder=20)
 
     # Optional labels for clarity
-    ax.text(panel_x0, unsplit_base_y + 1.9, "Unsplit genome alignment", fontsize=12, fontweight='bold', ha='left', va='center')
-    ax.text(panel_x0, genewise_base_y + 1.9, "Gene alignments", fontsize=12, fontweight='bold', ha='left', va='center')
-    ax.text(panel_x0, introns_base_y + 1.9, "Intron alignments", fontsize=12, fontweight='bold', ha='left', va='center')
-    ax.text(panel_x0, igs_base_y + 1.9, "Intergenic spacer alignments", fontsize=12, fontweight='bold', ha='left', va='center')
+    label_x = alignment_x0 - 0.5
+    long_labels = [
+        ax.text(label_x, unsplit_base_y + 1.9, "Whole genome", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, genewise_base_y + 1.9, "Extracted genes (CDS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, introns_base_y + 1.9, "Extracted introns (INT)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, igs_base_y + 1.9, "Extracted spacer (IGS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+    ]
 
-    draw_bracket(ax, centers, R, panel_left_guide_x)
+    draw_bracket(ax, centers, R, c_left)
 
-    max_x = max(genewise_ext["x_max"], introns_ext["x_max"], unsplit_ext["x_max"], igs_ext["x_max"]) + 2.0
+    max_x = panel_right + 2.0
     min_y = min(centers[2][1] - R, genewise_ext["y_min"], introns_ext["y_min"], unsplit_ext["y_min"], igs_ext["y_min"]) - 2.0
     max_y = max(centers[0][1] + R, genewise_ext["y_max"], introns_ext["y_max"], unsplit_ext["y_max"], igs_ext["y_max"]) + 2.0
     ax.set_xlim(-10, max_x)
     ax.set_ylim(min_y, max_y)
     plt.tight_layout(pad=1.0)
+
+    fig.canvas.draw()
+    # Match the outlined CDS arc thickness in physical units after layout.
+    pixels_per_data_unit = ax.transData.transform((0, 1))[1] - ax.transData.transform((0, 0))[1]
+    gene_bar_height = (GENE_ARC_LINEWIDTH + ARC_OUTLINE_EXTRA_WIDTH - BAR_OUTLINE_LINEWIDTH) * fig.dpi / (72 * pixels_per_data_unit)
+    for bar in unsplit_ext["gene_bars"] + genewise_ext["gene_bars"]:
+        center_y = bar.get_y() + bar.get_height() / 2
+        bar.set_y(center_y - gene_bar_height / 2)
+        bar.set_height(gene_bar_height)
+
+    taxon_label = next(text for text in ax.texts if text.get_text() == "T1" and text.get_position()[0] == label_x)
+    taxon_left = taxon_label.get_window_extent(fig.canvas.get_renderer()).x0
+    long_label_x = ax.transData.inverted().transform((taxon_left, 0))[0]
+    for label in long_labels:
+        label.set_x(long_label_x)
     
     # Save figure as SVG and PNG.
     plt.savefig(svg_path, format='svg', dpi=300)

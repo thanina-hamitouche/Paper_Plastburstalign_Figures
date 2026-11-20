@@ -20,9 +20,9 @@ Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/output_
 _Purpose: This figure shall illustrate, for readers with no prior knowledge of the subject, the purpose and functionality of the software using a dataset of three simplistic plastid genomes._
 
 ```bash
-python CODE_MethodOverview.py --output-dir ./VIZ_MethodOverview --output-name VIZ_MethodOverview
+python CODE_Figure2_MethodOverview.py --output-dir ./VIZ_Figure2_MethodOverview --output-name Figure2_MethodOverview
 ```
-![Schematic of the script purpose](VIZ_MethodOverview/VIZ_MethodOverview.png)
+![Schematic of the script purpose](VIZ_Figure2_MethodOverview/Figure2_MethodOverview.png)
 
 ---
 
