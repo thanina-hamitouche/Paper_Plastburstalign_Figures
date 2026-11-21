@@ -5,18 +5,19 @@ from matplotlib.patches import Arc, Polygon, Rectangle, Wedge
 import os
 import argparse
 
-LABEL_FONTSIZE = 18
-PANEL_LABEL_FONTSIZE = 25
+LABEL_FONTSIZE = 24
+PANEL_LABEL_FONTSIZE = 32
 SPLIT_ALIGNMENT_GAP_STRETCH = 0.4
 UNSPLIT_ALIGNMENT_GAP_STRETCH = 0.3
-LEFT_PANEL_LEFT = -5.3
-LEFT_PANEL_RIGHT = 5.4
+LEFT_PANEL_LEFT = -4.95
+LEFT_PANEL_RIGHT = 5.05
 GENE_ARC_LINEWIDTH = 14
-INTRON_ARC_LINEWIDTH = 3
+INTRON_ARC_LINEWIDTH = 5
 ARC_OUTLINE_EXTRA_WIDTH = 1
 BAR_OUTLINE_LINEWIDTH = 0.5
 GENE_ARROWHEAD_LENGTH = 0.45
 IGS_RADIUS_OFFSET = 1.2
+IGS_BAR_HEIGHT_POINTS = 16.69
 IR_SPANS = {
     "T1": (219.2, 255.8, 284.2, 329.8),
     "T2": (210, 257, 283, 324),
@@ -71,9 +72,9 @@ def draw_arc(ax, center, r, start, end, color, lw=4, alpha=0.95, hatch=None, fil
                          color='black', lw=lw + ARC_OUTLINE_EXTRA_WIDTH, alpha=1.0)
         ax.add_patch(outline_arc)
         
-        # Add radial lines at start and end of arc (the "sides")
-        # Arc thickness in data units (rough approximation based on linewidth)
-        thickness_offset = lw * 0.026  # Adjust this factor to match visual arc thickness
+        # Match the radial end caps to the outlined arc's physical thickness.
+        pixels_per_data_unit = ax.transData.transform((0, 1))[1] - ax.transData.transform((0, 0))[1]
+        thickness_offset = (lw + ARC_OUTLINE_EXTRA_WIDTH) * ax.figure.dpi / (144 * pixels_per_data_unit)
         inner_r = r - thickness_offset
         outer_r = r + thickness_offset
         
@@ -332,10 +333,8 @@ def normalize_wedge_spans(wedge1_start, wedge1_end, wedge2_start, wedge2_end):
 # Left-side panel (circles and arcs)
 # ---------------------------
 
-def draw_left_panel(ax, gene_data, R, InnerR, igs_width):
+def draw_left_panel(ax, gene_data, centers, R, InnerR, igs_width):
     """Draw circles with arcs using gene position data (start and end angles)."""
-    y_top, spacing = 18.0, -10.7
-    centers = [(0, y_top), (0, y_top + spacing), (0, y_top + 2*spacing)]
     labels = ["T1", "T2", "T3"]
     genomes = ["T1", "T2", "T3"]
     gene_arrows = []
@@ -504,7 +503,7 @@ def alignment_genewise(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spaci
 
 def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
     """Display only introns in gene-wise columns."""
-    linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
+    linear_gap = 0.65 * (10.0 / 180.0) * np.pi * InnerR
 
     # Get introns only
     def get_introns_only(genome_key):
@@ -573,7 +572,7 @@ def alignment_introns(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacin
 
 def alignment_IGS(ax, InnerR, gene_data, panel_x0, box_h, base_y, row_spacing, header_offset=0.9):
     """Display only intergenic spacers (IGS) in gene-wise columns with two-color striped pattern."""
-    linear_gap = SPLIT_ALIGNMENT_GAP_STRETCH * (10.0 / 180.0) * np.pi * InnerR
+    linear_gap = 0.65 * (10.0 / 180.0) * np.pi * InnerR
     igs_radius = InnerR - IGS_RADIUS_OFFSET
 
     # Get IGS only and their flanking gene colors
@@ -837,8 +836,8 @@ def main():
     col_purple = (204/255, 121/255, 167/255)   # reddish purple
     col_beige = (245/255, 222/255, 179/255)    # beige/wheat
 
-    R = 5.3
-    InnerR = 4.6
+    R = 4.95
+    InnerR = 4.2
 
     gene_data = {
         "T1": [
@@ -912,29 +911,37 @@ def main():
         ],
     }
 
-    c_left = 6.8
+    centers = [(0, 18.0), (0, 7.8), (0, -2.4)]
+    c_left = 6.45
     alignment_x0 = c_left + 1.95
-    box_h = 0.7
+    c_bottom = centers[-1][1] - R - 0.7
+    c_top = 14.8
+    b_bottom = 16.0
+    b_top = centers[0][1] + R + 0.7
+    panel_right = LEFT_PANEL_LEFT + (b_top - c_bottom)
 
-    centers, circular_gene_arrows = draw_left_panel(ax, gene_data, R, InnerR, igs_width=box_h)
+    ax.set_xlim(LEFT_PANEL_LEFT - 1.0, panel_right + 1.0)
+    ax.set_ylim(c_bottom - 1.0, b_top + 1.0)
+    plt.tight_layout(pad=1.0)
+    fig.canvas.draw()
+    pixels_per_data_unit = ax.transData.transform((0, 1))[1] - ax.transData.transform((0, 0))[1]
+    box_h = IGS_BAR_HEIGHT_POINTS * fig.dpi / (72 * pixels_per_data_unit)
+
+    centers, circular_gene_arrows = draw_left_panel(ax, gene_data, centers, R, InnerR, igs_width=box_h)
 
     # Right-side panels (stacked, expanding downwards)
     unsplit_base_y = 19.75
     genewise_base_y = 10.5
-    introns_base_y = 2.9
-    igs_base_y = -4.7
-    row_spacing = -1.5
+    introns_base_y = 3.4
+    igs_base_y = -3.7
+    row_spacing = -1.3
+    long_label_offset = 1.5
 
     unsplit_ext = alignment_unsplit(ax, InnerR, gene_data, alignment_x0, c_left, box_h, base_y=unsplit_base_y, row_spacing=row_spacing)
     genewise_ext = alignment_genewise(ax, InnerR, gene_data, alignment_x0, box_h, base_y=genewise_base_y, row_spacing=row_spacing)
     introns_ext = alignment_introns(ax, InnerR, gene_data, alignment_x0, box_h, base_y=introns_base_y, row_spacing=row_spacing)
     igs_ext = alignment_IGS(ax, InnerR, gene_data, alignment_x0, box_h, base_y=igs_base_y, row_spacing=row_spacing)
 
-    c_bottom = centers[-1][1] - R - 0.7
-    c_top = 14.8
-    b_bottom = 16.0
-    b_top = centers[0][1] + R + 0.7
-    panel_right = LEFT_PANEL_LEFT + (b_top - c_bottom)
     ax.add_patch(Rectangle(
         (c_left, b_bottom),
         panel_right - c_left,
@@ -959,17 +966,13 @@ def main():
     # Optional labels for clarity
     label_x = alignment_x0 - 0.5
     long_labels = [
-        ax.text(label_x, unsplit_base_y + 1.9, "Whole genome", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
-        ax.text(label_x, genewise_base_y + 1.9, "Extracted genes (CDS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
-        ax.text(label_x, introns_base_y + 1.9, "Extracted introns (INT)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
-        ax.text(label_x, igs_base_y + 1.9, "Extracted spacer (IGS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, unsplit_base_y + long_label_offset, "Whole plastid genomes", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, genewise_base_y + long_label_offset, "Extracted coding sequences (CDS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, introns_base_y + long_label_offset, "Extracted introns (INT)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
+        ax.text(label_x, igs_base_y + long_label_offset, "Extracted spacer (IGS)", fontsize=LABEL_FONTSIZE, fontstyle='italic', ha='left', va='center'),
     ]
 
     draw_bracket(ax, centers, R, c_left)
-
-    ax.set_xlim(LEFT_PANEL_LEFT - 1.0, panel_right + 1.0)
-    ax.set_ylim(c_bottom - 1.0, b_top + 1.0)
-    plt.tight_layout(pad=1.0)
 
     fig.canvas.draw()
     # Match the outlined CDS arc thickness in physical units after layout.
