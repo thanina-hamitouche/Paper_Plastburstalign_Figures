@@ -154,16 +154,15 @@ for y,s in zip([2.82,2.47,2.12,1.77],[
 
 # ---- Extraction ----
 box(3.45,.15,3.20,8.50,fill=YELLOW,edge=ORANGE)
-field_title(5.05,7.98,'Extraction &\nFiltering')
+field_title(5.05,7.98,'Marker extraction &\nquality control')
 box(3.66,5.73,2.88,1.68,fill=PALE,edge=BLACK,lw=.8,r=.13)
 for y,label,kind in [(7.14,'CDS','CDS'),(6.76,'INT','INT'),(6.38,'IGS','IGS'),(6.00,'tRNA / rRNA','RNA')]:
     field_text(3.82,y,label,ha='left')
     marker_diagram(5.17,y,kind)
 box(3.66,2.86,2.88,2.65,fill=PALE,edge=BLACK,lw=.8,r=.12)
-for i,s in enumerate(['Intron splicing','Name standardization','CDS translation check','Handling duplicates','Length filtering','Taxon filtering']):
-    yy=5.23-i*.42
-    field_text(3.86,yy,'•',ha='left')
-    field_text(4.05,yy,s,ha='left')
+for i,s in enumerate(['• Extraction based on\n  different modes', '• Gene name\n  standardization', '• Marker deduplication', '• Exon concatenation', '• Coding sequence\n  validation']):
+    yy=5.23-i*.48
+    field_text(3.86,yy,s,ha='left')
 
 ax.text(5.05,2.43,'Concurrent marker\nextraction',fontsize=FIELD_TITLE_SIZE,
         weight='bold',style='italic',ha='center',va='center',color=DARK,
@@ -181,10 +180,10 @@ for i,x in enumerate((3.61,4.61,5.61),start=1):
 marker_gaps={
     '>gene1': [[(.22,1)],[(.63,2)],[]],
     '>gene2': [[(.63,3)],[],[(.22,2)]],
-    '>gene3': [[],[(.22,7)],[(.22,12)]],
+    '>gene3': [[],[(.18,1),(.34,1),(.50,2),(.68,3)],[(.12,2),(.28,2),(.44,3),(.62,2),(.78,3)]],
 }
-box(7.08,1.45,3.05,7.20,fill=YELLOW,edge=ORANGE)
-field_title(8.605,7.95,'Grouping sequences\n by name')
+box(7.08,.15,3.05,8.50,fill=YELLOW,edge=ORANGE)
+field_title(8.605,7.95,'Grouping & filtering\nsequences')
 file_icon_group(8.605,7.05,.52,'FASTA')
 field_text(8.605,6.72,'Format: FASTA',color=MUTED)
 box(7.23,1.70,2.75,4.82,fill='white',edge=BLACK,r=.13,lw=.8)
@@ -198,6 +197,9 @@ for i,(gene,gaps) in enumerate(marker_gaps.items()):
         ax.add_patch(Rectangle((7.8425,yy),length,.11,
                                fc=SEQUENCE_GRAY,ec='none',zorder=5))
     field_text(8.605,y-1.07,'Anticipated alignm.\ncomplexity: '+('high' if i==2 else 'low'))
+box(7.23,.50,2.75,.96,fill=PALE,edge=BLACK,r=.12,lw=.8)
+field_text(7.43,1.14,'• Marker filtering',ha='left')
+field_text(7.43,.80,'• Exclusion by marker\nname',ha='left')
 
 # ---- Multiple sequence alignment ----
 box(10.56,.15,5.20,8.50,fill=PALE,edge=ORANGE)
@@ -239,13 +241,15 @@ alignment_rows(17.69,6.33,1.525,marker_gaps['>gene1'],label_x=17.17)
 field_text(17.17,5.67,'>gene2',ha='left')
 alignment_rows(17.69,5.38,1.525,marker_gaps['>gene2'],label_x=17.17)
 
-box(16.19,1.45,4.05,2.87,fill=GRAY,edge=GRAY_STROKE,dashed=True)
+box(16.19,.15,4.05,4.17,fill=GRAY,edge=GRAY_STROKE,dashed=True)
 field_title(18.215,3.81,'Concatenated alignment')
 file_icon(18.018,3.09,.52,'FASTA',edge=BLACK)
 field_text(18.215,2.90,'Format: FASTA / NEXUS',color=MUTED)
-field_text(16.51,2.47,'>concatenated',ha='left')
-alignment_rows(16.97,2.16,1.35,marker_gaps['>gene1'],label_x=16.51)
-alignment_rows(18.44,2.16,1.35,marker_gaps['>gene2'])
+box(16.42,1.38,3.59,1.28,fill='white',edge=BLACK,r=.13,lw=.8)
+field_text(16.64,2.48,'>concatenated',ha='left')
+alignment_rows(17.10,2.12,1.35,marker_gaps['>gene1'],label_x=16.64)
+alignment_rows(18.65,2.12,1.35,marker_gaps['>gene2'])
+field_text(18.215,.82,'Output of partition schemes:\nNEXUS / RAxML format',color=MUTED)
 
 for label,x,top in [('A',.28,8.65),('B',.28,4.70),('C',3.45,8.65),
                     ('D',7.08,8.65),('E',10.56,8.65),
@@ -274,6 +278,6 @@ for y,label,fill,dashed in [
 
 fig.subplots_adjust(left=.015,right=.985,bottom=.03,top=.985)
 for ext in ['png','svg','pdf']:
-    fig.savefig(OUT/f'plastburstalign_workflow.{ext}',dpi=220,facecolor='white')
+    fig.savefig(OUT/f'Figure3_WorkflowOverview.{ext}',dpi=220,facecolor='white')
 plt.close(fig)
 print('Wrote files to',OUT.resolve())

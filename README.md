@@ -32,7 +32,7 @@ _Purpose: This figure shall provide an overview of the plastburstalign workflow,
 ```bash
 python CODE_Figure3_OverviewWorkflow.py
 ```
-![Workflow image](VIZ_Figure3_OverviewWorkflow/plastburstalign_workflow.png)
+![Workflow image](VIZ_Figure3_OverviewWorkflow/Figure3_WorkflowOverview.pdf.png)
 
 ---
 
