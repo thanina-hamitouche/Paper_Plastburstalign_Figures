@@ -10,15 +10,14 @@ OUT.mkdir(parents=True, exist_ok=True)
 fig, ax = plt.subplots(figsize=(20, 10), dpi=130)
 fig.patch.set_facecolor('white')
 ax.set_facecolor('white')
-ax.set_xlim(0, 20)
-ax.set_ylim(0, 8.7)
+ax.set_xlim(0, 20.4)
+ax.set_ylim(0, 9.0)
 ax.set_aspect('auto')
 ax.axis('off')
 
-BLACK='#000000'; YELLOW='#D9D9D9'; PALE='#E6E6E6'; ORANGE=BLACK; DARK=BLACK
-GRAY='#FFFFFF'; GRAY_STROKE=BLACK; LIGHT='#F9F9F9'; MUTED='#404040'
-PURPLE='#D0D0D0'; PURPLE_EDGE=BLACK
-SEQUENCE_GRAY='#A0A0A0'
+BLACK='#000000'; YELLOW='#E6E6E6'; PALE=YELLOW; ORANGE=BLACK; DARK=BLACK
+GRAY='#FFFFFF'; GRAY_STROKE=BLACK; LIGHT=GRAY; MUTED=BLACK
+SEQUENCE_GRAY='#A0A0A0'; PURPLE=SEQUENCE_GRAY; PURPLE_EDGE=BLACK
 FONT_INCREASE=.5
 FIELD_TITLE_SIZE=17.5+FONT_INCREASE
 FIELD_TEXT_SIZE=14.0+FONT_INCREASE
@@ -100,14 +99,14 @@ def marker_diagram(x,y,kind):
         head=min(.09,w*.4)
         vertices=[(x+p,y-h/2),(x+p+w-head,y-h/2),(x+p+w,y),
                   (x+p+w-head,y+h/2),(x+p,y+h/2)]
-        ax.add_patch(Polygon(vertices,closed=True,fc='#707070' if active else 'white',
+        ax.add_patch(Polygon(vertices,closed=True,fc=BLACK if active else 'white',
                              ec=BLACK,lw=1,zorder=6))
     ax.add_patch(Rectangle((x+.27,y-.045),.21,.09,
-        fc='#707070' if kind=='INT' else 'white',ec=BLACK,lw=1,zorder=6))
+        fc=BLACK if kind=='INT' else 'white',ec=BLACK,lw=1,zorder=6))
     if kind=='IGS':
         for i in range(4):
             ax.add_patch(Rectangle((x+.73+i*.0675,y-.09),.0675,.18,
-                fc='#707070' if i%2==0 else 'white',ec='none',zorder=6))
+                fc=BLACK if i%2==0 else 'white',ec='none',zorder=6))
         ax.add_patch(Rectangle((x+.73,y-.09),.27,.18,fill=False,ec=BLACK,lw=1,zorder=7))
 
 def worker(x,y,name,gene,gaps,cores=1):
@@ -117,7 +116,7 @@ def worker(x,y,name,gene,gaps,cores=1):
     for i in range(cores):
         cpu_icon(x+.56+(i-(cores-1)/2)*.14,y+.09+(cores-1-i)*.03,s=.20,z=6+i*2)
     arrow(x+1.12,y+.48,x+1.40,y+.48,lw=2.5)
-    box(x+1.40,y,2.65,.96,fill='white',edge='#F0F0F0',r=.15,lw=.3,z=3)
+    box(x+1.40,y,2.65,.96,fill='white',edge=BLACK,r=.15,lw=.3,z=3)
     field_text(x+1.50,y+.84,gene,ha='left')
     alignment_rows(x+1.99,y+.51,1.91,gaps,label_x=x+1.50)
 
@@ -132,11 +131,11 @@ def cpu_icon(cx,y,s=.24,z=6):
         path_effects=[path_effects.Stroke(linewidth=4,foreground='white'),
                       path_effects.Normal()]))
     ax.add_patch(Rectangle((x+s*.28,y+s*.28),s*.44,s*.44,
-                           fc='#A0A0A0',ec=BLACK,lw=.8,zorder=z+0.2))
+                           fc=SEQUENCE_GRAY,ec=BLACK,lw=.8,zorder=z+0.2))
 
 # ---- Input fields ----
-box(.28,5.02,2.74,3.43,fill=GRAY,edge=GRAY_STROKE)
-field_title(1.65,7.98,'Plastid genome\nrecords')
+box(.28,5.02,2.74,3.63,fill=GRAY,edge=GRAY_STROKE)
+field_title(1.65,7.95,'Plastid genome\nrecords')
 file_icon_group(1.65,7.05,.52,'GB')
 field_text(1.65,6.72,'Format: GenBank flatfile',color=MUTED)
 ax.text(.46,6.43,'LOCUS     PLASTOME\nFEATURES\n     gene   1..90\n'
@@ -144,9 +143,9 @@ ax.text(.46,6.43,'LOCUS     PLASTOME\nFEATURES\n     gene   1..90\n'
         fontsize=FIELD_TEXT_SIZE,fontfamily='monospace',ha='left',va='top',
         color=DARK,linespacing=.95,zorder=6)
 
-box(.28,1.45,2.74,3.30,fill=GRAY,edge=GRAY_STROKE,dashed=True)
-field_title(1.65,4.43,'Configuration file')
-file_icon(1.45,3.60,.52,'',edge=BLACK)
+box(.28,1.45,2.74,3.25,fill=GRAY,edge=GRAY_STROKE,dashed=True)
+field_title(1.65,4.23,'Configuration file')
+file_icon(1.45,3.53,.52,'',edge=BLACK)
 field_text(1.65,3.22,'Format: YAML',color=MUTED)
 for y,s in zip([2.82,2.47,2.12,1.77],[
     'Extraction mode','Alignment software','Length / taxon filters','Threads / CPU budget'
@@ -154,7 +153,7 @@ for y,s in zip([2.82,2.47,2.12,1.77],[
     field_text(.39,y,'•  '+s,ha='left')
 
 # ---- Extraction ----
-box(3.45,.15,3.20,8.30,fill=YELLOW,edge=ORANGE)
+box(3.45,.15,3.20,8.50,fill=YELLOW,edge=ORANGE)
 field_title(5.05,7.98,'Extraction &\nFiltering')
 box(3.66,5.73,2.88,1.68,fill=PALE,edge=BLACK,lw=.8,r=.13)
 for y,label,kind in [(7.14,'CDS','CDS'),(6.76,'INT','INT'),(6.38,'IGS','IGS'),(6.00,'tRNA / rRNA','RNA')]:
@@ -184,77 +183,83 @@ marker_gaps={
     '>gene2': [[(.63,3)],[],[(.22,2)]],
     '>gene3': [[],[(.22,7)],[(.22,12)]],
 }
-box(6.95,1.45,3.05,7.00,fill=YELLOW,edge=ORANGE)
-field_title(8.475,7.98,'Grouping sequences\n by name')
-file_icon_group(8.475,7.05,.52,'FASTA')
-field_text(8.475,6.72,'Format: FASTA',color=MUTED)
-box(7.10,1.70,2.75,4.82,fill='white',edge=BLACK,r=.13,lw=.8)
+box(7.08,1.45,3.05,7.20,fill=YELLOW,edge=ORANGE)
+field_title(8.605,7.95,'Grouping sequences\n by name')
+file_icon_group(8.605,7.05,.52,'FASTA')
+field_text(8.605,6.72,'Format: FASTA',color=MUTED)
+box(7.23,1.70,2.75,4.82,fill='white',edge=BLACK,r=.13,lw=.8)
 for i,(gene,gaps) in enumerate(marker_gaps.items()):
     y=6.28-i*1.55
-    field_text(7.20,y,gene,ha='left')
+    field_text(7.33,y,gene,ha='left')
     for j,positions in enumerate(gaps):
         length=1.525*(1-sum(count*ALIGNMENT_GAP_WIDTH for _,count in positions))
         yy=y-.29-j*ALIGNMENT_ROW_STEP
-        field_text(7.20,yy+.055,f'T{j+1}',ha='left')
-        ax.add_patch(Rectangle((7.7125,yy),length,.11,
+        field_text(7.33,yy+.055,f'T{j+1}',ha='left')
+        ax.add_patch(Rectangle((7.8425,yy),length,.11,
                                fc=SEQUENCE_GRAY,ec='none',zorder=5))
-    field_text(8.475,y-1.07,'Anticipated alignm.\ncomplexity: '+('high' if i==2 else 'low'))
+    field_text(8.605,y-1.07,'Anticipated alignm.\ncomplexity: '+('high' if i==2 else 'low'))
 
 # ---- Multiple sequence alignment ----
-box(10.30,.15,5.20,8.30,fill=PALE,edge=ORANGE)
-field_title(12.90,8.13,'Multiple sequence alignment')
-field_text(12.90,7.55,'Alignment software:\nMAFFT / MUSCLE / Clustal Omega / others',color=MUTED)
+box(10.56,.15,5.20,8.50,fill=PALE,edge=ORANGE)
+field_title(13.24,8.13,'Multiple sequence alignment')
+field_text(13.16,7.55,'Alignment software:\nMAFFT / MUSCLE / Clustal Omega / others',color=MUTED)
 
-box(10.55,5.97,4.70,1.15,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
-box(10.65,6.22,.70,.54,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
-field_text(11.00,6.49,'CDS')
-box(11.48,6.17,1.68,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(12.32,6.49,'Codon-guided\nalignment')
-box(13.29,6.17,1.86,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(14.22,6.49,'Back-transl.\nto nucleotides')
-arrow(11.35,6.49,11.48,6.49,lw=2.4)
-arrow(13.16,6.49,13.29,6.49,lw=2.4)
+box(10.81,5.97,4.70,1.15,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
+box(10.91,6.22,.70,.54,fill=PALE,edge=BLACK,r=.13,lw=.8)
+field_text(11.26,6.49,'CDS')
+box(11.74,6.17,1.68,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(12.58,6.49,'Codon-guided\nalignment')
+box(13.55,6.17,1.86,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(14.48,6.49,'Back-transl.\nto nucleotides')
+arrow(11.61,6.49,11.74,6.49,lw=2.4)
+arrow(13.42,6.49,13.55,6.49,lw=2.4)
 
-box(10.55,4.59,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
-box(10.75,4.85,1.50,.64,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
-field_text(11.50,5.17,'INT / IGS\nRNA')
-box(12.65,4.85,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(13.85,5.17,'Nucleotide-guided\nalignment')
-arrow(12.25,5.17,12.65,5.17,lw=2.4)
+box(10.81,4.59,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
+box(11.01,4.85,1.50,.64,fill=PALE,edge=BLACK,r=.13,lw=.8)
+field_text(11.76,5.17,'INT / IGS\nRNA')
+box(12.91,4.85,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(14.11,5.17,'Nucleotide-guided\nalignment')
+arrow(12.51,5.17,12.91,5.17,lw=2.4)
 
 
-ax.text(12.885,4.14,'Alignment multithreading',fontsize=FIELD_TITLE_SIZE,
+ax.text(13.145,4.14,'Alignment multithreading',fontsize=FIELD_TITLE_SIZE,
         weight='bold',style='italic',ha='center',va='center',color=DARK,zorder=6)
-worker(10.86,2.88,'Worker 1','>gene1',marker_gaps['>gene1'])
-worker(10.86,1.76,'Worker 2','>gene2',marker_gaps['>gene2'])
-worker(10.86,.56,'Worker 3','>gene3',marker_gaps['>gene3'],cores=3)
+worker(11.12,2.88,'Worker 1','>gene1',marker_gaps['>gene1'])
+worker(11.12,1.76,'Worker 2','>gene2',marker_gaps['>gene2'])
+worker(11.12,.56,'Worker 3','>gene3',marker_gaps['>gene3'],cores=3)
 
 # ---- Output fields ----
-box(15.80,4.65,4.05,3.80,fill=GRAY,edge=GRAY_STROKE)
-field_title(17.825,8.13,'Marker-wise alignments')
-file_icon_group(17.825,7.31,.52,'FASTA')
-field_text(17.825,6.98,'Format: FASTA',color=MUTED)
-box(16.625,4.84,2.40,1.95,fill='white',edge=BLACK,r=.13,lw=.8)
-field_text(16.78,6.59,'>gene1',ha='left')
-alignment_rows(17.30,6.33,1.525,marker_gaps['>gene1'],label_x=16.78)
-field_text(16.78,5.67,'>gene2',ha='left')
-alignment_rows(17.30,5.38,1.525,marker_gaps['>gene2'],label_x=16.78)
+box(16.19,4.65,4.05,4.00,fill=GRAY,edge=GRAY_STROKE)
+field_title(18.215,8.10,'Marker-wise alignments')
+file_icon_group(18.215,7.31,.52,'FASTA')
+field_text(18.215,6.98,'Format: FASTA',color=MUTED)
+box(17.015,4.84,2.40,1.95,fill='white',edge=BLACK,r=.13,lw=.8)
+field_text(17.17,6.59,'>gene1',ha='left')
+alignment_rows(17.69,6.33,1.525,marker_gaps['>gene1'],label_x=17.17)
+field_text(17.17,5.67,'>gene2',ha='left')
+alignment_rows(17.69,5.38,1.525,marker_gaps['>gene2'],label_x=17.17)
 
-box(15.80,1.45,4.05,2.95,fill=GRAY,edge=GRAY_STROKE,dashed=True)
-field_title(17.825,4.08,'Concatenated alignment')
-file_icon(17.628,3.25,.52,'FASTA',edge=BLACK)
-field_text(17.825,2.90,'Format: FASTA / NEXUS',color=MUTED)
-field_text(16.12,2.47,'>concatenated',ha='left')
-alignment_rows(16.58,2.16,1.35,marker_gaps['>gene1'],label_x=16.12)
-alignment_rows(18.05,2.16,1.35,marker_gaps['>gene2'])
+box(16.19,1.45,4.05,2.87,fill=GRAY,edge=GRAY_STROKE,dashed=True)
+field_title(18.215,3.81,'Concatenated alignment')
+file_icon(18.018,3.09,.52,'FASTA',edge=BLACK)
+field_text(18.215,2.90,'Format: FASTA / NEXUS',color=MUTED)
+field_text(16.51,2.47,'>concatenated',ha='left')
+alignment_rows(16.97,2.16,1.35,marker_gaps['>gene1'],label_x=16.51)
+alignment_rows(18.44,2.16,1.35,marker_gaps['>gene2'])
+
+for label,x,top in [('A',.28,8.65),('B',.28,4.70),('C',3.45,8.65),
+                    ('D',7.08,8.65),('E',10.56,8.65),
+                    ('F',16.19,8.65),('G',16.19,4.32)]:
+    ax.scatter(x,top,s=36**2,facecolors='white',edgecolors=BLACK,lw=1.5,zorder=10,clip_on=False)
+    txt(x,top,label,size=FIELD_TITLE_SIZE+4,bold=True,z=11)
 
 # Workflow arrows
-arrow(3.02,6.20,3.45,6.20)
-arrow(3.02,3.20,3.45,3.20,color=GRAY_STROKE,dashed=True)
-arrow(6.65,5.60,6.95,5.60)
-arrow(10.00,5.60,10.30,5.60)
-arrow(15.50,5.60,15.80,5.60)
-arrow(17.825,4.65,17.825,4.40,color=GRAY_STROKE,dashed=True)
+arrow(3.02,6.835,3.45,6.835)
+arrow(3.02,3.075,3.45,3.075,color=GRAY_STROKE,dashed=True)
+arrow(6.65,6.65,7.08,6.65)
+arrow(10.13,6.65,10.56,6.65)
+arrow(15.76,6.65,16.19,6.65)
+arrow(18.215,4.65,18.215,4.32,color=GRAY_STROKE,dashed=True)
 
 # ---- Legend ----
 for y,label,fill,dashed in [
