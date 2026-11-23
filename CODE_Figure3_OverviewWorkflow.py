@@ -156,15 +156,27 @@ for y,s in zip([2.82,2.47,2.12,1.77],[
 # ---- Extraction ----
 box(3.45,.15,3.20,8.30,fill=YELLOW,edge=ORANGE)
 field_title(5.05,7.98,'Extraction &\nFiltering')
-box(3.66,5.43,2.88,1.68,fill=PALE,edge=BLACK,lw=.8,r=.13)
-for y,label,kind in [(6.84,'CDS','CDS'),(6.46,'INT','INT'),(6.08,'IGS','IGS'),(5.70,'tRNA / rRNA','RNA')]:
+box(3.66,5.73,2.88,1.68,fill=PALE,edge=BLACK,lw=.8,r=.13)
+for y,label,kind in [(7.14,'CDS','CDS'),(6.76,'INT','INT'),(6.38,'IGS','IGS'),(6.00,'tRNA / rRNA','RNA')]:
     field_text(3.82,y,label,ha='left')
     marker_diagram(5.17,y,kind)
-box(3.66,1.98,2.88,2.65,fill=PALE,edge=BLACK,lw=.8,r=.12)
+box(3.66,2.86,2.88,2.65,fill=PALE,edge=BLACK,lw=.8,r=.12)
 for i,s in enumerate(['Intron splicing','Name standardization','CDS translation check','Handling duplicates','Length filtering','Taxon filtering']):
-    yy=4.35-i*.42
+    yy=5.23-i*.42
     field_text(3.86,yy,'•',ha='left')
     field_text(4.05,yy,s,ha='left')
+
+ax.text(5.05,2.43,'Concurrent marker\nextraction',fontsize=FIELD_TITLE_SIZE,
+        weight='bold',style='italic',ha='center',va='center',color=DARK,
+        linespacing=1.1,zorder=6)
+ax.add_line(Line2D([4.05,6.05],[1.99,1.99],color=BLACK,lw=2.5,zorder=5))
+ax.add_line(Line2D([5.05,5.05],[2.10,1.99],color=BLACK,lw=2.5,zorder=5))
+for i,x in enumerate((3.61,4.61,5.61),start=1):
+    box(x,.50,.88,.96,fill=PURPLE,edge=PURPLE_EDGE,r=.18,lw=1.1,z=4)
+    txt(x+.44,1.29,f'Worker {i}',size=FIELD_TEXT_SIZE-1.5)
+    txt(x+.44,1.02,'1 CPU',size=FIELD_TEXT_SIZE-1.5)
+    cpu_icon(x+.44,.59,s=.20)
+    arrow(x+.44,1.99,x+.44,1.46,lw=2.5)
 
 # ---- Homologous sequences ----
 marker_gaps={
@@ -190,51 +202,51 @@ for i,(gene,gaps) in enumerate(marker_gaps.items()):
 
 # ---- Multiple sequence alignment ----
 box(10.30,.15,5.20,8.30,fill=PALE,edge=ORANGE)
-field_title(12.90,7.98,'Multiple sequence alignment')
-field_text(12.90,7.40,'Alignment software:\nMAFFT / MUSCLE / Clustal Omega / others',color=MUTED)
+field_title(12.90,8.13,'Multiple sequence alignment')
+field_text(12.90,7.55,'Alignment software:\nMAFFT / MUSCLE / Clustal Omega / others',color=MUTED)
 
-box(10.55,5.82,4.70,1.15,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
-box(10.65,6.07,.70,.54,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
-field_text(11.00,6.34,'CDS')
-box(11.48,6.02,1.68,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(12.32,6.34,'Codon-guided\nalignment')
-box(13.29,6.02,1.86,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(14.22,6.34,'Back-transl.\nto nucleotides')
-arrow(11.35,6.34,11.48,6.34,lw=2.4)
-arrow(13.16,6.34,13.29,6.34,lw=2.4)
+box(10.55,5.97,4.70,1.15,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
+box(10.65,6.22,.70,.54,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
+field_text(11.00,6.49,'CDS')
+box(11.48,6.17,1.68,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(12.32,6.49,'Codon-guided\nalignment')
+box(13.29,6.17,1.86,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(14.22,6.49,'Back-transl.\nto nucleotides')
+arrow(11.35,6.49,11.48,6.49,lw=2.4)
+arrow(13.16,6.49,13.29,6.49,lw=2.4)
 
-box(10.55,4.44,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
-box(10.75,4.70,1.50,.64,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
-field_text(11.50,5.02,'INT / IGS\nRNA')
-box(12.65,4.70,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(13.85,5.02,'Nucleotide-guided\nalignment')
-arrow(12.25,5.02,12.65,5.02,lw=2.4)
+box(10.55,4.59,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
+box(10.75,4.85,1.50,.64,fill='#D9D9D9',edge=BLACK,r=.13,lw=.8)
+field_text(11.50,5.17,'INT / IGS\nRNA')
+box(12.65,4.85,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(13.85,5.17,'Nucleotide-guided\nalignment')
+arrow(12.25,5.17,12.65,5.17,lw=2.4)
 
 
-ax.text(12.885,4.14,'Alignment multithreading',fontsize=FIELD_TEXT_SIZE,
+ax.text(12.885,4.14,'Alignment multithreading',fontsize=FIELD_TITLE_SIZE,
         weight='bold',style='italic',ha='center',va='center',color=DARK,zorder=6)
 worker(10.86,2.88,'Worker 1','>gene1',marker_gaps['>gene1'])
 worker(10.86,1.76,'Worker 2','>gene2',marker_gaps['>gene2'])
-worker(10.86,.56,'Worker N','>gene3',marker_gaps['>gene3'],cores=3)
+worker(10.86,.56,'Worker 3','>gene3',marker_gaps['>gene3'],cores=3)
 
 # ---- Output fields ----
 box(15.80,4.65,4.05,3.80,fill=GRAY,edge=GRAY_STROKE)
-field_title(17.825,7.98,'Marker-wise alignments')
-file_icon_group(17.825,7.16,.52,'FASTA')
-field_text(17.825,6.83,'Format: FASTA',color=MUTED)
-box(16.625,4.69,2.40,1.95,fill='white',edge=BLACK,r=.13,lw=.8)
-field_text(16.78,6.44,'>gene1',ha='left')
-alignment_rows(17.30,6.18,1.525,marker_gaps['>gene1'],label_x=16.78)
-field_text(16.78,5.52,'>gene2',ha='left')
-alignment_rows(17.30,5.23,1.525,marker_gaps['>gene2'],label_x=16.78)
+field_title(17.825,8.13,'Marker-wise alignments')
+file_icon_group(17.825,7.31,.52,'FASTA')
+field_text(17.825,6.98,'Format: FASTA',color=MUTED)
+box(16.625,4.84,2.40,1.95,fill='white',edge=BLACK,r=.13,lw=.8)
+field_text(16.78,6.59,'>gene1',ha='left')
+alignment_rows(17.30,6.33,1.525,marker_gaps['>gene1'],label_x=16.78)
+field_text(16.78,5.67,'>gene2',ha='left')
+alignment_rows(17.30,5.38,1.525,marker_gaps['>gene2'],label_x=16.78)
 
 box(15.80,1.45,4.05,2.95,fill=GRAY,edge=GRAY_STROKE,dashed=True)
 field_title(17.825,4.08,'Concatenated alignment')
 file_icon(17.628,3.25,.52,'FASTA',edge=BLACK)
 field_text(17.825,2.90,'Format: FASTA / NEXUS',color=MUTED)
-field_text(16.12,2.67,'>concatenated',ha='left')
-alignment_rows(16.58,2.36,1.35,marker_gaps['>gene1'],label_x=16.12)
-alignment_rows(18.05,2.36,1.35,marker_gaps['>gene2'])
+field_text(16.12,2.47,'>concatenated',ha='left')
+alignment_rows(16.58,2.16,1.35,marker_gaps['>gene1'],label_x=16.12)
+alignment_rows(18.05,2.16,1.35,marker_gaps['>gene2'])
 
 # Workflow arrows
 arrow(3.02,6.20,3.45,6.20)
