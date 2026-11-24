@@ -32,17 +32,17 @@ _Purpose: This figure shall provide an overview of the plastburstalign workflow,
 ```bash
 python CODE_Figure3_OverviewWorkflow.py
 ```
-![Workflow image](VIZ_Figure3_OverviewWorkflow/Figure3_WorkflowOverview.pdf.png)
+![Workflow image](VIZ_Figure3_OverviewWorkflow/Figure3_WorkflowOverview.png)
 
 ---
 
-### Figure X1: Speed improvements through MPI implementation
+### Figure X1: Speed improvements through parallel implementation
 _Purpose: This figure shall illustrate the substantial performance gains achieved through multithreading in our software and shall demonstrate that parallel processing is essential when analyzing datasets comprising thousands of genomes. This figure is the only one where all five datasets are compared. Any reader who sees this figure shall immediately recognize that multithreading provides substantial performance gains!_
 
 ```bash
-python CODE_SpeedImprovements.py ./input_data/plastburst_benchmark_Final.csv ./VIZ_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers
+python CODE_Figure5_SpeedImprovementsCombined.py ./input_data/benchmarking_results_combined.csv ./VIZ_Figure5_SpeedImprovementsCombined__/PlastomeBurst_ComputationalTimeEprovements_AllMarkers
 ```
-![Visualization of speed improvements](VIZ_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers.png)
+![Visualization of speed improvements](VIZ_Figure5_SpeedImprovementsCombined__/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
 
 ---
 
@@ -50,10 +50,9 @@ python CODE_SpeedImprovements.py ./input_data/plastburst_benchmark_Final.csv ./V
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
 ```bash
-Foo bar baz
+python SUPPL-CODE_ParallelismTypesComparison.py ./input_data/benchmark_parallelismTypes_Asteraceae_cds.csv ./SUPPL-VIZ_ParallelismTypeComparison/PlastBurstAlign_Parallelism
 ```
-
-Status: Needs to be made
+![Visualization of parallelism types](SUPPL-VIZ_ParallelismTypeComparison/PlastBurstAlign_Parallelism.png)
 
 ---
 
@@ -61,9 +60,9 @@ Status: Needs to be made
 _Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
 
 ```bash
-python CODE_Visualize_peakMem_speedup_across_datasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_peakMem_speedup/peakMem_speedup_across_datasets
+python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/benchmarking_results_combined.csv ./VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
 ```
-![Visualization of peak memory and speedup](VIZ_peakMem_speedup/peakMem_speedup_across_datasets.png)
+![Visualization of peak memory and speedup](VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
 
 ---
 
@@ -71,25 +70,9 @@ python CODE_Visualize_peakMem_speedup_across_datasets.py ./input_data/benchmarki
 _Purpose: This figure gives us a detailed look at the various optimizations._
 
 ```bash
-python CODE_Compare_factors_across_datasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_Compare_factors_across_datasets/Comparing_factors_grid
+python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
 ```
-![Visualization of speed improvements](VIZ_Compare_factors_across_datasets/Comparing_factors_grid.png)
-
----
-
-### Supplemental Figure X5: Flowchart of Exon Splicing
-_Purpose: This figure shall illustrate the exon splicing procedure implemented in the software, which is one of the more complex components of the software. It is intended to provide interested readers with a detailed understanding of how exon splicing is handled internally and will be of particular interest to algorithm nerds._
-
-```bash
-pdflatex -jobname="./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing" CODE_FlowchartExonSplicing.tex
-rm ./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.aux
-rm ./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.log
-convert -density 300 ./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.pdf ./VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png
-
-## TO DO: Check if the same as the LaTeX version:
-python CODE_FlowchartExonSplicing.py --output-dir ./VIZ_FlowchartExonSplicing --output-name VIZ_FlowchartExonSplicing_Python
-```
-![Flowchart of exon splicing](VIZ_FlowchartExonSplicing/VIZ_FlowchartExonSplicing.png)
+![Visualization of factors across datasets](VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid.png)
 
 ---
 
@@ -103,12 +86,12 @@ _Purpose: This table may be the only table in the manuscript and shall provide a
 | OGU                             | Wu *et al.* 2024          | 1.999          | Yes                                    | Tested on up to 308 plastomes; no explicit hard limit reported           | **Unclear**        | Yes              | Yes             | MAFFT only                           | No                                                        | Yes                                | Yes                   | Open-source                                        | Python 3 (PySide6)          | Local      | CLI + GUI |
 | PartitioningExonsIntronsSpacers | de Mestier *et al.* 2025  | 2024.02.14     | Yes                                    | One genome per run                                                       | **Unclear**        | No               | No              | N/A                                  | No                                                        | Extensive hard-coded normalization | Yes                   | Open-source                                        | Python (primarily Python 2) | Local      | CLI       |
 | PlastidHub                      | Zhang N.-N. *et al.* 2025 | 1.0            | Yes                                    | Extraction: ≤50 genomes; Alignment: ≤50 sequences and ≤10 kb per dataset | **Unclear**        | Yes              | Yes             | MAFFT (only parameters: -localpair -maxiterate 16) | Translation supported; codon-aware alignment **Unclear** | Yes                   | Yes                   | Open-source                                        | Perl + Spring Boot + Vue    | Web        | Web GUI   |
-| PlastBurstAlign                 | This study                | 1.0            | Yes                                    | None reported                                                            | Fast (MPI-enabled) | Yes              | Yes             | Any command-line aligner[2]          | Depends on external aligner                               | Yes                                | Yes                   | Open-source                                        | Python                      | Local      | CLI       |
+| PlastBurstAlign                 | This study                | 1.0            | Yes                                    | None reported                                                            | Fast (parallel-enabled) | Yes              | Yes             | Any command-line aligner[2]          | Depends on external aligner                               | Yes                                | Yes                   | Open-source                                        | Python                      | Local      | CLI       |
 
 Notes: [1]: PhyloSuite: CDS extraction is fully supported. Non-coding regions can theoretically be extracted via the NCR functionality, but the extraction limitations and mitochondria-oriented assumptions that may reduce reliability for plastid genomes. [2]: PlastBurstAlign: Configuration files for MAFFT, MUSCLE, and Clustal Omega are provided with the package; however, the software supports integration with any command-line aligner.
 
 ### Comparison against similar software
-Specifically, we want to compare `PlastomeBurstAndAlign` against the functionality of these five competitor software tools:
+Specifically, we want to compare `PlastBurstAlign` against the functionality of these five competitor software tools:
  
 - the tool '*Extract GenBank file*' (EGBF) of PhyloSuite (Zhang D. et al. 2019; [https://doi.org/10.1111/1755-0998.13096](https://doi.org/10.1111/1755-0998.13096)) -- Source code: [https://github.com/dongzhang0725/PhyloSuite](https://github.com/dongzhang0725/PhyloSuite)
 
