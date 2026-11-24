@@ -2,9 +2,9 @@
 Code for generating publication-quality figures and tables for the manuscript.
 
 ### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
-_Purpose: This figure shall illustrate that plastid genomics remains an active research field with sustained annual publication output and a rapidly expanding body of available genomes. The scale of available genomes now necessitates specialized software (namely ours!) that is capable of efficiently processing and analyzing thousands of plastid genomes simultaneously._
+_Purpose: This figure illustrates that plastid genomics remains an active research field with sustained annual publication output and a rapidly expanding body of available genomes. The scale of available genomes now necessitates specialized software (namely ours!) that is capable of efficiently processing and analyzing thousands of plastid genomes simultaneously._
 
-The growth annotations average annual additions over the displayed years; cumulative totals include data from 2000 onward.
+The growth annotations average annual additions over the displayed years; cumulative totals include data from 2016 onward.
 
 ```bash
 # Dependencies
@@ -17,7 +17,7 @@ Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Co
 ---
 
 ### Figure 2: Schematic overview of what the software does
-_Purpose: This figure shall illustrate, for readers with no prior knowledge of the subject, the purpose and functionality of the software using a dataset of three simplistic plastid genomes._
+_Purpose: This figure illustrates for readers with no prior knowledge of the subject the purpose and functionality of the software using a dataset of three simplistic plastid genomes._
 
 ```bash
 python CODE_Figure2_MethodOverview.py --output-dir ./VIZ_Figure2_MethodOverview --output-name Figure2_MethodOverview
@@ -27,7 +27,7 @@ python CODE_Figure2_MethodOverview.py --output-dir ./VIZ_Figure2_MethodOverview 
 ---
 
 ### Figure 3: Workflow
-_Purpose: This figure shall provide an overview of the plastburstalign workflow, from annotated plastid genomes and optional configuration through sequence extraction and filtering, parallel multiple sequence alignment, and aligned outputs._
+_Purpose: This figure provides an overview of the plastburstalign workflow, from annotated plastid genomes and optional configuration through sequence extraction and filtering, parallel multiple sequence alignment, and aligned outputs._
 
 ```bash
 python CODE_Figure3_OverviewWorkflow.py
@@ -73,6 +73,33 @@ _Purpose: This figure gives us a detailed look at the various optimizations._
 python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
 ```
 ![Visualization of factors across datasets](VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid.png)
+
+---
+
+### Figure X5: Peak memory versus dataset size
+_Purpose: This figure shall illustrate how peak memory usage varies with dataset size._
+
+[View the figure (PDF)](VIZ-AW_PeakMemory_vs_DatasetSize/VIZ-AW_PeakMemory_vs_DatasetSize.pdf)
+
+The code for generating this figure is not yet available.
+
+---
+
+### Figure 6: Speedup and wall time by thread count
+_Purpose: This figure shall illustrate strong-scaling speedup and end-to-end wall time across datasets, marker types, and thread counts._
+
+The code for generating this figure is not yet available.
+
+![Speedup and wall time by thread count](VIZ-AW_Figure6_SpeedImprov_WallTime/VIZ_AW_SpeedImprov_WallTime.png)
+
+---
+
+### Table 1: Runtime by thread count
+_Purpose: This table compares runtime, speedup, and peak memory across datasets, marker types, and thread counts._
+
+Table: [Markdown](TBL-AW_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.md) | [LaTeX](TBL-AW_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.tex)
+
+The code for generating this table is not yet available.
 
 ---
 
