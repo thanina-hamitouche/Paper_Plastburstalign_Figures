@@ -10,7 +10,7 @@ The growth annotations average annual additions over the displayed years; cumula
 # Dependencies
 Rscript -e "install.packages(c('argparse','ggplot2','ggrepel', 'ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
 # Figure creation
-Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/output_script1.sorted.unique_2026_06_01.tsv" --input-publications "./input_data/plastome_publications_per_year_2026-10-25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
+Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes_2026_06_01.tsv" --input-publications "./input_data/DATA_Compilation_of_plastome_publications_2026_10_25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
 ```
 ![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications.png)
 
@@ -40,9 +40,9 @@ python CODE_Figure3_OverviewWorkflow.py
 _Purpose: This figure shall illustrate the substantial performance gains achieved through multithreading in our software and shall demonstrate that parallel processing is essential when analyzing datasets comprising thousands of genomes. This figure is the only one where all five datasets are compared. Any reader who sees this figure shall immediately recognize that multithreading provides substantial performance gains!_
 
 ```bash
-python CODE_Figure5_SpeedImprovementsCombined.py ./input_data/benchmarking_results_combined.csv ./VIZ_Figure5_SpeedImprovementsCombined__/PlastomeBurst_ComputationalTimeEprovements_AllMarkers
+python CODE_Figure5_SpeedImprovCombined.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure5_SpeedImprovCombined/PlastomeBurst_ComputationalTimeEprovements_AllMarkers
 ```
-![Visualization of speed improvements](VIZ_Figure5_SpeedImprovementsCombined__/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
+![Visualization of speed improvements](VIZ_Figure5_SpeedImprovCombined/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
 
 ---
 
@@ -60,7 +60,7 @@ python SUPPL-CODE_ParallelismTypesComparison.py ./input_data/benchmark_paralleli
 _Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
 
 ```bash
-python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/benchmarking_results_combined.csv ./VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
+python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
 ```
 ![Visualization of peak memory and speedup](VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
 
@@ -70,7 +70,7 @@ python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/benchmarking_results
 _Purpose: This figure gives us a detailed look at the various optimizations._
 
 ```bash
-python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/benchmarking_results_combined.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
+python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
 ```
 ![Visualization of factors across datasets](VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid.png)
 
