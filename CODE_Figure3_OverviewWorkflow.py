@@ -216,19 +216,19 @@ field_text(14.48,6.49,'Back-transl.\nto nucleotides')
 arrow(11.61,6.49,11.74,6.49,lw=2.4)
 arrow(13.42,6.49,13.55,6.49,lw=2.4)
 
-box(10.81,4.59,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
-box(11.01,4.85,1.50,.64,fill=PALE,edge=BLACK,r=.13,lw=.8)
-field_text(11.76,5.17,'INT / IGS\nRNA')
-box(12.91,4.85,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
-field_text(14.11,5.17,'Nucleotide-guided\nalignment')
-arrow(12.51,5.17,12.91,5.17,lw=2.4)
+box(10.81,4.69,4.70,1.16,fill=PALE,edge=BLACK,dashed=True,lw=1,r=.17)
+box(11.01,4.95,1.50,.64,fill=PALE,edge=BLACK,r=.13,lw=.8)
+field_text(11.76,5.27,'INT / IGS\nRNA')
+box(12.91,4.95,2.40,.64,fill=GRAY,edge=BLACK,r=.13,lw=.6)
+field_text(14.11,5.27,'Nucleotide-guided\nalignment')
+arrow(12.51,5.27,12.91,5.27,lw=2.4)
 
 
-ax.text(13.145,4.14,'Alignment multithreading',fontsize=FIELD_TITLE_SIZE,
+ax.text(13.145,4.22,'Concurrent and multithreaded\nalignment',fontsize=FIELD_TITLE_SIZE,
         weight='bold',style='italic',ha='center',va='center',color=DARK,zorder=6)
-worker(11.12,2.88,'Worker 1','>gene1',marker_gaps['>gene1'])
-worker(11.12,1.76,'Worker 2','>gene2',marker_gaps['>gene2'])
-worker(11.12,.56,'Worker 3','>gene3',marker_gaps['>gene3'],cores=3)
+worker(11.12,2.78,'Worker 1','>gene1',marker_gaps['>gene1'])
+worker(11.12,1.66,'Worker 2','>gene2',marker_gaps['>gene2'])
+worker(11.12,.46,'Worker 3','>gene3',marker_gaps['>gene3'],cores=3)
 
 # ---- Output fields ----
 box(16.19,4.65,4.05,4.00,fill=GRAY,edge=GRAY_STROKE)
