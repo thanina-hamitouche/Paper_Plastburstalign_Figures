@@ -127,6 +127,7 @@ def plot_side_by_side(speedup_df, memory_df, output_stem):
     fig.subplots_adjust(left=0.055, right=0.985, top=0.80, bottom=0.11, wspace=0.14)
     fig.savefig(output_stem.with_name(f'{output_stem.name}.png'), dpi=300)
     fig.savefig(output_stem.with_name(f'{output_stem.name}.svg'))
+    fig.savefig(output_stem.with_name(f'{output_stem.name}.pdf'))
     plt.close(fig)
 
 

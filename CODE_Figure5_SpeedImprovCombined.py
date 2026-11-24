@@ -155,8 +155,9 @@ def main():
         adjust_text(overlap_texts, ax=ax, expand=(1.38, 1.6), force_text=(0.7, 0.9), force_static=(0.42, 0.56), iter_lim=4000, arrowprops={'arrowstyle': '-', 'color': '0.6', 'lw': 0.5})
     fig.savefig(output_stem.with_suffix('.svg'))
     fig.savefig(output_stem.with_suffix('.png'), dpi=300)
+    fig.savefig(output_stem.with_suffix('.pdf'))
     plt.close(fig)
-    print(f'Saved {output_stem.with_suffix(".svg")} and {output_stem.with_suffix(".png")}')
+    print(f'Saved {output_stem.with_suffix(".svg")}, {output_stem.with_suffix(".png")}, and {output_stem.with_suffix(".pdf")}')
 
 
 if __name__ == '__main__':

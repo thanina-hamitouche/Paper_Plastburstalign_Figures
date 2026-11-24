@@ -38,7 +38,7 @@ def parse_args() -> argparse.Namespace:
         "output_path_stem",
         nargs="?",
         default="./VIZ_Parallelism/PlastBurstAlign_Parallelism",
-        help="Output path stem; writes .png and .svg files.",
+        help="Output path stem; writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
 
@@ -288,6 +288,10 @@ def main() -> None:
     fig.savefig(
         output_stem.with_suffix(".png"),
         dpi=300,
+        bbox_inches="tight",
+    )
+    fig.savefig(
+        output_stem.with_suffix(".pdf"),
         bbox_inches="tight",
     )
 

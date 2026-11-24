@@ -52,7 +52,7 @@ def parse_args() -> argparse.Namespace:
         "output_path_stem",
         nargs="?",
         default="dataset_scaling_grid",
-        help="Output path stem; script writes .png and .svg files.",
+        help="Output path stem; script writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
 
@@ -203,6 +203,7 @@ def main() -> None:
 
     fig.savefig(output_stem.with_suffix(".png"), dpi=300)
     fig.savefig(output_stem.with_suffix(".svg"))
+    fig.savefig(output_stem.with_suffix(".pdf"))
     plt.close(fig)
 
 

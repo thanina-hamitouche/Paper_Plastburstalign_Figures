@@ -10,7 +10,7 @@ The growth annotations average annual additions over the displayed years; cumula
 # Dependencies
 Rscript -e "install.packages(c('argparse','ggplot2','ggrepel', 'ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
 # Figure creation
-Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes_2026_06_01.tsv" --input-publications "./input_data/DATA_Compilation_of_plastome_publications_2026_10_25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
+Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes__2026_06_01.tsv" --input-publications "./input_data/DATA_Compilation_of_plastome_publications__2026_10_25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
 ```
 ![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications.png)
 
@@ -50,9 +50,9 @@ python CODE_Figure5_SpeedImprovCombined.py ./input_data/DATA_Benchmarking_on_Wor
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
 ```bash
-python SUPPL-CODE_ParallelismTypesComparison.py ./input_data/benchmark_parallelismTypes_Asteraceae_cds.csv ./SUPPL-VIZ_ParallelismTypeComparison/PlastBurstAlign_Parallelism
+python SUPPL-CODE_ParallelismTypes_Asteraceae_CDS.py ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv ./SUPPL-VIZ_ParallelismTypes_Asteraceae_CDS/ParallelismTypes_Asteraceae_CDS
 ```
-![Visualization of parallelism types](SUPPL-VIZ_ParallelismTypeComparison/PlastBurstAlign_Parallelism.png)
+![Visualization of parallelism types](SUPPL-VIZ_ParallelismTypes_Asteraceae_CDS/ParallelismTypes_Asteraceae_CDS.png)
 
 ---
 
@@ -70,7 +70,7 @@ python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on
 _Purpose: This figure gives us a detailed look at the various optimizations._
 
 ```bash
-python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
+python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
 ```
 ![Visualization of factors across datasets](VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid.png)
 
