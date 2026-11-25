@@ -12,7 +12,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from figure_export_helper import (
+    DATASET_MARKERS,
     TYPOGRAPHY,
+    add_bottom_legend,
     configure_typography,
     dated_output_paths,
     prepare_figure,
@@ -63,12 +65,13 @@ def make_plots(
     pub = load_csv(publication_csv)
     out_dir.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(2, 3, figsize=(14, 7.27), sharex=True)
+    fig.suptitle(f"Data: {publication_csv.name}", y=0.995, fontsize=TYPOGRAPHY["annotation_size"])
 
     for col, mode in enumerate(MODES):
         ax_speed = axes[0, col]
         ax_wall = axes[1, col]
         ax_speed.plot(
-            THREADS, THREADS, "--", color="#888888", linewidth=1.1, label="Ideal linear"
+            THREADS, THREADS, "--", color="#777777", linewidth=1.1, label="Ideal scaling"
         )
 
         for idx, (ds_key, ds_label) in enumerate(DATASET_ORDER):
@@ -80,7 +83,8 @@ def make_plots(
             ax_wall.plot(
                 xs,
                 wall,
-                "o-",
+                linestyle="-",
+                marker=DATASET_MARKERS[ds_key],
                 color=PALETTE[idx],
                 linewidth=1.8,
                 markersize=5,
@@ -92,22 +96,22 @@ def make_plots(
                 ax_speed.plot(
                     xs,
                     speedup,
-                    "o-",
+                    linestyle="-",
+                    marker=DATASET_MARKERS[ds_key],
                     color=PALETTE[idx],
                     linewidth=1.8,
                     markersize=5,
                     label=ds_label,
                 )
 
-        ax_speed.set_title(f"{mode.upper()} Strong-Scaling Speedup", fontweight="bold")
-        ax_speed.set_ylabel("Speedup ($T_1/T_p$)" if col == 0 else "")
+        ax_speed.set_title(mode, fontweight="bold")
+        ax_speed.set_ylabel("Speedup" if col == 0 else "")
         ax_speed.set_ylim(0, 33)
         ax_speed.grid(True, alpha=0.25)
 
-        ax_wall.set_title(f"{mode.upper()} End-to-End Wall Time", fontweight="bold")
         ax_wall.set_yscale("log")
-        ax_wall.set_xlabel("Threads ($p$)")
-        ax_wall.set_ylabel("Wall Time (seconds, log scale)" if col == 0 else "")
+        ax_wall.set_xlabel("")
+        ax_wall.set_ylabel("Wall-clock time (sec., log scale)" if col == 0 else "")
         ax_wall.set_xticks(THREADS)
         ax_wall.set_xticklabels([str(t) for t in THREADS])
         ax_wall.xaxis.get_major_ticks()[THREADS.index(2)].set_pad(
@@ -121,15 +125,12 @@ def make_plots(
         handles, labels = ax.get_legend_handles_labels()
         for handle, label in zip(handles, labels):
             legend_items.setdefault(label, handle)
-    legend = fig.legend(
-        list(legend_items.values()),
-        list(legend_items.keys()),
-        loc="upper center",
-        ncol=3,
-        frameon=False,
-        borderaxespad=0,
-        borderpad=0,
-    )
+    handles = [
+        legend_items[label] for _, label in DATASET_ORDER if label in legend_items
+    ]
+    handles.append(legend_items["Ideal scaling"])
+    legend = add_bottom_legend(fig, handles)
+    fig.supxlabel("Threads ($p$)", y=0.16)
     layout_rect = (0, 0.12, 1, 1)
     fig.tight_layout(rect=layout_rect)
     bbox = prepare_figure(

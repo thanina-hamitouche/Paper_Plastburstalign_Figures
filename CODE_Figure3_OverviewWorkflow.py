@@ -441,10 +441,10 @@ box(3.45, 0.15, 3.20, 8.50, fill=YELLOW, edge=ORANGE)
 field_title(5.05, 7.98, "Marker extraction &\nquality control")
 box(3.66, 5.73, 2.88, 1.68, fill=PALE, edge=BLACK, lw=0.8, r=0.13)
 for y, label, kind in [
-    (7.14, "CDS", "CDS"),
-    (6.76, "INT", "INT"),
-    (6.38, "IGS", "IGS"),
-    (6.00, "tRNA / rRNA", "RNA"),
+    (7.14, "cds", "cds"),
+    (6.76, "int", "int"),
+    (6.38, "igs", "igs"),
+    (6.00, "trna / rrna", "RNA"),
 ]:
     field_text(3.82, y, label, ha="left")
     marker_diagram(5.17, y, kind)
@@ -531,7 +531,7 @@ field_text(
 
 box(10.81, 5.97, 4.70, 1.15, fill=PALE, edge=BLACK, dashed=True, lw=1, r=0.17)
 box(10.91, 6.22, 0.70, 0.54, fill=PALE, edge=BLACK, r=0.13, lw=0.8)
-field_text(11.26, 6.49, "CDS")
+field_text(11.26, 6.49, "cds")
 box(11.74, 6.17, 1.68, 0.64, fill=GRAY, edge=BLACK, r=0.13, lw=0.6)
 field_text(12.58, 6.49, "Codon-guided\nalignment")
 box(13.55, 6.17, 1.86, 0.64, fill=GRAY, edge=BLACK, r=0.13, lw=0.6)
@@ -541,7 +541,7 @@ arrow(13.42, 6.49, 13.55, 6.49, lw=2.4)
 
 box(10.81, 4.69, 4.70, 1.16, fill=PALE, edge=BLACK, dashed=True, lw=1, r=0.17)
 box(11.01, 4.95, 1.50, 0.64, fill=PALE, edge=BLACK, r=0.13, lw=0.8)
-field_text(11.76, 5.27, "INT / IGS\nRNA")
+field_text(11.76, 5.27, "int / igs\nrna")
 box(12.91, 4.95, 2.40, 0.64, fill=GRAY, edge=BLACK, r=0.13, lw=0.6)
 field_text(14.11, 5.27, "Nucleotide-guided\nalignment")
 arrow(12.51, 5.27, 12.91, 5.27, lw=2.4)

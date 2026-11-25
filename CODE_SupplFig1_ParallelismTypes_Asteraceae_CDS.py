@@ -11,6 +11,7 @@ from matplotlib.ticker import FuncFormatter, LogLocator
 
 from figure_export_helper import (
     TYPOGRAPHY,
+    add_bottom_legend,
     configure_typography,
     dated_output_paths,
     prepare_figure,
@@ -251,7 +252,7 @@ def main() -> None:
         memory.max() * 1.6,
     )
 
-    format_axis(ax, "Maximum RSS (KB, log10 scale)")
+    format_axis(ax, "Max RSS (KB, log10)")
 
     ax.set_title(
         "Peak memory usage",
@@ -259,10 +260,7 @@ def main() -> None:
     )
 
     handles = [axes[0].lines[0], axes[1].lines[0]]
-    legend = fig.legend(
-        handles=handles, loc="upper center", ncol=2, frameon=False,
-        borderaxespad=0, borderpad=0,
-    )
+    legend = add_bottom_legend(fig, handles, ncol=2)
 
     # ==========================================
     # 5. Overall figure formatting

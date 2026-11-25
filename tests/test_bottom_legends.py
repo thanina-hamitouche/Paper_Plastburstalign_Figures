@@ -65,6 +65,26 @@ class BottomLegendTests(unittest.TestCase):
                 self.assertGreaterEqual(bbox.x1, content.x1)
                 self.assertGreaterEqual(bbox.y1, content.y1)
 
+    def test_legend_is_below_shared_xlabel(self):
+        configure_typography()
+        fig, ax = plt.subplots(figsize=(8, 4))
+        canvas = FigureCanvasAgg(fig)
+        self.addCleanup(plt.close, fig)
+        ax.set_xlabel("Axis label")
+        xlabel = fig.supxlabel("Shared label", y=0.01)
+        legend = fig.legend(
+            handles=[Line2D([], [], label="Series")],
+            loc="upper center", borderaxespad=0, borderpad=0,
+        )
+        prepare_figure(fig, 12, bbox_inches="tight", bottom_legend=legend)
+        canvas.draw()
+        renderer = canvas.get_renderer()
+        axis_bottom = ax.get_tightbbox(renderer).y0
+        xlabel_bbox = xlabel.get_window_extent(renderer)
+        self.assertAlmostEqual((axis_bottom - xlabel_bbox.y1) * 72 / fig.dpi, 8, places=2)
+        gap = (xlabel_bbox.y0 - legend.get_window_extent(renderer).y1) * 72 / fig.dpi
+        self.assertAlmostEqual(gap, 16, places=2)
+
     def test_supplemental_legend_is_one_grouped_block(self):
         configure_typography()
         for datasets in (DATASET_ORDER, DATASET_ORDER[:1]):
@@ -76,7 +96,7 @@ class BottomLegendTests(unittest.TestCase):
                 canvas.draw()
                 self.assertEqual(len(fig.legends), 1)
                 texts = {text.get_text(): text for text in legend.get_texts() if text.get_text()}
-                expected = {"DATASET", "MARKER", *MARKER_ORDER}
+                expected = {marker.lower() for marker in MARKER_ORDER}
                 expected.update(DATASET_LABELS[dataset] for dataset in datasets)
                 self.assertEqual(set(texts), expected)
                 renderer = canvas.get_renderer()
@@ -84,7 +104,10 @@ class BottomLegendTests(unittest.TestCase):
                     texts[DATASET_LABELS[dataset]].get_window_extent(renderer).y0
                     for dataset in datasets
                 )
-                marker_top = texts["MARKER"].get_window_extent(renderer).y1
+                marker_top = max(
+                    texts[marker.lower()].get_window_extent(renderer).y1
+                    for marker in MARKER_ORDER
+                )
                 self.assertGreater(dataset_bottom, marker_top)
 
 

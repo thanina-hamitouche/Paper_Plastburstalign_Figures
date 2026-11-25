@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Plot peak RSS (log10 GiB) and strong-scaling speedup, grouped by mode.
 
-Layout: 3 rows (CDS, INT, IGS) x 2 columns (memory, speedup).
+Layout: 2 rows (memory, speedup) x 3 columns (cds, int, igs).
 Each subplot shows one line per dataset. Thread tick labels are at the TOP.
 
 Usage:
@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import math
 from collections import defaultdict
 from pathlib import Path
 
@@ -24,8 +25,12 @@ from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, LogLocator, NullFormatter
 
 from figure_export_helper import (
+    DATASET_MARKERS,
+    TYPOGRAPHY,
+    add_bottom_legend,
     configure_typography,
     dated_output_paths,
+    fit_bbox_to_aspect,
     prepare_figure,
     report_output_directory,
 )
@@ -43,7 +48,6 @@ COLORS = ("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e")
 DATASET_COLORS = dict(
     zip((key for key, _ in DATASET_ORDER), ("#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#e41a1c"))
 )
-STYLES = ("solid", "dashed", "dashdot", "dotted", "solid")
 
 
 def elapsed_seconds(value: str) -> float:
@@ -84,6 +88,10 @@ def load_rows(path: Path) -> dict:
 
 def draw(csv_path: Path, output_prefix: Path) -> None:
     configure_typography()
+    # Compensate for the wider 2:1 export at equal display width.
+    axis_label_size = TYPOGRAPHY["diagram_label_size"] * 12 / 7.2 * 1.18
+    title_size = TYPOGRAPHY["diagram_title_size"] * 12 / 7.2
+    tick_label_size = axis_label_size * 0.9
     data = load_rows(csv_path)
     available = {ds for ds, _ in data}
     datasets = [(key, label) for key, label in DATASET_ORDER if key in available]
@@ -101,17 +109,18 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
             return DATASET_COLORS[key]
         return COLORS[index] if index < len(COLORS) else palette(index % 20)
 
-    fig, axes = plt.subplots(3, 2, figsize=(14, 11.5))
+    fig, axes = plt.subplots(2, 3, figsize=(14, 7))
+    fig.suptitle(f"Data: {csv_path.name}", y=0.995, fontsize=TYPOGRAPHY["annotation_size"])
 
-    for row_idx, mode in enumerate(MODES):
-        memory_ax, speed_ax = axes[row_idx]
+    for col_idx, mode in enumerate(MODES):
+        memory_ax, speed_ax = axes[:, col_idx]
         speed_ax.plot(
             THREADS,
             THREADS,
             color="#777777",
             linestyle="--",
             linewidth=1.2,
-            label="Ideal linear",
+            label="Ideal scaling",
             zorder=1,
         )
 
@@ -121,15 +130,14 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
             if not xs:
                 continue
             color = dataset_color(idx, key)
-            style = STYLES[idx % len(STYLES)]
             mem = [runs[p][1] for p in xs]
             memory_ax.plot(
                 xs,
                 mem,
-                marker="o",
+                marker=DATASET_MARKERS.get(key, "o"),
                 markersize=4.5,
                 linewidth=1.8,
-                linestyle=style,
+                linestyle="solid",
                 color=color,
                 label=label,
             )
@@ -140,10 +148,10 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
                 speed_ax.plot(
                     xs,
                     speed,
-                    marker="o",
+                    marker=DATASET_MARKERS.get(key, "o"),
                     markersize=4.5,
                     linewidth=1.8,
-                    linestyle=style,
+                    linestyle="solid",
                     color=color,
                     label=label,
                 )
@@ -156,23 +164,27 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
         memory_ax.yaxis.set_major_locator(LogLocator(base=10))
         memory_ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{y:g}"))
         memory_ax.yaxis.set_minor_formatter(NullFormatter())
-        memory_ax.set_ylabel("Peak RSS (GiB, log10)")
-        speed_ax.set_ylabel(r"Speedup ($T_1/T_p$)")
+        memory_ax.set_ylabel(
+            "Peak RSS (log10)" if col_idx == 0 else "", fontsize=axis_label_size
+        )
+        speed_ax.set_ylabel("Speedup" if col_idx == 0 else "", fontsize=axis_label_size)
         speed_ax.set_ylim(bottom=0)
 
         memory_ax.set_title(
-            f"{mode.upper()} — Peak Memory", weight="bold", pad=12
+            mode, weight="bold", pad=12,
+            fontsize=title_size,
         )
-        speed_ax.set_title(
-            f"{mode.upper()} — Speedup", weight="bold", pad=12
-        )
-        for ax in (memory_ax, speed_ax):
+        for ax_idx, ax in enumerate((memory_ax, speed_ax)):
             ax.set_xticks(THREADS, [str(p) for p in THREADS])
             ax.tick_params(
-                axis="x", top=False, labeltop=False, bottom=True, labelbottom=True
+                axis="both", top=False, labeltop=False, bottom=True,
+                labelbottom=(ax_idx == 1),
+                labelsize=tick_label_size,
             )
+            if ax_idx == 1:
+                ax.xaxis.get_major_ticks()[THREADS.index(2)].set_pad(tick_label_size + 4)
             ax.xaxis.set_label_position("bottom")
-            ax.set_xlabel("Threads (p)", labelpad=9)
+            ax.set_xlabel("")
             ax.grid(True, which="major", alpha=0.25)
             ax.set_axisbelow(True)
 
@@ -181,30 +193,30 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
             [0],
             [0],
             color=dataset_color(i, key),
-            linestyle=STYLES[i % len(STYLES)],
-            marker="o",
+            linestyle="solid",
+            marker=DATASET_MARKERS.get(key, "o"),
             linewidth=1.8,
             label=label,
         )
         for i, (key, label) in enumerate(datasets)
     ]
     handles.append(
-        Line2D([0], [0], color="#777777", linestyle="--", label="Ideal linear")
+        Line2D([0], [0], color="#777777", linestyle="--", label="Ideal scaling")
     )
-    legend = fig.legend(
-        handles=handles,
-        loc="upper center",
-        ncol=min(3, len(handles)),
-        frameon=False,
-        borderaxespad=0,
-        borderpad=0,
-    )
-    fig.subplots_adjust(hspace=0.63, wspace=0.23, top=0.98, bottom=0.19)
+    legend = add_bottom_legend(fig, handles, ncol=min(3, len(handles)))
+    fig.supxlabel("Threads (p)", y=0.16, fontsize=axis_label_size)
+    fig.subplots_adjust(hspace=0.45, wspace=0.18, top=0.90, bottom=0.22)
 
-    bbox = prepare_figure(fig, 12, bbox_inches="tight", bottom_legend=legend)
+    bbox = prepare_figure(
+        fig, 12, bbox_inches="tight", bottom_legend=legend, aspect_ratio=2
+    )
+    dpi = 300
+    # Keep both raster dimensions on the same side of pixel rounding boundaries.
+    height_pixels = math.ceil(bbox.height * dpi) + 0.25
+    bbox = fit_bbox_to_aspect(bbox, 2, minimum_width=2 * height_pixels / dpi)
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
     for path in dated_output_paths(output_prefix).values():
-        fig.savefig(path, dpi=300, bbox_inches=bbox, pad_inches=0)
+        fig.savefig(path, dpi=dpi, bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
     report_output_directory(output_prefix.parent)
 

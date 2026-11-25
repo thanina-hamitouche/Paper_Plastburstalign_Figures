@@ -8,7 +8,9 @@ from matplotlib.lines import Line2D
 from matplotlib.transforms import Bbox
 
 from figure_export_helper import (
+    DATASET_MARKERS,
     TYPOGRAPHY,
+    add_bottom_legend,
     configure_typography,
     dated_output_paths,
     place_bottom_legend,
@@ -90,7 +92,7 @@ def format_duration_label(x_min):
     if pd.isna(x_min):
         return ""
     if x_min < 1:
-        return f"{int(round(x_min * 60))} sec"
+        return f"{int(round(x_min * 60))} sec."
     if x_min >= 60:
         hours, minutes = divmod(int(round(x_min)), 60)
         return f"{hours} h {minutes} min" if minutes else f"{hours} h"
@@ -109,21 +111,21 @@ def compute_breaks(max_cpus, max_time_min):
 
 
 def add_horizontal_bottom_legend(fig, datasets):
-    dataset_handles = [Line2D([], [], linestyle="None", label="DATASET")] + [
+    dataset_handles = [
         Line2D(
             [0],
             [0],
             color=DATASET_COLORS[d],
             lw=2.8,
-            marker="o",
+            marker=DATASET_MARKERS[d],
             markersize=6,
             label=DATASET_LABELS[d],
         )
         for d in datasets
     ]
-    marker_handles = [Line2D([], [], linestyle="None", label="MARKER")] + [
+    marker_handles = [
         Line2D(
-            [0], [0], color="black", lw=2.8, linestyle=LINESTYLE_BY_MARKER[m], label=m
+            [0], [0], color="black", lw=2.8, linestyle=LINESTYLE_BY_MARKER[m], label=m.lower()
         )
         for m in MARKER_ORDER
     ]
@@ -134,18 +136,7 @@ def add_horizontal_bottom_legend(fig, datasets):
             row += [Line2D([], [], linestyle="None", label="")] * (3 - len(row))
             rows.append(row)
     handles = [row[column] for column in range(3) for row in rows]
-    return fig.legend(
-        handles=handles,
-        loc="upper center",
-        ncol=3,
-        columnspacing=0.9,
-        handletextpad=0.5,
-        labelspacing=0.4,
-        handlelength=2.6,
-        frameon=False,
-        borderaxespad=0,
-        borderpad=0,
-    )
+    return add_bottom_legend(fig, handles)
 
 
 def main():
@@ -196,7 +187,11 @@ def main():
     x_breaks, y_breaks = compute_breaks(max_cpus, max_time)
     x_breaks = sorted(set(x_breaks) | set(plot_df["CPUS"]))
     configure_typography()
+    axis_label_size = TYPOGRAPHY["diagram_label_size"] * 12 / 7.2
+    tick_label_size = axis_label_size * 0.9
+    annotation_size = axis_label_size
     fig, ax = plt.subplots(figsize=(13, 14.4))
+    fig.suptitle(f"Data: {input_csv.name}", y=0.995, fontsize=TYPOGRAPHY["annotation_size"])
     ax.axvline(1, color="black", linewidth=0.4)
     ax.axhline(0, color="black", linewidth=0.4)
     label_entries = []
@@ -214,7 +209,7 @@ def main():
                 color=DATASET_COLORS[dataset],
                 linestyle=LINESTYLE_BY_MARKER[marker],
                 linewidth=2.2,
-                marker="o",
+                marker=DATASET_MARKERS[dataset],
                 markersize=5,
             )
             for _, row in marker_data.iterrows():
@@ -223,7 +218,7 @@ def main():
                     row["CPUS"],
                     label_y,
                     format_duration_label(row["TIME_MIN"]),
-                    fontsize=TYPOGRAPHY["annotation_size"],
+                    fontsize=annotation_size,
                     color="0.2",
                     bbox={
                         "boxstyle": "round,pad=0.2",
@@ -258,8 +253,9 @@ def main():
     ax.set_yticklabels([format_duration_label(y) for y in y_breaks])
     ax.grid(True, which="major", color="gray", alpha=1.0)
     ax.grid(False, which="minor")
-    ax.set_xlabel("\nNumber of threads (log2 scale)")
-    ax.set_ylabel("Wall-clock time (symlog scale)\n")
+    ax.set_xlabel("\nNumber of threads (log2 scale)", fontsize=axis_label_size)
+    ax.set_ylabel("Wall-clock time (symlog)\n", fontsize=axis_label_size)
+    ax.tick_params(axis="both", labelsize=tick_label_size)
     present_datasets = [d for d in DATASET_ORDER if (plot_df["DATASET"] == d).any()]
     legend = add_horizontal_bottom_legend(fig, present_datasets)
     fig.subplots_adjust(left=0.09, right=0.93, bottom=0.22, top=0.97)

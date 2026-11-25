@@ -274,13 +274,16 @@ make_annotation_grob <- function(text) {
         hjust = 0,
         vjust = 1,
         halign = 1,
-        gp = grid::gpar(fontsize = typography$annotation_size, fontfamily = figure_font, fontface = "bold", lineheight = 1.6),
+        gp = grid::gpar(fontsize = figure_annotation_size, fontfamily = figure_font, fontface = "bold", lineheight = 1.6),
         box_gp = grid::gpar(fill = NA, col = NA),
         padding = unit(c(6, 8, 6, 8), "pt")
     )
 }
 
 # Right-aligned label on a white box placed over the top-left panel corner
+figure_annotation_size <- typography$annotation_size * 0.90
+figure_tick_label_size <- typography$tick_label_size * 0.90
+figure_axis_label_size <- typography$axis_label_size * 0.90
 annotation_grob <- make_annotation_grob(annotation_text)
 
 
@@ -317,14 +320,14 @@ myPlot <- ggplot() +
         data = plot_publications,
         aes(x = DATE, y = CUM_PUBLICATIONS_SCALED),
         color = "#1f77b4",
-        linewidth = 1.3
+        linewidth = 1.0
     ) +
 
     geom_point(
         data = plot_publications,
         aes(x = DATE, y = CUM_PUBLICATIONS_SCALED),
         color = "#1f77b4",
-        size = 2.0
+        size = 1.7
     ) +
 
     geom_rug(
@@ -372,14 +375,14 @@ myPlot <- ggplot() +
         clip = "off"
     ) +
 
-    theme_minimal(base_family = figure_font, base_size = typography$annotation_size) +
+    theme_minimal(base_family = figure_font, base_size = figure_annotation_size) +
     theme(
         text = element_text(family = figure_font),
-        axis.text = element_text(size = typography$tick_label_size),
+        axis.text = element_text(size = figure_tick_label_size),
         axis.text.x = element_text(angle = 0, hjust = 0.5, margin = margin(t = 8)),
         axis.ticks.x = element_blank(),
         axis.ticks.length = unit(0.2, "cm"),
-        axis.title = element_text(size = typography$axis_label_size),
+        axis.title = element_text(size = figure_axis_label_size),
         axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
         axis.title.y.left = element_text(face = "bold", margin = margin(r = 12)),
         axis.title.y.right = element_text(face = "bold", color = "#1f77b4", margin = margin(l = 12)),

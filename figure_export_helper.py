@@ -18,6 +18,14 @@ from matplotlib.transforms import Bbox
 with Path(__file__).with_name("figure_typography.json").open(encoding="utf-8") as file:
     TYPOGRAPHY = json.load(file)
 
+DATASET_MARKERS = {
+    "benchmark_ZhangNNEtAl2025_53angiosperms": "o",
+    "benchmark_YangEtAl2022_Asteraceae": "s",
+    "benchmark_YangEtAl2022_monocots": "^",
+    "benchmark_YangEtAl2022_angiosperms": "D",
+    "benchmark_ZhangNNEtAl2025_13724angiosperms": "v",
+}
+
 
 def configure_typography() -> str:
     available = {
@@ -66,10 +74,30 @@ def report_output_directory(directory: Path) -> None:
     print(f"Wrote files to {location}")
 
 
+def add_bottom_legend(fig, handles, ncol=3):
+    return fig.legend(
+        handles=handles,
+        loc="upper center",
+        ncol=ncol,
+        fontsize=TYPOGRAPHY["legend_size"],
+        frameon=False,
+        borderaxespad=0,
+        borderpad=0,
+    )
+
+
 def place_bottom_legend(fig, legend):
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     bottom = min(ax.get_tightbbox(renderer).y0 for ax in fig.axes if ax.get_visible())
+    if fig._supxlabel is not None and fig._supxlabel.get_visible():
+        _, y = fig.transFigure.inverted().transform(
+            (0, bottom - renderer.points_to_pixels(8))
+        )
+        fig._supxlabel.set_position((0.5, y))
+        fig._supxlabel.set_verticalalignment("top")
+        fig.canvas.draw()
+        bottom = fig._supxlabel.get_window_extent(renderer).y0
     gap = renderer.points_to_pixels(16)
     _, y = fig.transFigure.inverted().transform((0, bottom - gap))
     legend.set_bbox_to_anchor((0.5, y), transform=fig.transFigure)

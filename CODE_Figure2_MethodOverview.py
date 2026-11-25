@@ -1451,7 +1451,7 @@ def main():
         ax.text(
             label_x,
             genewise_base_y + long_label_offset,
-            "Extracted coding sequences (CDS)",
+            "Extracted coding sequences (cds)",
             fontsize=LABEL_FONTSIZE,
             fontstyle="italic",
             ha="left",
@@ -1460,7 +1460,7 @@ def main():
         ax.text(
             label_x,
             introns_base_y + long_label_offset,
-            "Extracted introns (INT)",
+            "Extracted introns (int)",
             fontsize=LABEL_FONTSIZE,
             fontstyle="italic",
             ha="left",
@@ -1469,7 +1469,7 @@ def main():
         ax.text(
             label_x,
             igs_base_y + long_label_offset,
-            "Extracted spacer (IGS)",
+            "Extracted spacer (igs)",
             fontsize=LABEL_FONTSIZE,
             fontstyle="italic",
             ha="left",
