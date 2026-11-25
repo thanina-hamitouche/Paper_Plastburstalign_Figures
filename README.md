@@ -1,6 +1,13 @@
 # Paper_Plastburstalign_Figures
 Code for generating publication-quality figures and tables for the manuscript.
 
+
+## IMPORTANT: Across all these figures and tables, we must only have a limited number of runtime and memory indicators:
+- wall-clock time (elapsed time from the start to the end of the run)
+- peak aggregate resident set size ("peak aggregate RSS"; the highest observed sum of the resident set sizes of the benchmarked process and its child processes at a single time point)
+- speedup through parallelization (dividing the wall-clock time of the corresponding single-core run by that of the multicore run)
+
+
 ### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
 _Purpose: This figure illustrates that plastid genomics remains an active research field with sustained annual publication output and a rapidly expanding body of available genomes. The scale of available genomes now necessitates specialized software (namely ours!) that is capable of efficiently processing and analyzing thousands of plastid genomes simultaneously._
 
