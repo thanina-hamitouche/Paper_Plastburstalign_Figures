@@ -1,4 +1,4 @@
-from datetime import date
+import argparse
 from pathlib import Path
 
 import matplotlib.patheffects as path_effects
@@ -6,9 +6,26 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Polygon, Rectangle
 
-# Wide 2:1 layout, deliberately WITHOUT a title/header.
-OUT = Path("./VIZ_Figure3_OverviewWorkflow/")
+from figure_export_helper import dated_output_paths, report_output_directory
+
+
+parser = argparse.ArgumentParser(
+    description="Create the Figure 3 workflow overview as PNG, SVG, and PDF."
+)
+parser.add_argument(
+    "-o",
+    "--output-prefix",
+    type=Path,
+    default=Path("VIZ_Figure3_OverviewWorkflow") / "Figure3_WorkflowOverview",
+    help="Output path with or without extension; a date suffix is added.",
+)
+args = parser.parse_args()
+if not args.output_prefix.name:
+    parser.error("--output-prefix must include a filename")
+OUT = args.output_prefix.parent
 OUT.mkdir(parents=True, exist_ok=True)
+
+# Wide 2:1 layout, deliberately WITHOUT a title/header.
 fig, ax = plt.subplots(figsize=(20, 10), dpi=130)
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
@@ -601,10 +618,7 @@ for y, label, fill, dashed in [
     txt(1.38, y, label, size=FIELD_TEXT_SIZE, bold=True, ha="left")
 
 fig.subplots_adjust(left=0.015, right=0.985, bottom=0.03, top=0.985)
-date_suffix = date.today().strftime("__%Y_%m_%d")
-for ext in ["png", "svg", "pdf"]:
-    fig.savefig(
-        OUT / f"Figure3_WorkflowOverview{date_suffix}.{ext}", dpi=220, facecolor="white"
-    )
+for path in dated_output_paths(args.output_prefix).values():
+    fig.savefig(path, dpi=300, facecolor="white")
 plt.close(fig)
-print("Wrote files to", OUT.resolve())
+report_output_directory(OUT)

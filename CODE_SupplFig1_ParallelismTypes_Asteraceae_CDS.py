@@ -1,11 +1,15 @@
 import argparse
-from datetime import date
 from pathlib import Path
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter, LogLocator
+
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
 
 CONFIG_ORDER = ["16*1", "8*2", "4*4", "2*8", "1*16"]
 
@@ -28,15 +32,20 @@ def parse_args() -> argparse.Namespace:
         description="Plot execution time and memory usage across parallelism configurations."
     )
     parser.add_argument(
-        "input_csv",
-        nargs="?",
+        "--input-csv",
         default="./benchmark_summary.csv",
         help="Input benchmark CSV file.",
     )
-    parser.add_argument(
+    output_options = parser.add_mutually_exclusive_group()
+    output_options.add_argument(
         "output_path_stem",
         nargs="?",
         default="./VIZ_Parallelism/PlastBurstAlign_Parallelism",
+        help=argparse.SUPPRESS,
+    )
+    output_options.add_argument(
+        "--output-prefix",
+        type=Path,
         help="Output path stem; writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
@@ -74,8 +83,10 @@ def main() -> None:
     args = parse_args()
 
     input_csv = Path(args.input_csv)
-    output_stem = Path(args.output_path_stem)
-    output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
+    output_stem = Path(
+        args.output_prefix if args.output_prefix is not None else args.output_path_stem
+    )
+    output_paths = dated_output_paths(output_stem)
 
     if not input_csv.exists():
         raise FileNotFoundError(f"Input file does not exist: {input_csv}")
@@ -263,23 +274,27 @@ def main() -> None:
     # 6. Export figures
     # ==========================================
 
+    bbox = prepare_figure(fig, 12, bbox_inches="tight")
     fig.savefig(
-        output_stem.with_suffix(".svg"),
-        bbox_inches="tight",
+        output_paths["svg"],
+        bbox_inches=bbox,
+        pad_inches=0,
     )
 
     fig.savefig(
-        output_stem.with_suffix(".png"),
+        output_paths["png"],
         dpi=300,
-        bbox_inches="tight",
+        bbox_inches=bbox,
+        pad_inches=0,
     )
     fig.savefig(
-        output_stem.with_suffix(".pdf"),
-        bbox_inches="tight",
+        output_paths["pdf"],
+        bbox_inches=bbox,
+        pad_inches=0,
     )
 
-    plt.show()
     plt.close(fig)
+    report_output_directory(output_stem.parent)
 
 
 if __name__ == "__main__":

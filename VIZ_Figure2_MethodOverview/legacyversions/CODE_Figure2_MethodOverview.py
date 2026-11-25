@@ -1093,7 +1093,7 @@ def draw_bracket(ax, centers, R, right_panel_left, tick_width=0.5, lw=2):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Create Figure 2 method overview and export both SVG and PNG files."
+        description="Create Figure 2 method overview and export PNG, SVG, and PDF files."
     )
     parser.add_argument(
         "--output-dir",
@@ -1102,10 +1102,23 @@ def parse_args():
     )
     parser.add_argument(
         "--output-name",
-        default="Figure2_MethodOverview",
-        help="Output filename (with or without extension); script writes both .svg and .png.",
+        help="Output filename (with or without extension); script writes PNG, SVG, and PDF.",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--output-prefix",
+        help="Output path with or without extension; a date suffix is added.",
+    )
+    args = parser.parse_args()
+    if args.output_prefix is not None:
+        if args.output_dir is not None or args.output_name is not None:
+            parser.error("--output-prefix cannot be combined with --output-dir or --output-name")
+        args.output_dir = os.path.dirname(args.output_prefix) or "."
+        args.output_name = os.path.basename(args.output_prefix)
+        if not args.output_name:
+            parser.error("--output-prefix must include a filename")
+    elif args.output_name is None:
+        args.output_name = "Figure2_MethodOverview"
+    return args
 
 
 def resolve_output_paths(output_dir, output_name):
@@ -1116,12 +1129,13 @@ def resolve_output_paths(output_dir, output_name):
     return (
         os.path.join(target_dir, f"{output_base}.svg"),
         os.path.join(target_dir, f"{output_base}.png"),
+        os.path.join(target_dir, f"{output_base}.pdf"),
     )
 
 
 def main():
     args = parse_args()
-    svg_path, png_path = resolve_output_paths(args.output_dir, args.output_name)
+    svg_path, png_path, pdf_path = resolve_output_paths(args.output_dir, args.output_name)
 
     fig, ax = plt.subplots(figsize=(16, 8))
     ax.set_aspect("equal")
@@ -1503,10 +1517,15 @@ def main():
     for label in long_labels:
         label.set_x(long_label_x)
 
-    # Save figure as SVG and PNG.
     plt.savefig(svg_path, format="svg", dpi=300)
     plt.savefig(png_path, format="png", dpi=300)
+    plt.savefig(pdf_path, format="pdf", dpi=300)
     plt.close(fig)
+    try:
+        location = os.path.relpath(os.path.dirname(svg_path))
+    except ValueError:
+        location = f"{os.path.abspath(os.path.dirname(svg_path))} (absolute path; relative path unavailable)"
+    print(f"Wrote files to {location}")
 
 
 if __name__ == "__main__":

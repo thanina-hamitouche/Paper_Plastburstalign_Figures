@@ -5,8 +5,8 @@ Layout: 3 rows (CDS, INT, IGS) x 2 columns (memory, speedup).
 Each subplot shows one line per dataset. Thread tick labels are at the TOP.
 
 Usage:
-    python plot_per_mode_memory_speedup.py beocat_publication_metrics.csv
-    python plot_per_mode_memory_speedup.py results.csv -o pub_artifacts/per_mode
+    python CODE_SupplFig3_peakMem_speedup.py --input-csv beocat_publication_metrics.csv
+    python CODE_SupplFig3_peakMem_speedup.py --input-csv results.csv -o pub_artifacts/per_mode
 """
 
 from __future__ import annotations
@@ -23,16 +23,21 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, LogLocator, NullFormatter
 
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+
 DATASET_ORDER = [
-    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. (53 angiosperms)"),
-    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. (Asteraceae)"),
-    ("benchmark_YangEtAl2022_monocots", "Yang et al. (Monocots)"),
-    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. (Angiosperms)"),
-    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. (13,724 angiosperms)"),
+    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
+    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. 2022 (n=155)"),
+    ("benchmark_YangEtAl2022_monocots", "Yang et al. 2022 (n=733)"),
+    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. 2022 (n=2,585)"),
+    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. 2025 (n=13,724)"),
 ]
 MODES = ("cds", "int", "igs")
 THREADS = (1, 2, 4, 8, 16, 32)
 COLORS = ("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e")
+DATASET_COLORS = dict(
+    zip((key for key, _ in DATASET_ORDER), ("#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#e41a1c"))
+)
 STYLES = ("solid", "dashed", "dashdot", "dotted", "solid")
 
 
@@ -84,6 +89,12 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
 
     # Expand the palette if the CSV contains more than five datasets.
     palette = plt.get_cmap("tab20")
+
+    def dataset_color(index, key):
+        if key in DATASET_COLORS:
+            return DATASET_COLORS[key]
+        return COLORS[index] if index < len(COLORS) else palette(index % 20)
+
     fig, axes = plt.subplots(3, 2, figsize=(14, 11.5))
 
     for row_idx, mode in enumerate(MODES):
@@ -103,7 +114,7 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
             xs = [p for p in THREADS if p in runs]
             if not xs:
                 continue
-            color = COLORS[idx] if idx < len(COLORS) else palette(idx % 20)
+            color = dataset_color(idx, key)
             style = STYLES[idx % len(STYLES)]
             mem = [runs[p][1] for p in xs]
             memory_ax.plot(
@@ -163,13 +174,13 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
         Line2D(
             [0],
             [0],
-            color=(COLORS[i] if i < len(COLORS) else palette(i % 20)),
+            color=dataset_color(i, key),
             linestyle=STYLES[i % len(STYLES)],
             marker="o",
             linewidth=1.8,
             label=label,
         )
-        for i, (_key, label) in enumerate(datasets)
+        for i, (key, label) in enumerate(datasets)
     ]
     handles.append(
         Line2D([0], [0], color="#777777", linestyle="--", label="Ideal linear")
@@ -184,17 +195,17 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
     )
     fig.subplots_adjust(hspace=0.63, wspace=0.23, top=0.88, bottom=0.07)
 
+    bbox = prepare_figure(fig, 12, bbox_inches="tight")
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
-    for ext in ("png", "pdf"):
-        path = output_prefix.with_suffix(f".{ext}")
-        fig.savefig(path, dpi=300, bbox_inches="tight")
-        print(f"Saved {path}")
+    for path in dated_output_paths(output_prefix).values():
+        fig.savefig(path, dpi=300, bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
+    report_output_directory(output_prefix.parent)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("csv_file", type=Path, help="Benchmark CSV input")
+    parser.add_argument("--input-csv", type=Path, required=True, help="Benchmark CSV input")
     parser.add_argument(
         "-o",
         "--output-prefix",
@@ -202,7 +213,7 @@ def main() -> None:
         default=Path("pub_artifacts/figure_per_mode_memory_speedup"),
     )
     args = parser.parse_args()
-    draw(args.csv_file, args.output_prefix)
+    draw(args.input_csv, args.output_prefix)
 
 
 if __name__ == "__main__":

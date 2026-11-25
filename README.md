@@ -1,6 +1,12 @@
 # Paper_Plastburstalign_Figures
 Code for generating publication-quality figures and tables for the manuscript.
 
+### Features
+- PNG exports use at least 300 dpi; SVG and PDF exports remain vector graphics.
+- Figure scripts append the current date (`__YYYY_MM_DD`) to PNG, SVG, and PDF filenames.
+Figure 1's PDF export requires R with Cairo support.
+- Figures target a 7.2-inch width when practical, with larger widths retained for dense layouts. (Only Figure 3 remains 20 inches wide to preserve the readability of its existing labels.)
+
 
 ## IMPORTANT: Across all these figures and tables, we must only have a limited number of runtime and memory indicators:
 - wall-clock time (elapsed time from the start to the end of the run)
@@ -19,10 +25,12 @@ _Purpose: This figure illustrates that plastid genomics remains an active resear
 The growth annotations average annual additions over the displayed years; cumulative totals include data from 2016 onward.
 
 ```bash
-# Dependencies
-Rscript -e "install.packages(c('argparse','ggplot2','ggrepel', 'ggtext', 'plyr','dplyr','svglite'), repos='https://cloud.r-project.org')"
-# Figure creation
-Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes__2026_06_01.tsv" --input-publications "./input_data/DATA_Compilation_of_plastome_publications__2026_10_25.csv" --start-date "2016-01-01" --end-date "2025-12-31" --output "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
+Rscript "CODE_Figure1_AccumulationGraph.R" \
+  --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes__2026_06_01.tsv" \
+  --input-csv "./input_data/DATA_Compilation_of_plastome_publications__2026_10_25.csv" \
+  --start-date "2016-01-01" \
+  --end-date "2025-12-31" \
+  --output-prefix "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
 ```
 ![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications.png)
 
@@ -32,7 +40,8 @@ Rscript "CODE_Figure1_AccumulationGraph.R" --input-records "./input_data/DATA_Co
 _Purpose: This figure illustrates for readers with no prior knowledge of the subject the purpose and functionality of the software using a dataset of three simplistic plastid genomes._
 
 ```bash
-python CODE_Figure2_MethodOverview.py --output-dir ./VIZ_Figure2_MethodOverview --output-name Figure2_MethodOverview
+python CODE_Figure2_MethodOverview.py \
+  --output-prefix ./VIZ_Figure2_MethodOverview/Figure2_MethodOverview
 ```
 ![Schematic of the script purpose](VIZ_Figure2_MethodOverview/Figure2_MethodOverview.png)
 
@@ -42,7 +51,8 @@ python CODE_Figure2_MethodOverview.py --output-dir ./VIZ_Figure2_MethodOverview 
 _Purpose: This figure provides an overview of the plastburstalign workflow, from annotated plastid genomes and optional configuration through sequence extraction and filtering, parallel multiple sequence alignment, and aligned outputs._
 
 ```bash
-python CODE_Figure3_OverviewWorkflow.py
+python CODE_Figure3_OverviewWorkflow.py \ 
+  --output-prefix ./VIZ_Figure3_OverviewWorkflow/Figure3_WorkflowOverview
 ```
 ![Workflow image](VIZ_Figure3_OverviewWorkflow/Figure3_WorkflowOverview.png)
 
@@ -51,8 +61,11 @@ python CODE_Figure3_OverviewWorkflow.py
 ### Figure 4: Speedup and wall-clock time through multithreading
 _Purpose: This figure illustrates the strong scaling in speedup and wall-clock time across the extraction modes due to multrithreading._
 
-The code for generating this figure is not yet available.
-
+```bash
+python CODE_Figure4_Speedup_and_Wallclocktime.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime
+```
 ![Speedup and wall time through multithreading](VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime.png)
 
 ---
@@ -61,46 +74,54 @@ The code for generating this figure is not yet available.
 _Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, speedup, and CPU utilization across the datasets through multithreading._
 
 ```bash
-python CODE_Figure5_Differences_across_datasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets
+python CODE_Figure5_Differences_across_datasets.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets
 ```
 ![Visualization of factors across datasets](VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets__2026_11_24.png)
 
 ---
 
-### Supplemental Figure 1: Relative contributions of software and alignment multithreading to performance improvement
+### Suppl. Figure 1: Relative contributions of software and alignment multithreading to performance improvement
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
 ```bash
-python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv ./VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS
+python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS.py \
+  --input-csv ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv \
+  --output-prefix ./VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS
 ```
 ![Visualization of parallelism types](VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS.png)
 
 ---
 
-### Supplemental Figure 2: Effectiveness of multithreading
+### Suppl. Figure 2: Effectiveness of multithreading
 _Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
 
 ```bash
-python CODE_SupplFig2_Effectiveness_Multithreading.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading
+python CODE_SupplFig2_Effectiveness_Multithreading.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading
 ```
 ![Visualization of speed improvements](VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading__2026_11_24.png)
 
 ---
 
-### Supplemental Figure 3: Optimization of thread allocation for runtime and memory efficiency
+### Suppl. Figure 3: Optimization of thread allocation for runtime and memory efficiency
 _Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
 
 ```bash
-python CODE_SupplFig3_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_SupplFig3_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
+python CODE_SupplFig3_peakMem_speedup.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./VIZ_SupplFig3_peakMem_speedup/peakMem_speedup_across_datasets
 ```
-![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
+![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup/figure_per_mode_memory_speedup.png)
 
 ---
 
 ### FUTURE Figure: Peak memory versus dataset size
 _Purpose: This figure shall illustrate how peak memory usage varies with dataset size._
 
-[View the figure (PDF)](FUTURE-VIZ_PeakMemory_vs_DatasetSize/FUTURE-VIZ_PeakMemory_vs_DatasetSize.pdf)
+[View the figure (PDF)](VIZ-FUTURE_PeakMemory_vs_DatasetSize/VIZ-FUTURE_PeakMemory_vs_DatasetSize.pdf)
 
 The code for generating this figure is not yet available.
 
@@ -111,7 +132,11 @@ _Purpose: This table compares runtime, speedup, and peak memory across datasets,
 
 Table: [Markdown](TBL_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.md) | [LaTeX](TBL_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.tex)
 
-The code for generating this table is not yet available.
+```bash
+python CODE_Table1_Runtime_by_threads.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./TBL_Table1_Runtime_by_threads/TABLE_Runtime_by_threads
+```
 
 ---
 

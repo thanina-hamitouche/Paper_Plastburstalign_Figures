@@ -2,6 +2,49 @@
 # Combined Accumulation Graph: Genome Records (bars) & Publications (line)
 # Author: Michael Gruenstaeudl <m_gruenstaeudl@fhsu.edu>
 
+ensure_dependencies <- function() {
+    packages <- c("argparse", "ggplot2", "ggrepel", "ggtext", "plyr", "dplyr", "svglite")
+    missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+    if (length(missing) > 0) {
+        install.packages(missing, repos = "https://cloud.r-project.org")
+        missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
+        if (length(missing) > 0) {
+            stop(paste("Failed to install R packages:", paste(missing, collapse = ", ")), call. = FALSE)
+        }
+    }
+}
+
+ensure_dependencies()
+
+relative_output_directory <- function(directory) {
+    target <- normalizePath(directory, winslash = "/", mustWork = TRUE)
+    current <- normalizePath(getwd(), winslash = "/", mustWork = TRUE)
+    target_parts <- strsplit(target, "/", fixed = TRUE)[[1]]
+    current_parts <- strsplit(current, "/", fixed = TRUE)[[1]]
+    target_compare <- target_parts
+    current_compare <- current_parts
+    if (.Platform$OS.type == "windows") {
+        target_compare <- tolower(target_compare)
+        current_compare <- tolower(current_compare)
+    }
+    common <- 0L
+    while (common < min(length(target_parts), length(current_parts)) &&
+           identical(target_compare[common + 1L], current_compare[common + 1L])) {
+        common <- common + 1L
+    }
+    if (.Platform$OS.type == "windows" &&
+        (common == 0L || (startsWith(target, "//") && common < 4L))) {
+        return(paste0(target, " (absolute path; relative path unavailable)"))
+    }
+    remaining <- if (common < length(target_parts)) {
+        target_parts[seq.int(common + 1L, length(target_parts))]
+    } else {
+        character(0)
+    }
+    parts <- c(rep("..", length(current_parts) - common), remaining)
+    if (length(parts) == 0) "." else paste(parts, collapse = "/")
+}
+
 library(argparse)
 library(ggplot2)
 library(dplyr)
@@ -11,11 +54,11 @@ library(ggtext)  # For colored annotation in plot title
 # --- Argument Parsing ---
 parser <- ArgumentParser(description = "Generate a combined accumulation graph of plastid genome records (bars) and publications (line).")
 parser$add_argument("--input-records", required = TRUE)
-parser$add_argument("--input-publications", required = TRUE)
+parser$add_argument("--input-csv", "--input-publications", dest = "input_csv", required = TRUE)
 parser$add_argument("--start-date", default = "2016-01-01")
 parser$add_argument("--end-date", default = "2025-12-31")
 parser$add_argument("--date-column", default = "CREATE_DATE")
-parser$add_argument("--output", default = "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph__recordsAndPublications")
+parser$add_argument("--output-prefix", "--output", dest = "output_prefix", default = "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph__recordsAndPublications")
 args <- parser$parse_args()
 
 
@@ -39,16 +82,17 @@ accumulation_start_year <- 2000
 accumulation_start_date <- as.Date(paste0(accumulation_start_year, "-01-01"))
 
 
-output_base <- tools::file_path_sans_ext(args$output)
+output_base <- paste0(tools::file_path_sans_ext(args$output_prefix), format(Sys.Date(), "__%Y_%m_%d"))
 svg_outfile <- paste0(output_base, ".svg")
 png_outfile <- paste0(output_base, ".png")
+pdf_outfile <- paste0(output_base, ".pdf")
 
 if (!file.exists(args$input_records)) {
     stop(paste("Genome records input file not found:", args$input_records), call. = FALSE)
 }
 
-if (!file.exists(args$input_publications)) {
-    stop(paste("Publications input file not found:", args$input_publications), call. = FALSE)
+if (!file.exists(args$input_csv)) {
+    stop(paste("Publications input file not found:", args$input_csv), call. = FALSE)
 }
 
 dir.create(dirname(svg_outfile), recursive = TRUE, showWarnings = FALSE)
@@ -92,7 +136,7 @@ plot_records$CUM_RECORDS <- baseline_records + cumsum(plot_records$FREQ_RECORDS)
 
 
 # --- Read and Process Publications ---
-pub_data <- read.csv(args$input_publications, sep = ",", header = FALSE, stringsAsFactors = FALSE)
+pub_data <- read.csv(args$input_csv, sep = ",", header = FALSE, stringsAsFactors = FALSE)
 
 if (ncol(pub_data) < 2) {
     stop("Publications input must contain at least two columns: publications, year.", call. = FALSE)
@@ -315,13 +359,19 @@ myPlot <- ggplot() +
 
 # --- Save Plot ---
 
+if (!capabilities("cairo")) {
+    stop("Cairo support is required for the Figure 1 PDF export.", call. = FALSE)
+}
+
 svg_device <- if (requireNamespace("svglite", quietly = TRUE)) {
     svglite::svglite
 } else {
     grDevices::svg
 }
 
-ggsave(file = svg_outfile, plot = myPlot, width = 10, height = 5, device = svg_device)
-ggsave(file = png_outfile, plot = myPlot, width = 10, height = 5, dpi = 300)
+ggsave(file = svg_outfile, plot = myPlot, width = 7.2, height = 3.6, device = svg_device)
+ggsave(file = png_outfile, plot = myPlot, width = 7.2, height = 3.6, dpi = 300)
+ggsave(file = pdf_outfile, plot = myPlot, width = 7.2, height = 3.6, device = grDevices::cairo_pdf)
+cat("Wrote files to ", relative_output_directory(dirname(output_base)), "\n", sep = "")
 
 ################################################################################

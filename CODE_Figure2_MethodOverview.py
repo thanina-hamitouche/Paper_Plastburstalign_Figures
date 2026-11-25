@@ -1,11 +1,12 @@
 import argparse
-import os
-from datetime import date
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import to_rgba
 from matplotlib.patches import Arc, Polygon, Rectangle, Wedge
+
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
 
 LABEL_FONTSIZE = 24
 PANEL_LABEL_FONTSIZE = 32
@@ -1115,35 +1116,29 @@ def draw_bracket(ax, centers, R, right_panel_left, tick_width=0.5, lw=2):
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Create Figure 2 method overview and export both SVG and PNG files."
+        description="Create Figure 2 method overview and export PNG, SVG, and PDF files."
     )
     parser.add_argument(
-        "--output-dir",
-        default=None,
-        help="Output directory for image files (default: script directory).",
+        "-o",
+        "--output-prefix",
+        type=Path,
+        default=Path(__file__).resolve().parent / "Figure2_MethodOverview",
+        help="Output path with or without extension; a date suffix is added.",
     )
-    parser.add_argument(
-        "--output-name",
-        default="Figure2_MethodOverview",
-        help="Output filename (with or without extension); script writes both .svg and .png.",
-    )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if not args.output_prefix.name:
+        parser.error("--output-prefix must include a filename")
+    return args
 
 
-def resolve_output_paths(output_dir, output_name):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    target_dir = output_dir if output_dir else script_dir
-    os.makedirs(target_dir, exist_ok=True)
-    output_base = f"{os.path.splitext(output_name)[0]}__{date.today():%Y_%m_%d}"
-    return (
-        os.path.join(target_dir, f"{output_base}.svg"),
-        os.path.join(target_dir, f"{output_base}.png"),
-    )
+def resolve_output_paths(output_prefix):
+    output_prefix.parent.mkdir(parents=True, exist_ok=True)
+    return dated_output_paths(output_prefix)
 
 
 def main():
     args = parse_args()
-    svg_path, png_path = resolve_output_paths(args.output_dir, args.output_name)
+    output_paths = resolve_output_paths(args.output_prefix)
 
     fig, ax = plt.subplots(figsize=(12, 12))
     ax.set_aspect("equal")
@@ -1517,10 +1512,11 @@ def main():
     for label in long_labels:
         label.set_x(long_label_x)
 
-    # Save figure as SVG and PNG.
-    plt.savefig(svg_path, format="svg", dpi=300)
-    plt.savefig(png_path, format="png", dpi=300)
+    prepare_figure(fig, 7.2)
+    for ext, path in output_paths.items():
+        plt.savefig(path, format=ext, dpi=300)
     plt.close(fig)
+    report_output_directory(args.output_prefix.parent)
 
 
 if __name__ == "__main__":

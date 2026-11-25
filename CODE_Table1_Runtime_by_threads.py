@@ -56,7 +56,12 @@ def fmt_dur(sec: float) -> str:
     return f"{sec:.1f}s"
 
 
-def make_tables(publication_csv: Path, baseline_csv: Path, out_dir: Path) -> None:
+def make_tables(
+    publication_csv: Path,
+    baseline_csv: Path,
+    out_dir: Path,
+    output_name: str = "table_strong_scaling",
+) -> None:
     pub = load_csv(publication_csv, required=True)
     base = load_csv(baseline_csv)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -122,8 +127,8 @@ def make_tables(publication_csv: Path, baseline_csv: Path, out_dir: Path) -> Non
         tex_lines.pop()
     tex_lines += [r"\bottomrule", r"\end{tabular}"]
 
-    md_path = out_dir / "table_strong_scaling.md"
-    tex_path = out_dir / "table_strong_scaling.tex"
+    md_path = out_dir / f"{output_name}.md"
+    tex_path = out_dir / f"{output_name}.tex"
     md_path.write_text("\n".join(md_lines) + "\n", encoding="utf-8")
     tex_path.write_text("\n".join(tex_lines) + "\n", encoding="utf-8")
     print(f"Wrote {md_path} and {tex_path}")
@@ -134,16 +139,36 @@ def make_tables(publication_csv: Path, baseline_csv: Path, out_dir: Path) -> Non
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--pub-csv", type=Path, default=Path("publication_summary_metrics.csv")
+        "--input-csv",
+        "--pub-csv",
+        type=Path,
+        default=Path("publication_summary_metrics.csv"),
     )
     parser.add_argument(
         "--base-csv", type=Path, default=Path("baseline_summary_metrics.csv")
     )
-    parser.add_argument(
-        "--out-dir", type=Path, default=Path("TBL_Table1_Runtime_by_threads")
+    output_options = parser.add_mutually_exclusive_group()
+    output_options.add_argument(
+        "--out-dir", type=Path, help="Output directory using the default filename."
+    )
+    output_options.add_argument(
+        "--output-prefix",
+        type=Path,
+        help="Output path with or without extension; writes Markdown and LaTeX.",
     )
     args = parser.parse_args()
-    make_tables(args.pub_csv, args.base_csv, args.out_dir)
+    if args.output_prefix is None:
+        make_tables(
+            args.input_csv,
+            args.base_csv,
+            args.out_dir or Path("TBL_Table1_Runtime_by_threads"),
+        )
+    else:
+        if not args.output_prefix.name:
+            parser.error("--output-prefix must include a filename")
+        make_tables(
+            args.input_csv, args.base_csv, args.output_prefix.parent, args.output_prefix.stem
+        )
 
 
-# python CODE_Table1_Runtime_by_threads.py --pub-csv DATA_Benchmarking_on_Workstation__2026_11_24.csv
+# python CODE_Table1_Runtime_by_threads.py --input-csv input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv

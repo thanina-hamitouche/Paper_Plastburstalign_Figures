@@ -28,15 +28,20 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, LogLocator
 
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+
 DATASETS = [
-    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. (53 angiosperms)"),
-    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. (Asteraceae)"),
-    ("benchmark_YangEtAl2022_monocots", "Yang et al. (Monocots)"),
-    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. (Angiosperms)"),
-    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. (13,724 angiosperms)"),
+    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
+    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. 2022 (n=155)"),
+    ("benchmark_YangEtAl2022_monocots", "Yang et al. 2022 (n=733)"),
+    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. 2022 (n=2,585)"),
+    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. 2025 (n=13,724)"),
 ]
 MODES = ("cds", "int", "igs")
 COLORS = ("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#1f78b4", "#a6761d")
+DATASET_COLORS = dict(
+    zip((key for key, _ in DATASETS), ("#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#e41a1c"))
+)
 MARKERS = ("o", "s", "^", "D", "v", "P", "X")
 
 
@@ -91,6 +96,8 @@ def load_metrics(path: Path):
 
 
 def create_figure(data, output: Path, dpi: int):
+    if dpi < 300:
+        raise ValueError("DPI must be at least 300 for publication output")
     seen = {dataset for (dataset, _mode) in data}
     datasets = [(key, label) for key, label in DATASETS if key in seen]
     datasets.extend((key, key) for key in sorted(seen - {k for k, _ in DATASETS}))
@@ -98,6 +105,16 @@ def create_figure(data, output: Path, dpi: int):
         raise ValueError("No supported data in CSV")
 
     colors = plt.get_cmap("tab20") if len(datasets) > len(COLORS) else None
+
+    def dataset_color(index, key):
+        if key in DATASET_COLORS:
+            return DATASET_COLORS[key]
+        return (
+            COLORS[index]
+            if colors is None
+            else colors(index / max(1, len(datasets) - 1))
+        )
+
     fig, axes = plt.subplots(3, 4, figsize=(19, 11), squeeze=False)
     column_titles = ["Elapsed time", "Speedup", "Parallel efficiency", "Peak memory"]
     all_threads = sorted({threads for runs in data.values() for threads in runs})
@@ -158,16 +175,11 @@ def create_figure(data, output: Path, dpi: int):
                     ys = [100 * (base / runs[t][0]) / t for t in xs]
                 else:
                     ys = [runs[t][1] for t in xs]
-                color = (
-                    COLORS[idx]
-                    if colors is None
-                    else colors(idx / max(1, len(datasets) - 1))
-                )
                 ax.plot(
                     xs,
                     ys,
                     marker=MARKERS[idx % len(MARKERS)],
-                    color=color,
+                    color=dataset_color(idx, key),
                     linewidth=1.7,
                     markersize=4.5,
                 )
@@ -176,16 +188,12 @@ def create_figure(data, output: Path, dpi: int):
         Line2D(
             [0],
             [0],
-            color=(
-                COLORS[i]
-                if len(datasets) <= len(COLORS)
-                else colors(i / max(1, len(datasets) - 1))
-            ),
+            color=dataset_color(i, key),
             marker=MARKERS[i % len(MARKERS)],
             lw=1.8,
             label=label,
         )
-        for i, (_key, label) in enumerate(datasets)
+        for i, (key, label) in enumerate(datasets)
     ]
     handles.append(
         Line2D(
@@ -206,26 +214,26 @@ def create_figure(data, output: Path, dpi: int):
         fontsize=9,
     )
     fig.tight_layout(rect=(0, 0, 1, 0.935), h_pad=2.2, w_pad=1.8)
+    bbox = prepare_figure(fig, 14, bbox_inches="tight")
     output.parent.mkdir(parents=True, exist_ok=True)
-    for ext in ("png", "pdf"):
-        dest = output.with_suffix("." + ext)
-        fig.savefig(dest, dpi=dpi, bbox_inches="tight")
-        print(f"Saved {dest}")
+    for dest in dated_output_paths(output).values():
+        fig.savefig(dest, dpi=dpi, bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
+    report_output_directory(output.parent)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("csv_file", type=Path, help="Benchmark CSV file")
+    parser.add_argument("--input-csv", type=Path, required=True, help="Benchmark CSV file")
     parser.add_argument(
         "-o",
         "--output-prefix",
         type=Path,
         default=Path("pub_artifacts/figure_per_mode_all_metrics"),
     )
-    parser.add_argument("--dpi", type=int, default=300)
+    parser.add_argument("--dpi", type=int, default=300, help="Export resolution (minimum: 300 dpi).")
     args = parser.parse_args()
-    create_figure(load_metrics(args.csv_file), args.output_prefix, args.dpi)
+    create_figure(load_metrics(args.input_csv), args.output_prefix, args.dpi)
 
 
 if __name__ == "__main__":

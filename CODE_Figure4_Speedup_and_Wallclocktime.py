@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate strong-scaling PDF and PNG figures from publication benchmark CSV."""
+"""Generate strong-scaling figures from publication benchmark CSV."""
 
 import argparse
 import csv
@@ -11,16 +11,18 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+
 DATASET_ORDER = [
-    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. (53 angiosperms)"),
-    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. (Asteraceae)"),
-    ("benchmark_YangEtAl2022_monocots", "Yang et al. (Monocots)"),
-    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. (Angiosperms)"),
-    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. (13,724 angiosperms)"),
+    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
+    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. 2022 (n=155)"),
+    ("benchmark_YangEtAl2022_monocots", "Yang et al. 2022 (n=733)"),
+    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. 2022 (n=2,585)"),
+    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. 2025 (n=13,724)"),
 ]
 MODES = ["cds", "int", "igs"]
 THREADS = [1, 2, 4, 8, 16, 32]
-PALETTE = ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e"]
+PALETTE = ["#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#e41a1c"]
 
 
 def parse_elapsed(s: str) -> float:
@@ -48,7 +50,9 @@ def load_csv(path: Path) -> dict:
     return data
 
 
-def make_plots(publication_csv: Path, out_dir: Path) -> None:
+def make_plots(
+    publication_csv: Path, out_dir: Path, output_name: str = "figure_strong_scaling"
+) -> None:
     pub = load_csv(publication_csv)
     out_dir.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(2, 3, figsize=(14, 8.2), sharex=True)
@@ -116,22 +120,38 @@ def make_plots(publication_csv: Path, out_dir: Path) -> None:
         bbox_to_anchor=(0.5, 1.01),
     )
     fig.tight_layout(rect=[0, 0, 1, 0.91])
-    for ext in ("pdf", "png"):
-        output = out_dir / f"figure_strong_scaling.{ext}"
-        fig.savefig(output, dpi=300, bbox_inches="tight")
-        print(f"Wrote {output}")
+    bbox = prepare_figure(fig, 12, bbox_inches="tight")
+    for output in dated_output_paths(out_dir / output_name).values():
+        fig.savefig(output, dpi=300, bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
+    report_output_directory(out_dir)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--pub-csv", type=Path, default=Path("publication_summary_metrics.csv")
+        "--input-csv",
+        "--pub-csv",
+        type=Path,
+        default=Path("publication_summary_metrics.csv"),
     )
-    parser.add_argument(
-        "--out-dir", type=Path, default=Path("VIZ_Figure4_Speedup_and_Wallclocktime")
+    output_options = parser.add_mutually_exclusive_group()
+    output_options.add_argument(
+        "--out-dir", type=Path, help="Output directory using the default filename."
+    )
+    output_options.add_argument(
+        "-o",
+        "--output-prefix",
+        type=Path,
+        help="Output path with or without extension; a date suffix is added.",
     )
     args = parser.parse_args()
-    make_plots(args.pub_csv, args.out_dir)
+    if args.output_prefix is None:
+        out_dir = args.out_dir or Path("VIZ_Figure4_Speedup_and_Wallclocktime")
+        make_plots(args.input_csv, out_dir)
+    else:
+        if not args.output_prefix.name:
+            parser.error("--output-prefix must include a filename")
+        make_plots(args.input_csv, args.output_prefix.parent, args.output_prefix.name)
 
-# python CODE_Figure4_Speedup_and_Wallclocktime.py --pub-csv DATA_Benchmarking_on_Workstation__2026_11_24.csv
+# python CODE_Figure4_Speedup_and_Wallclocktime.py --input-csv input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv

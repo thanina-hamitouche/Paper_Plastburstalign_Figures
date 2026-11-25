@@ -1,5 +1,4 @@
 import argparse
-from datetime import date
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -7,6 +6,8 @@ import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
 from matplotlib.transforms import Bbox
+
+from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
 
 try:
     from adjustText import adjust_text
@@ -26,11 +27,11 @@ DATASET_LABELS = dict(
     zip(
         DATASET_ORDER,
         [
-            "Zhang et al. (2025), n=53",
-            "Yang et al. (2022), n=155",
-            "Yang et al. (2022), n=733",
-            "Yang et al. (2022), n=2,585",
-            "Zhang et al. (2025), n=13,724",
+            "Zhang et al. 2025 (n=53)",
+            "Yang et al. 2022 (n=155)",
+            "Yang et al. 2022 (n=733)",
+            "Yang et al. 2022 (n=2,585)",
+            "Zhang et al. 2025 (n=13,724)",
         ],
     )
 )
@@ -43,11 +44,18 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Plot computation time from benchmark CSV data."
     )
-    parser.add_argument("input_csv", nargs="?", default="results.csv")
-    parser.add_argument(
+    parser.add_argument("--input-csv", default="results.csv")
+    output_options = parser.add_mutually_exclusive_group()
+    output_options.add_argument(
         "output_path_stem",
         nargs="?",
         default="./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading",
+        help=argparse.SUPPRESS,
+    )
+    output_options.add_argument(
+        "--output-prefix",
+        type=Path,
+        help="Output path stem; writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
 
@@ -133,8 +141,10 @@ def add_horizontal_top_legends(fig, datasets):
 def main():
     args = parse_args()
     input_csv = Path(args.input_csv)
-    output_stem = Path(args.output_path_stem)
-    output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
+    output_stem = Path(
+        args.output_prefix if args.output_prefix is not None else args.output_path_stem
+    )
+    output_paths = dated_output_paths(output_stem)
     output_stem.parent.mkdir(parents=True, exist_ok=True)
     plot_df = pd.read_csv(input_csv, dtype={"Elapsed": str})
     required = {"dataset", "threads", "mode", "Elapsed"}
@@ -271,15 +281,14 @@ def main():
         target_width,
         target_height,
     )
-    fig.savefig(output_stem.with_suffix(".svg"), bbox_inches=bbox, pad_inches=0)
+    bbox = prepare_figure(fig, 12, bbox_inches=bbox, pad_inches=0.05)
+    fig.savefig(output_paths["svg"], bbox_inches=bbox, pad_inches=0)
     fig.savefig(
-        output_stem.with_suffix(".png"), dpi=300, bbox_inches=bbox, pad_inches=0
+        output_paths["png"], dpi=300, bbox_inches=bbox, pad_inches=0
     )
-    fig.savefig(output_stem.with_suffix(".pdf"), bbox_inches=bbox, pad_inches=0)
+    fig.savefig(output_paths["pdf"], bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
-    print(
-        f"Saved {output_stem.with_suffix('.svg')}, {output_stem.with_suffix('.png')}, and {output_stem.with_suffix('.pdf')}"
-    )
+    report_output_directory(output_stem.parent)
 
 
 if __name__ == "__main__":
