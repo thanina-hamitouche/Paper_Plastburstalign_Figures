@@ -9,7 +9,13 @@ import numpy as np
 import pandas as pd
 from matplotlib.ticker import FuncFormatter, LogLocator
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    prepare_figure,
+    report_output_directory,
+)
 
 CONFIG_ORDER = ["16*1", "8*2", "4*4", "2*8", "1*16"]
 
@@ -59,14 +65,12 @@ def format_axis(ax: plt.Axes, ylabel: str) -> None:
     ax.set_xticks(range(len(CONFIG_ORDER)))
     ax.set_xticklabels(
         [CONFIG_LABELS[c] for c in CONFIG_ORDER],
-        fontsize=11,
     )
 
     ax.set_xlabel(
         "MAFFT × Workers threads per alignment\n(16-CPU budget)",
-        fontsize=12,
     )
-    ax.set_ylabel(ylabel, fontsize=12)
+    ax.set_ylabel(ylabel)
 
     ax.grid(
         True,
@@ -152,18 +156,12 @@ def main() -> None:
     # 2. Figure configuration
     # ==========================================
 
-    plt.rcParams["font.family"] = "sans-serif"
-    plt.rcParams["font.sans-serif"] = [
-        "Arial",
-        "Liberation Sans",
-        "DejaVu Sans",
-        "sans-serif",
-    ]
+    configure_typography()
 
     fig, axes = plt.subplots(
         1,
         2,
-        figsize=(15, 6),
+        figsize=(15, 8),
     )
 
     # ==========================================
@@ -198,12 +196,11 @@ def main() -> None:
             xytext=(0, 11),
             textcoords="offset points",
             ha="center",
-            fontsize=10,
+            fontsize=TYPOGRAPHY["annotation_size"],
         )
 
     format_axis(ax, "Elapsed time (seconds)")
-    ax.set_title("Execution time", fontsize=15, pad=15)
-    ax.legend(loc="upper right")
+    ax.set_title("Execution time", pad=15)
 
     # ==========================================
     # 4. Peak memory usage (log10 scale)
@@ -234,7 +231,7 @@ def main() -> None:
             xytext=(0, 11),
             textcoords="offset points",
             ha="center",
-            fontsize=10,
+            fontsize=TYPOGRAPHY["annotation_size"],
             color="0.2",
             bbox={
                 "boxstyle": "round,pad=0.2",
@@ -258,23 +255,30 @@ def main() -> None:
 
     ax.set_title(
         "Peak memory usage",
-        fontsize=15,
         pad=15,
     )
 
-    ax.legend(loc="upper right", frameon=True)
+    handles = [axes[0].lines[0], axes[1].lines[0]]
+    legend = fig.legend(
+        handles=handles, loc="upper center", ncol=2, frameon=False,
+        borderaxespad=0, borderpad=0,
+    )
 
     # ==========================================
     # 5. Overall figure formatting
     # ==========================================
 
-    fig.tight_layout()
+    layout_rect = (0, 0.1, 1, 1)
+    fig.tight_layout(rect=layout_rect)
 
     # ==========================================
     # 6. Export figures
     # ==========================================
 
-    bbox = prepare_figure(fig, 12, bbox_inches="tight")
+    bbox = prepare_figure(
+        fig, 12, bbox_inches="tight", layout={"rect": layout_rect}, bottom_legend=legend,
+        aspect_ratio=2,
+    )
     fig.savefig(
         output_paths["svg"],
         bbox_inches=bbox,

@@ -7,7 +7,14 @@ import pandas as pd
 from matplotlib.lines import Line2D
 from matplotlib.transforms import Bbox
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    place_bottom_legend,
+    prepare_figure,
+    report_output_directory,
+)
 
 try:
     from adjustText import adjust_text
@@ -101,7 +108,7 @@ def compute_breaks(max_cpus, max_time_min):
     return x_breaks, [v for v in y_breaks if v <= max_time_min]
 
 
-def add_horizontal_top_legends(fig, datasets):
+def add_horizontal_bottom_legend(fig, datasets):
     dataset_handles = [Line2D([], [], linestyle="None", label="DATASET")] + [
         Line2D(
             [0],
@@ -120,22 +127,25 @@ def add_horizontal_top_legends(fig, datasets):
         )
         for m in MARKER_ORDER
     ]
-    options = dict(
+    rows = []
+    for group in (dataset_handles, marker_handles):
+        for start in range(0, len(group), 3):
+            row = group[start:start + 3]
+            row += [Line2D([], [], linestyle="None", label="")] * (3 - len(row))
+            rows.append(row)
+    handles = [row[column] for column in range(3) for row in rows]
+    return fig.legend(
+        handles=handles,
         loc="upper center",
+        ncol=3,
         columnspacing=0.9,
         handletextpad=0.5,
         labelspacing=0.4,
         handlelength=2.6,
         frameon=False,
+        borderaxespad=0,
+        borderpad=0,
     )
-    legend = fig.legend(
-        handles=dataset_handles,
-        bbox_to_anchor=(0.5, 0.985),
-        ncol=len(dataset_handles),
-        **options,
-    )
-    fig.add_artist(legend)
-    fig.legend(handles=marker_handles, bbox_to_anchor=(0.5, 0.955), ncol=4, **options)
 
 
 def main():
@@ -185,14 +195,8 @@ def main():
     max_time = max(0.1, float(np.ceil(plot_df["TIME_MIN"].max() * 10) / 10))
     x_breaks, y_breaks = compute_breaks(max_cpus, max_time)
     x_breaks = sorted(set(x_breaks) | set(plot_df["CPUS"]))
-    plt.rcParams["font.family"] = "sans-serif"
-    plt.rcParams["font.sans-serif"] = [
-        "Arial",
-        "Liberation Sans",
-        "DejaVu Sans",
-        "sans-serif",
-    ]
-    fig, ax = plt.subplots(figsize=(13, 13))
+    configure_typography()
+    fig, ax = plt.subplots(figsize=(13, 14.4))
     ax.axvline(1, color="black", linewidth=0.4)
     ax.axhline(0, color="black", linewidth=0.4)
     label_entries = []
@@ -219,7 +223,7 @@ def main():
                     row["CPUS"],
                     label_y,
                     format_duration_label(row["TIME_MIN"]),
-                    fontsize=10,
+                    fontsize=TYPOGRAPHY["annotation_size"],
                     color="0.2",
                     bbox={
                         "boxstyle": "round,pad=0.2",
@@ -254,12 +258,11 @@ def main():
     ax.set_yticklabels([format_duration_label(y) for y in y_breaks])
     ax.grid(True, which="major", color="gray", alpha=1.0)
     ax.grid(False, which="minor")
-    ax.set_xlabel("\nNumber of threads (log2 scale)", fontsize=14)
-    ax.set_ylabel("Wall-clock time (symlog scale)\n", fontsize=14)
-    # ax.set_title('Computation time by thread count\n', fontsize=18, pad=2)
+    ax.set_xlabel("\nNumber of threads (log2 scale)")
+    ax.set_ylabel("Wall-clock time (symlog scale)\n")
     present_datasets = [d for d in DATASET_ORDER if (plot_df["DATASET"] == d).any()]
-    add_horizontal_top_legends(fig, present_datasets)
-    fig.subplots_adjust(left=0.09, right=0.93, bottom=0.08, top=0.92)
+    legend = add_horizontal_bottom_legend(fig, present_datasets)
+    fig.subplots_adjust(left=0.09, right=0.93, bottom=0.22, top=0.97)
     # Adjust labels after final axis transformations and layout.
     if adjust_text is not None and overlap_texts:
         adjust_text(
@@ -271,8 +274,9 @@ def main():
             iter_lim=4000,
             arrowprops={"arrowstyle": "-", "color": "0.6", "lw": 0.5},
         )
+    place_bottom_legend(fig, legend)
     fig.canvas.draw()
-    bbox = fig.get_tightbbox(fig.canvas.get_renderer()).padded(0.05)
+    bbox = fig.get_tightbbox(fig.canvas.get_renderer()).padded(0.03)
     target_height = max(bbox.height, bbox.width)
     target_width = target_height
     bbox = Bbox.from_bounds(
@@ -281,7 +285,7 @@ def main():
         target_width,
         target_height,
     )
-    bbox = prepare_figure(fig, 12, bbox_inches=bbox, pad_inches=0.05)
+    bbox = prepare_figure(fig, 12, bbox_inches=bbox, pad_inches=0.03, bottom_legend=legend)
     fig.savefig(output_paths["svg"], bbox_inches=bbox, pad_inches=0)
     fig.savefig(
         output_paths["png"], dpi=300, bbox_inches=bbox, pad_inches=0

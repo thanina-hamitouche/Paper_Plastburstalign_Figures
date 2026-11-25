@@ -3,7 +3,7 @@
 # Author: Michael Gruenstaeudl <m_gruenstaeudl@fhsu.edu>
 
 ensure_dependencies <- function() {
-    packages <- c("argparse", "ggplot2", "ggrepel", "ggtext", "plyr", "dplyr", "svglite")
+    packages <- c("argparse", "ggplot2", "ggrepel", "ggtext", "plyr", "dplyr", "svglite", "jsonlite", "systemfonts")
     missing <- packages[!vapply(packages, requireNamespace, logical(1), quietly = TRUE)]
     if (length(missing) > 0) {
         install.packages(missing, repos = "https://cloud.r-project.org")
@@ -15,6 +15,22 @@ ensure_dependencies <- function() {
 }
 
 ensure_dependencies()
+
+script_argument <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
+script_dir <- if (length(script_argument) > 0) {
+    dirname(normalizePath(sub("^--file=", "", script_argument[[1]])))
+} else {
+    getwd()
+}
+typography <- jsonlite::fromJSON(file.path(script_dir, "figure_typography.json"))
+available_fonts <- unique(systemfonts::system_fonts()$family)
+font_candidates <- c(typography$font_family, typography$fallback_families)
+font_index <- match(tolower(font_candidates), tolower(available_fonts))
+available_index <- which(!is.na(font_index))
+if (length(available_index) == 0) {
+    stop(paste("No supported figure font found:", paste(font_candidates, collapse = ", ")), call. = FALSE)
+}
+figure_font <- available_fonts[font_index[available_index[[1]]]]
 
 relative_output_directory <- function(directory) {
     target <- normalizePath(directory, winslash = "/", mustWork = TRUE)
@@ -258,7 +274,7 @@ make_annotation_grob <- function(text) {
         hjust = 0,
         vjust = 1,
         halign = 1,
-        gp = grid::gpar(fontsize = 12, fontfamily = "Arial", fontface = "bold", lineheight = 1.6),
+        gp = grid::gpar(fontsize = typography$annotation_size, fontfamily = figure_font, fontface = "bold", lineheight = 1.6),
         box_gp = grid::gpar(fill = NA, col = NA),
         padding = unit(c(6, 8, 6, 8), "pt")
     )
@@ -356,16 +372,18 @@ myPlot <- ggplot() +
         clip = "off"
     ) +
 
-    theme_minimal(base_family = "Arial") +
+    theme_minimal(base_family = figure_font, base_size = typography$annotation_size) +
     theme(
-        text = element_text(family = "Arial"),
-        axis.text = element_text(size = 12),
-        axis.text.x = element_text(size = 12, angle = 0, hjust = 0.5, margin = margin(t = 8)),
+        text = element_text(family = figure_font),
+        axis.text = element_text(size = typography$tick_label_size),
+        axis.text.x = element_text(angle = 0, hjust = 0.5, margin = margin(t = 8)),
         axis.ticks.x = element_blank(),
         axis.ticks.length = unit(0.2, "cm"),
-        axis.title.x = element_text(size = 12, face = "bold", margin = margin(t = 12)),
-        axis.title.y.left = element_text(size = 12, face = "bold", margin = margin(r = 12)),
-        axis.title.y.right = element_text(size = 12, face = "bold", color = "#1f77b4", margin = margin(l = 12)),
+        axis.title = element_text(size = typography$axis_label_size),
+        axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
+        axis.title.y.left = element_text(face = "bold", margin = margin(r = 12)),
+        axis.title.y.right = element_text(face = "bold", color = "#1f77b4", margin = margin(l = 12)),
+        legend.text = element_text(size = typography$legend_size),
         axis.text.y.right = element_text(color = "#1f77b4"),
         plot.margin = unit(c(0.05, 0.05, 0.05, 0.05), "cm")
     )

@@ -6,7 +6,13 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Polygon, Rectangle
 
-from figure_export_helper import dated_output_paths, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    fit_bbox_to_aspect,
+    report_output_directory,
+)
 
 
 parser = argparse.ArgumentParser(
@@ -24,6 +30,9 @@ if not args.output_prefix.name:
     parser.error("--output-prefix must include a filename")
 OUT = args.output_prefix.parent
 OUT.mkdir(parents=True, exist_ok=True)
+
+legend_font_family = plt.rcParams["font.family"]
+configure_typography()
 
 # Wide 2:1 layout, deliberately WITHOUT a title/header.
 fig, ax = plt.subplots(figsize=(20, 10), dpi=130)
@@ -47,8 +56,8 @@ SEQUENCE_GRAY = "#A0A0A0"
 PURPLE = SEQUENCE_GRAY
 PURPLE_EDGE = BLACK
 FONT_INCREASE = 0.5
-FIELD_TITLE_SIZE = 17.5 + FONT_INCREASE
-FIELD_TEXT_SIZE = 14.0 + FONT_INCREASE
+FIELD_TITLE_SIZE = TYPOGRAPHY["diagram_title_size"]
+FIELD_TEXT_SIZE = TYPOGRAPHY["diagram_label_size"]
 
 
 def box(x, y, w, h, fill=YELLOW, edge=ORANGE, r=0.22, lw=1.8, dashed=False, z=2):
@@ -71,13 +80,14 @@ def txt(
     x,
     y,
     s,
-    size=11,
+    size: float = 11,
     bold=False,
     ha="center",
     va="center",
     color=DARK,
     linespace=1.18,
     z=6,
+    fontfamily=None,
 ):
     ax.text(
         x,
@@ -90,6 +100,7 @@ def txt(
         color=color,
         linespacing=linespace,
         zorder=z,
+        fontfamily=fontfamily,
     )
 
 
@@ -402,7 +413,7 @@ ax.text(
     "LOCUS     PLASTOME\nFEATURES\n     gene   1..90\n"
     '       /gene="rbcL"\nORIGIN\n        1 atgcaatgc\n//',
     fontsize=FIELD_TEXT_SIZE,
-    fontfamily="monospace",
+    fontfamily=TYPOGRAPHY["code_font_family"],
     ha="left",
     va="top",
     color=DARK,
@@ -615,10 +626,15 @@ for y, label, fill, dashed in [
     )
     if label != "Input / Output":
         arrow(0.84, y, 1.26, y, color=BLACK, dashed=dashed, ms=14, lw=2.5)
-    txt(1.38, y, label, size=FIELD_TEXT_SIZE, bold=True, ha="left")
+    txt(
+        1.38, y, label, size=14.0 + FONT_INCREASE, bold=True, ha="left",
+        fontfamily=legend_font_family,
+    )
 
 fig.subplots_adjust(left=0.015, right=0.985, bottom=0.03, top=0.985)
+fig.canvas.draw()
+bbox = fit_bbox_to_aspect(fig.get_tightbbox().padded(0.03), 2)
 for path in dated_output_paths(args.output_prefix).values():
-    fig.savefig(path, dpi=300, facecolor="white")
+    fig.savefig(path, dpi=300, facecolor="white", bbox_inches=bbox, pad_inches=0)
 plt.close(fig)
 report_output_directory(OUT)

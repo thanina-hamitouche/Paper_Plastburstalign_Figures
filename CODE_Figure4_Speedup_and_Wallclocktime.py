@@ -11,7 +11,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    prepare_figure,
+    report_output_directory,
+)
 
 DATASET_ORDER = [
     ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
@@ -53,9 +59,10 @@ def load_csv(path: Path) -> dict:
 def make_plots(
     publication_csv: Path, out_dir: Path, output_name: str = "figure_strong_scaling"
 ) -> None:
+    configure_typography()
     pub = load_csv(publication_csv)
     out_dir.mkdir(parents=True, exist_ok=True)
-    fig, axes = plt.subplots(2, 3, figsize=(14, 8.2), sharex=True)
+    fig, axes = plt.subplots(2, 3, figsize=(14, 7.27), sharex=True)
 
     for col, mode in enumerate(MODES):
         ax_speed = axes[0, col]
@@ -103,6 +110,9 @@ def make_plots(
         ax_wall.set_ylabel("Wall Time (seconds, log scale)" if col == 0 else "")
         ax_wall.set_xticks(THREADS)
         ax_wall.set_xticklabels([str(t) for t in THREADS])
+        ax_wall.xaxis.get_major_ticks()[THREADS.index(2)].set_pad(
+            TYPOGRAPHY["tick_label_size"] + 4
+        )
         ax_wall.grid(True, which="both", alpha=0.25)
 
     # Gather legend entries across all panels, even if the first panel lacks a dataset.
@@ -111,16 +121,21 @@ def make_plots(
         handles, labels = ax.get_legend_handles_labels()
         for handle, label in zip(handles, labels):
             legend_items.setdefault(label, handle)
-    fig.legend(
+    legend = fig.legend(
         list(legend_items.values()),
         list(legend_items.keys()),
         loc="upper center",
         ncol=3,
         frameon=False,
-        bbox_to_anchor=(0.5, 1.01),
+        borderaxespad=0,
+        borderpad=0,
     )
-    fig.tight_layout(rect=[0, 0, 1, 0.91])
-    bbox = prepare_figure(fig, 12, bbox_inches="tight")
+    layout_rect = (0, 0.12, 1, 1)
+    fig.tight_layout(rect=layout_rect)
+    bbox = prepare_figure(
+        fig, 12, bbox_inches="tight", layout={"rect": layout_rect}, bottom_legend=legend,
+        aspect_ratio=2,
+    )
     for output in dated_output_paths(out_dir / output_name).values():
         fig.savefig(output, dpi=300, bbox_inches=bbox, pad_inches=0)
     plt.close(fig)

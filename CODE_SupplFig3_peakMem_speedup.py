@@ -23,7 +23,12 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, LogLocator, NullFormatter
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    configure_typography,
+    dated_output_paths,
+    prepare_figure,
+    report_output_directory,
+)
 
 DATASET_ORDER = [
     ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
@@ -78,6 +83,7 @@ def load_rows(path: Path) -> dict:
 
 
 def draw(csv_path: Path, output_prefix: Path) -> None:
+    configure_typography()
     data = load_rows(csv_path)
     available = {ds for ds, _ in data}
     datasets = [(key, label) for key, label in DATASET_ORDER if key in available]
@@ -155,10 +161,10 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
         speed_ax.set_ylim(bottom=0)
 
         memory_ax.set_title(
-            f"{mode.upper()} — Peak Memory", fontsize=12, weight="bold", pad=12
+            f"{mode.upper()} — Peak Memory", weight="bold", pad=12
         )
         speed_ax.set_title(
-            f"{mode.upper()} — Speedup", fontsize=12, weight="bold", pad=12
+            f"{mode.upper()} — Speedup", weight="bold", pad=12
         )
         for ax in (memory_ax, speed_ax):
             ax.set_xticks(THREADS, [str(p) for p in THREADS])
@@ -185,17 +191,17 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
     handles.append(
         Line2D([0], [0], color="#777777", linestyle="--", label="Ideal linear")
     )
-    fig.legend(
+    legend = fig.legend(
         handles=handles,
         loc="upper center",
-        bbox_to_anchor=(0.5, 1.035),
         ncol=min(3, len(handles)),
         frameon=False,
-        fontsize=9,
+        borderaxespad=0,
+        borderpad=0,
     )
-    fig.subplots_adjust(hspace=0.63, wspace=0.23, top=0.88, bottom=0.07)
+    fig.subplots_adjust(hspace=0.63, wspace=0.23, top=0.98, bottom=0.19)
 
-    bbox = prepare_figure(fig, 12, bbox_inches="tight")
+    bbox = prepare_figure(fig, 12, bbox_inches="tight", bottom_legend=legend)
     output_prefix.parent.mkdir(parents=True, exist_ok=True)
     for path in dated_output_paths(output_prefix).values():
         fig.savefig(path, dpi=300, bbox_inches=bbox, pad_inches=0)

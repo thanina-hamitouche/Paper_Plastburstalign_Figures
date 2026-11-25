@@ -77,7 +77,7 @@ echo ""
 
 # Suppl. Figure 3
 echo "Compiling supplemental figure 3 ..."
-run_figure "./VIZ_SupplFig3_peakMem_speedup/peakMem_speedup_across_datasets" \
+run_figure "./VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets" \
   python CODE_SupplFig3_peakMem_speedup.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""

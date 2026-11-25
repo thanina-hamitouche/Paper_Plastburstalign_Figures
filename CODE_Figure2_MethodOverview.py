@@ -6,10 +6,18 @@ import numpy as np
 from matplotlib.colors import to_rgba
 from matplotlib.patches import Arc, Polygon, Rectangle, Wedge
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    prepare_figure,
+    report_output_directory,
+)
 
-LABEL_FONTSIZE = 24
-PANEL_LABEL_FONTSIZE = 32
+FIGURE_WIDTH = 12
+OUTPUT_WIDTH = 7.2
+LABEL_FONTSIZE = TYPOGRAPHY["diagram_label_size"] * FIGURE_WIDTH / OUTPUT_WIDTH
+PANEL_LABEL_FONTSIZE = TYPOGRAPHY["diagram_title_size"] * FIGURE_WIDTH / OUTPUT_WIDTH
 SPLIT_ALIGNMENT_GAP_STRETCH = 0.4
 UNSPLIT_ALIGNMENT_GAP_STRETCH = 0.3
 LEFT_PANEL_LEFT = -4.95
@@ -1137,10 +1145,11 @@ def resolve_output_paths(output_prefix):
 
 
 def main():
+    configure_typography()
     args = parse_args()
     output_paths = resolve_output_paths(args.output_prefix)
 
-    fig, ax = plt.subplots(figsize=(12, 12))
+    fig, ax = plt.subplots(figsize=(FIGURE_WIDTH, FIGURE_WIDTH))
     ax.set_aspect("equal")
     ax.axis("off")
 
@@ -1327,9 +1336,9 @@ def main():
     b_top = centers[0][1] + R + 0.7
     panel_right = LEFT_PANEL_LEFT + (b_top - c_bottom)
 
-    ax.set_xlim(LEFT_PANEL_LEFT - 1.0, panel_right + 1.0)
-    ax.set_ylim(c_bottom - 1.0, b_top + 1.0)
-    plt.tight_layout(pad=1.0)
+    ax.set_xlim(LEFT_PANEL_LEFT - 0.1, panel_right + 0.1)
+    ax.set_ylim(c_bottom - 0.1, b_top + 0.1)
+    plt.tight_layout(pad=0.1)
     fig.canvas.draw()
     pixels_per_data_unit = (
         ax.transData.transform((0, 1))[1] - ax.transData.transform((0, 0))[1]
@@ -1512,7 +1521,7 @@ def main():
     for label in long_labels:
         label.set_x(long_label_x)
 
-    prepare_figure(fig, 7.2)
+    prepare_figure(fig, OUTPUT_WIDTH, scale_text=True)
     for ext, path in output_paths.items():
         plt.savefig(path, format=ext, dpi=300)
     plt.close(fig)

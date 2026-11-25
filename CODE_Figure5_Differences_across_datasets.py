@@ -28,7 +28,13 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, LogLocator
 
-from figure_export_helper import dated_output_paths, prepare_figure, report_output_directory
+from figure_export_helper import (
+    TYPOGRAPHY,
+    configure_typography,
+    dated_output_paths,
+    prepare_figure,
+    report_output_directory,
+)
 
 DATASETS = [
     ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. 2025 (n=53)"),
@@ -96,6 +102,7 @@ def load_metrics(path: Path):
 
 
 def create_figure(data, output: Path, dpi: int):
+    configure_typography()
     if dpi < 300:
         raise ValueError("DPI must be at least 300 for publication output")
     seen = {dataset for (dataset, _mode) in data}
@@ -115,16 +122,20 @@ def create_figure(data, output: Path, dpi: int):
             else colors(index / max(1, len(datasets) - 1))
         )
 
-    fig, axes = plt.subplots(3, 4, figsize=(19, 11), squeeze=False)
+    fig, axes = plt.subplots(3, 4, figsize=(19, 10.05), squeeze=False)
     column_titles = ["Elapsed time", "Speedup", "Parallel efficiency", "Peak memory"]
     all_threads = sorted({threads for runs in data.values() for threads in runs})
     for ri, mode in enumerate(MODES):
         for ci, heading in enumerate(column_titles):
             ax = axes[ri, ci]
             if ri == 0:
-                ax.set_title(heading, fontsize=12, fontweight="bold", pad=12)
+                ax.set_title(heading, fontweight="bold", pad=12)
             ax.set_xlabel("Threads")
             ax.set_xticks(all_threads)
+            if 1 in all_threads and 2 in all_threads:
+                ax.xaxis.get_major_ticks()[all_threads.index(2)].set_pad(
+                    TYPOGRAPHY["tick_label_size"] + 4
+                )
             ax.tick_params(
                 axis="x", top=False, labeltop=False, bottom=True, labelbottom=True
             )
@@ -205,16 +216,19 @@ def create_figure(data, output: Path, dpi: int):
             label="Ideal speedup / 100% efficiency",
         )
     )
-    fig.legend(
+    legend = fig.legend(
         handles=handles,
         loc="upper center",
         ncol=3,
-        bbox_to_anchor=(0.5, 1.015),
+        borderaxespad=0,
+        borderpad=0,
         frameon=False,
-        fontsize=9,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.935), h_pad=2.2, w_pad=1.8)
-    bbox = prepare_figure(fig, 14, bbox_inches="tight")
+    layout = {"rect": (0, 0.12, 1, 1), "h_pad": 2.2, "w_pad": 1.8}
+    fig.tight_layout(**layout)
+    bbox = prepare_figure(
+        fig, 14, bbox_inches="tight", layout=layout, bottom_legend=legend, aspect_ratio=2
+    )
     output.parent.mkdir(parents=True, exist_ok=True)
     for dest in dated_output_paths(output).values():
         fig.savefig(dest, dpi=dpi, bbox_inches=bbox, pad_inches=0)

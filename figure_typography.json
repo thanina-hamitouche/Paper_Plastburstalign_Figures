@@ -1,0 +1,12 @@
+{
+  "font_family": "Arial",
+  "fallback_families": ["Arimo", "Liberation Sans", "DejaVu Sans"],
+  "code_font_family": "monospace",
+  "axis_label_size": 12,
+  "tick_label_size": 11,
+  "legend_size": 11,
+  "title_size": 12,
+  "annotation_size": 11,
+  "diagram_label_size": 14.5,
+  "diagram_title_size": 18
+}

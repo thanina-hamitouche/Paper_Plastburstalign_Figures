@@ -5,8 +5,8 @@ Code for generating publication-quality figures and tables for the manuscript.
 - PNG exports use at least 300 dpi; SVG and PDF exports remain vector graphics.
 - Figure scripts append the current date (`__YYYY_MM_DD`) to PNG, SVG, and PDF filenames.
 Figure 1's PDF export requires R with Cairo support.
-- Figures target a 7.2-inch width when practical, with larger widths retained for dense layouts. (Only Figure 3 remains 20 inches wide to preserve the readability of its existing labels.)
-
+- Figures target a 7.2-inch width when practical, with larger widths retained for dense layouts. Figure 3 remains approximately 20 inches wide to preserve the readability of its existing labels.
+- Figure typography is defined in `figure_typography.json`: Arial is preferred, with the listed alternatives used when Arial is unavailable. Chart axis labels are 12 pt; tick labels and chart legend text are 11 pt. 
 
 ## IMPORTANT: Across all these figures and tables, we must only have a limited number of runtime and memory indicators:
 - wall-clock time (elapsed time from the start to the end of the run)
@@ -16,7 +16,6 @@ Figure 1's PDF export requires R with Cairo support.
 
 ## TO DO:
 - We need the same color scheme across the figures
-- We need the same font sizes across the figures
 
 
 ### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
@@ -112,9 +111,9 @@ _Purpose: This figure shall inform users of the optimal thread settings for achi
 ```bash
 python CODE_SupplFig3_peakMem_speedup.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_SupplFig3_peakMem_speedup/peakMem_speedup_across_datasets
+  --output-prefix ./VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets
 ```
-![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup/figure_per_mode_memory_speedup.png)
+![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets.png)
 
 ---
 
