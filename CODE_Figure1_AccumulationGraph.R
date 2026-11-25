@@ -45,9 +45,11 @@ relative_output_directory <- function(directory) {
     if (length(parts) == 0) "." else paste(parts, collapse = "/")
 }
 
+suppressPackageStartupMessages({
+  library(ggplot2)
+  library(dplyr)
+})
 library(argparse)
-library(ggplot2)
-library(dplyr)
 library(ggtext)  # For colored annotation in plot title
 
 
@@ -245,18 +247,25 @@ annotation_text <- paste0(
     "</span>"
 )
 
+# Measure text with a fileless device that supports the plot's font.
+make_annotation_grob <- function(text) {
+    svglite::svgstring(width = 7.2, height = 3.6)
+    on.exit(grDevices::dev.off(), add = TRUE)
+    gridtext::richtext_grob(
+        text,
+        x = unit(0.02, "npc"),
+        y = unit(0.98, "npc"),
+        hjust = 0,
+        vjust = 1,
+        halign = 1,
+        gp = grid::gpar(fontsize = 12, fontfamily = "Arial", fontface = "bold", lineheight = 1.6),
+        box_gp = grid::gpar(fill = NA, col = NA),
+        padding = unit(c(6, 8, 6, 8), "pt")
+    )
+}
+
 # Right-aligned label on a white box placed over the top-left panel corner
-annotation_grob <- gridtext::richtext_grob(
-    annotation_text,
-    x = unit(0.02, "npc"),
-    y = unit(0.98, "npc"),
-    hjust = 0,
-    vjust = 1,
-    halign = 1,
-    gp = grid::gpar(fontsize = 12, fontfamily = "Arial", fontface = "bold", lineheight = 1.6),
-    box_gp = grid::gpar(fill = NA, col = NA),
-    padding = unit(c(6, 8, 6, 8), "pt")
-)
+annotation_grob <- make_annotation_grob(annotation_text)
 
 
 # --- Plot ---
@@ -310,7 +319,11 @@ myPlot <- ggplot() +
         length = unit(0.2, "cm")
     ) +
 
-    annotation_custom(annotation_grob) +
+    annotation_custom(
+        annotation_grob,
+        xmin = as.Date(-Inf, origin = "1970-01-01"),
+        xmax = as.Date(Inf, origin = "1970-01-01")
+    ) +
 
     labs(
         x = "Year"

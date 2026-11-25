@@ -197,16 +197,16 @@
 <line x1='378.34' y1='219.40' x2='378.34' y2='225.07' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='417.01' y1='219.40' x2='417.01' y2='225.07' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='455.47' y1='219.40' x2='455.47' y2='225.07' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<text x='81.58' y='22.31' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='25.56px' lengthAdjust='spacingAndGlyphs'>Avg.</text>
-<text x='111.58' y='22.31' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='34.69px' lengthAdjust='spacingAndGlyphs'>yearly</text>
-<text x='153.58' y='22.31' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='39.98px' lengthAdjust='spacingAndGlyphs'>growth</text>
-<text x='195.58' y='22.31' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='65.38px' lengthAdjust='spacingAndGlyphs'>(2016-2025)</text>
-<text x='267.58' y='22.31' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='11.33px' lengthAdjust='spacingAndGlyphs'>of</text>
-<text x='141.58' y='41.44' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='52.67px' lengthAdjust='spacingAndGlyphs'>plastome</text>
-<text x='195.58' y='41.44' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='48.02px' lengthAdjust='spacingAndGlyphs'>records:</text>
-<text x='249.58' y='41.44' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>2,980</text>
-<text x='165.58' y='60.57' style='font-size: 12.00px; font-weight: bold;fill: #1F77B4; font-family: "Arimo";' textLength='74.64px' lengthAdjust='spacingAndGlyphs'>publications:</text>
-<text x='249.58' y='60.57' style='font-size: 12.00px; font-weight: bold;fill: #1F77B4; font-family: "Arimo";' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>100.9</text>
+<text x='81.58' y='20.01' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='25.56px' lengthAdjust='spacingAndGlyphs'>Avg.</text>
+<text x='110.47' y='20.01' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='34.69px' lengthAdjust='spacingAndGlyphs'>yearly</text>
+<text x='148.49' y='20.01' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='39.98px' lengthAdjust='spacingAndGlyphs'>growth</text>
+<text x='191.80' y='20.01' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='65.38px' lengthAdjust='spacingAndGlyphs'>(2016-2025)</text>
+<text x='260.50' y='20.01' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='11.33px' lengthAdjust='spacingAndGlyphs'>of</text>
+<text x='134.47' y='39.14' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='52.67px' lengthAdjust='spacingAndGlyphs'>plastome</text>
+<text x='190.47' y='39.14' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='48.02px' lengthAdjust='spacingAndGlyphs'>records:</text>
+<text x='241.82' y='39.14' style='font-size: 12.00px; font-weight: bold; font-family: "Arimo";' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>2,980</text>
+<text x='163.85' y='58.27' style='font-size: 12.00px; font-weight: bold;fill: #1F77B4; font-family: "Arimo";' textLength='74.64px' lengthAdjust='spacingAndGlyphs'>publications:</text>
+<text x='241.82' y='58.27' style='font-size: 12.00px; font-weight: bold;fill: #1F77B4; font-family: "Arimo";' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>100.9</text>
 <text x='60.81' y='223.53' text-anchor='end' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Arimo";' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='60.81' y='190.49' text-anchor='end' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Arimo";' textLength='30.02px' lengthAdjust='spacingAndGlyphs'>5,000</text>
 <text x='60.81' y='157.45' text-anchor='end' style='font-size: 12.00px;fill: #4D4D4D; font-family: "Arimo";' textLength='36.69px' lengthAdjust='spacingAndGlyphs'>10,000</text>

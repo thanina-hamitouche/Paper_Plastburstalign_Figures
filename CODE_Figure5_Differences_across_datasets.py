@@ -132,7 +132,7 @@ def create_figure(data, output: Path, dpi: int):
             ax.grid(True, which="major", alpha=0.25)
             ax.set_axisbelow(True)
             if ci == 0:
-                ax.set_ylabel(f"{mode.upper()}\nElapsed (seconds)", fontweight="medium")
+                ax.set_ylabel(f"{mode.upper()}\nElapsed (seconds)", fontweight="normal")
             elif ci == 1:
                 ax.set_ylabel("Speedup ($T_1 / T_p$)")
             elif ci == 2:
