@@ -130,7 +130,7 @@ def make_plots(
     ]
     handles.append(legend_items["Ideal scaling"])
     legend = add_bottom_legend(fig, handles)
-    fig.supxlabel("Threads ($p$)", y=0.16)
+    fig.supxlabel("Threads ($p$)", y=0.16, fontsize=TYPOGRAPHY["axis_label_size"])
     layout_rect = (0, 0.12, 1, 1)
     fig.tight_layout(rect=layout_rect)
     bbox = prepare_figure(

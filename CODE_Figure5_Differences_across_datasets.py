@@ -222,7 +222,7 @@ def create_figure(data, output: Path, dpi: int, data_source: Path):
         )
     )
     legend = add_bottom_legend(fig, handles)
-    fig.supxlabel("Threads", y=0.16)
+    fig.supxlabel("Threads", y=0.16, fontsize=TYPOGRAPHY["axis_label_size"])
     layout = {"rect": (0, 0.14, 1, 1), "h_pad": 2.2, "w_pad": 1.8}
     fig.tight_layout(**layout)
     bbox = prepare_figure(

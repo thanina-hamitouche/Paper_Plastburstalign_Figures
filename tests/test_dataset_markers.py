@@ -29,6 +29,19 @@ EXPECTED = {
 
 
 class DatasetMarkerTests(unittest.TestCase):
+    def assert_chart_font_sizes(self, fig):
+        for ax in fig.axes:
+            for label in (ax.xaxis.label, ax.yaxis.label):
+                if label.get_text():
+                    self.assertEqual(label.get_fontsize(), TYPOGRAPHY["axis_label_size"])
+            for label in ax.get_xticklabels() + ax.get_yticklabels():
+                if label.get_visible() and label.get_text():
+                    self.assertEqual(label.get_fontsize(), TYPOGRAPHY["tick_label_size"])
+            if ax.get_title():
+                self.assertEqual(ax.title.get_fontsize(), TYPOGRAPHY["title_size"])
+        if fig._supxlabel is not None:
+            self.assertEqual(fig._supxlabel.get_fontsize(), TYPOGRAPHY["axis_label_size"])
+
     def assert_legend_layout(self, fig):
         self.assertEqual(len(fig.legends), 1)
         legend = fig.legends[0]
@@ -75,16 +88,16 @@ class DatasetMarkerTests(unittest.TestCase):
             lambda: suppl2.main(),
         )
         benchmark_legends = []
-        supplemental_axis_sizes = {}
         for index, make_figure in enumerate(cases):
             with self.subTest(figure=make_figure):
-                with patch.object(Figure, "savefig") as savefig, patch.object(plt, "close"), \
+                with patch.object(Figure, "savefig"), patch.object(plt, "close"), \
                      patch.object(suppl2, "adjust_text", None), \
                      patch.object(sys, "argv", ["figure", "--input-csv", str(INPUT)]):
                     make_figure()
                     fig = plt.gcf()
                     self.assert_dataset_styles(fig, set(EXPECTED))
                     self.assert_legend_layout(fig)
+                    self.assert_chart_font_sizes(fig)
                     if index == 0:
                         self.assertEqual(
                             [ax.get_title() for ax in fig.axes],
@@ -126,17 +139,16 @@ class DatasetMarkerTests(unittest.TestCase):
                             ))
                     else:
                         self.assertEqual(fig.axes[0].get_ylabel(), "Wall-clock time (symlog)\n")
+                        self.assertTrue(fig.axes[0].texts)
+                        self.assertTrue(all(
+                            text.get_fontsize() == TYPOGRAPHY["annotation_size"]
+                            for text in fig.axes[0].texts
+                        ))
                     if index in (1, 2):
                         self.assertTrue(all(
                             any(label.get_visible() for label in ax.get_yticklabels())
                             for ax in fig.axes
                         ))
-                    if index in (2, 3):
-                        width = savefig.call_args.kwargs["bbox_inches"].width
-                        supplemental_axis_sizes[index] = (
-                            fig.axes[0].yaxis.label.get_fontsize() / width,
-                            fig.axes[0].get_yticklabels()[0].get_fontsize() / width,
-                        )
                     if index < 3:
                         legend = fig.legends[0]
                         benchmark_legends.append([
@@ -146,8 +158,6 @@ class DatasetMarkerTests(unittest.TestCase):
                 plt.close(fig)
         self.assertEqual(benchmark_legends[0], benchmark_legends[1])
         self.assertEqual(benchmark_legends[1], benchmark_legends[2])
-        for size3, size2 in zip(supplemental_axis_sizes[2], supplemental_axis_sizes[3]):
-            self.assertAlmostEqual(size3 / size2, 1, delta=0.05)
         self.assertEqual(suppl2.format_duration_label(0.5), "30 sec.")
 
     def test_supplemental_figure1_legend_layout(self):
@@ -158,6 +168,7 @@ class DatasetMarkerTests(unittest.TestCase):
             suppl1.main()
             fig = plt.gcf()
             self.assert_legend_layout(fig)
+            self.assert_chart_font_sizes(fig)
             self.assertEqual(fig.axes[1].get_ylabel(), "Max RSS (KB, log10)")
             self.assertEqual(
                 [text.get_text() for text in fig.legends[0].get_texts()],

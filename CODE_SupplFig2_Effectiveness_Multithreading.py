@@ -187,9 +187,6 @@ def main():
     x_breaks, y_breaks = compute_breaks(max_cpus, max_time)
     x_breaks = sorted(set(x_breaks) | set(plot_df["CPUS"]))
     configure_typography()
-    axis_label_size = TYPOGRAPHY["diagram_label_size"] * 12 / 7.2
-    tick_label_size = axis_label_size * 0.9
-    annotation_size = axis_label_size
     fig, ax = plt.subplots(figsize=(13, 14.4))
     fig.suptitle(f"Data: {input_csv.name}", y=0.995, fontsize=TYPOGRAPHY["annotation_size"])
     ax.axvline(1, color="black", linewidth=0.4)
@@ -218,7 +215,7 @@ def main():
                     row["CPUS"],
                     label_y,
                     format_duration_label(row["TIME_MIN"]),
-                    fontsize=annotation_size,
+                    fontsize=TYPOGRAPHY["annotation_size"],
                     color="0.2",
                     bbox={
                         "boxstyle": "round,pad=0.2",
@@ -253,9 +250,8 @@ def main():
     ax.set_yticklabels([format_duration_label(y) for y in y_breaks])
     ax.grid(True, which="major", color="gray", alpha=1.0)
     ax.grid(False, which="minor")
-    ax.set_xlabel("\nNumber of threads (log2 scale)", fontsize=axis_label_size)
-    ax.set_ylabel("Wall-clock time (symlog)\n", fontsize=axis_label_size)
-    ax.tick_params(axis="both", labelsize=tick_label_size)
+    ax.set_xlabel("\nNumber of threads (log2 scale)")
+    ax.set_ylabel("Wall-clock time (symlog)\n")
     present_datasets = [d for d in DATASET_ORDER if (plot_df["DATASET"] == d).any()]
     legend = add_horizontal_bottom_legend(fig, present_datasets)
     fig.subplots_adjust(left=0.09, right=0.93, bottom=0.22, top=0.97)

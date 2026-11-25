@@ -88,10 +88,6 @@ def load_rows(path: Path) -> dict:
 
 def draw(csv_path: Path, output_prefix: Path) -> None:
     configure_typography()
-    # Compensate for the wider 2:1 export at equal display width.
-    axis_label_size = TYPOGRAPHY["diagram_label_size"] * 12 / 7.2 * 1.18
-    title_size = TYPOGRAPHY["diagram_title_size"] * 12 / 7.2
-    tick_label_size = axis_label_size * 0.9
     data = load_rows(csv_path)
     available = {ds for ds, _ in data}
     datasets = [(key, label) for key, label in DATASET_ORDER if key in available]
@@ -164,25 +160,21 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
         memory_ax.yaxis.set_major_locator(LogLocator(base=10))
         memory_ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{y:g}"))
         memory_ax.yaxis.set_minor_formatter(NullFormatter())
-        memory_ax.set_ylabel(
-            "Peak RSS (log10)" if col_idx == 0 else "", fontsize=axis_label_size
-        )
-        speed_ax.set_ylabel("Speedup" if col_idx == 0 else "", fontsize=axis_label_size)
+        memory_ax.set_ylabel("Peak RSS (log10)" if col_idx == 0 else "")
+        speed_ax.set_ylabel("Speedup" if col_idx == 0 else "")
         speed_ax.set_ylim(bottom=0)
 
-        memory_ax.set_title(
-            mode, weight="bold", pad=12,
-            fontsize=title_size,
-        )
+        memory_ax.set_title(mode, weight="bold", pad=12)
         for ax_idx, ax in enumerate((memory_ax, speed_ax)):
             ax.set_xticks(THREADS, [str(p) for p in THREADS])
             ax.tick_params(
                 axis="both", top=False, labeltop=False, bottom=True,
                 labelbottom=(ax_idx == 1),
-                labelsize=tick_label_size,
             )
             if ax_idx == 1:
-                ax.xaxis.get_major_ticks()[THREADS.index(2)].set_pad(tick_label_size + 4)
+                ax.xaxis.get_major_ticks()[THREADS.index(2)].set_pad(
+                    TYPOGRAPHY["tick_label_size"] + 4
+                )
             ax.xaxis.set_label_position("bottom")
             ax.set_xlabel("")
             ax.grid(True, which="major", alpha=0.25)
@@ -204,7 +196,7 @@ def draw(csv_path: Path, output_prefix: Path) -> None:
         Line2D([0], [0], color="#777777", linestyle="--", label="Ideal scaling")
     )
     legend = add_bottom_legend(fig, handles, ncol=min(3, len(handles)))
-    fig.supxlabel("Threads (p)", y=0.16, fontsize=axis_label_size)
+    fig.supxlabel("Threads (p)", y=0.16, fontsize=TYPOGRAPHY["axis_label_size"])
     fig.subplots_adjust(hspace=0.45, wspace=0.18, top=0.90, bottom=0.22)
 
     bbox = prepare_figure(

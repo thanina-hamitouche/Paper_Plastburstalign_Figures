@@ -6,7 +6,7 @@ Code for generating publication-quality figures and tables for the manuscript.
 - Figure scripts append the current date (`__YYYY_MM_DD`) to PNG, SVG, and PDF filenames.
 Figure 1's PDF export requires R with Cairo support.
 - Figures target a 7.2-inch width when practical, with larger widths retained for dense layouts. Figure 3 remains approximately 20 inches wide to preserve the readability of its existing labels.
-- Figure typography is defined in `figure_typography.json`: Arial is preferred, with the listed alternatives used when Arial is unavailable. Chart axis labels are 12 pt; tick labels and chart legend text are 11 pt. 
+- Figure typography is defined in `figure_typography.json`: Arial is preferred, with the listed alternatives used when Arial is unavailable. Figures 4–5 and supplemental figures 1–3 use the configured point sizes directly: 12 pt for axis labels and titles, and 11 pt for tick labels, legends, and annotations.
 
 ## IMPORTANT: Across all these figures and tables, we must only have a limited number of runtime and memory indicators:
 - wall-clock time (elapsed time from the start to the end of the run)
