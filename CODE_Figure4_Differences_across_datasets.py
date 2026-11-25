@@ -123,7 +123,7 @@ def main() -> None:
     n_rows = 4
     row_specs = [
         ("elapsed_minutes", "Wall-clock time (min, log10)", "Wall-clock time (min, log10)"),
-        ("max_ram_gb", "PeakRSS (GB, log10)", "PeakRSS (GB, log10)"),
+        ("max_ram_gb", "PeakRSS (GB, log10)", "PeakRSS (GiB, log10)"),
         ("speedup_percent", "Speedup (%, log10)", "Speedup (%, log10)"),
         ("cpu_percent", "CPU Utilization (%, log10)", "CPU Utilization (%, log10)"),
     ]

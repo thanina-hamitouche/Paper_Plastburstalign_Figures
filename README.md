@@ -68,13 +68,13 @@ python CODE_Figure5_Effectiveness_Multithreading.py ./input_data/DATA_Benchmarki
 
 ---
 
-### Figure X2: Relative contributions of software and alignment multithreading to performance improvement
+### Supplemental Figure 1: Relative contributions of software and alignment multithreading to performance improvement
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
 ```bash
-python SUPPL-CODE_ParallelismTypes_Asteraceae_CDS.py ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv ./SUPPL-VIZ_ParallelismTypes_Asteraceae_CDS/ParallelismTypes_Asteraceae_CDS
+python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv ./VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS
 ```
-![Visualization of parallelism types](SUPPL-VIZ_ParallelismTypes_Asteraceae_CDS/ParallelismTypes_Asteraceae_CDS.png)
+![Visualization of parallelism types](VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS.png)
 
 ---
 
