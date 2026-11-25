@@ -48,23 +48,22 @@ python CODE_Figure3_OverviewWorkflow.py
 
 ---
 
-### Figure 4: Differences across datasets through multithreading
-_Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, speedup, and CPU utilization across the datasets through multithreading._
+### Figure 4: Speedup and wall-clock time through multithreading
+_Purpose: This figure illustrates the strong scaling in speedup and wall-clock time across the extraction modes due to multrithreading._
 
-```bash
-python CODE_Figure4_Differences_across_datasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets
-```
-![Visualization of factors across datasets](VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets.png)
+The code for generating this figure is not yet available.
+
+![Speedup and wall time through multithreading](VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime.png)
 
 ---
 
-### Figure 5: Effectiveness of multithreading
-_Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
+### Figure 5: Differences across datasets through multithreading
+_Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, speedup, and CPU utilization across the datasets through multithreading._
 
 ```bash
-python CODE_Figure5_Effectiveness_Multithreading.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure5_Effectiveness_Multithreading/Figure5_Effectiveness_Multithreading
+python CODE_Figure5_Differences_across_datasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets
 ```
-![Visualization of speed improvements](VIZ_Figure5_Effectiveness_Multithreading/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
+![Visualization of factors across datasets](VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets__2026_11_24.png)
 
 ---
 
@@ -78,38 +77,39 @@ python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS ./input_data/DATA_Parallel
 
 ---
 
-### Figure X3: Optimization of thread allocation for runtime and memory efficiency
+### Supplemental Figure 2: Effectiveness of multithreading
+_Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
+
+```bash
+python CODE_SupplFig2_Effectiveness_Multithreading.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading
+```
+![Visualization of speed improvements](VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading__2026_11_24.png)
+
+---
+
+### Supplemental Figure 3: Optimization of thread allocation for runtime and memory efficiency
 _Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
 
 ```bash
-python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
+python CODE_SupplFig3_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_SupplFig3_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
 ```
-![Visualization of peak memory and speedup](VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
+![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
 
 ---
 
-### Figure X5: Peak memory versus dataset size
+### FUTURE Figure: Peak memory versus dataset size
 _Purpose: This figure shall illustrate how peak memory usage varies with dataset size._
 
-[View the figure (PDF)](VIZ-AW_PeakMemory_vs_DatasetSize/VIZ-AW_PeakMemory_vs_DatasetSize.pdf)
+[View the figure (PDF)](FUTURE-VIZ_PeakMemory_vs_DatasetSize/FUTURE-VIZ_PeakMemory_vs_DatasetSize.pdf)
 
 The code for generating this figure is not yet available.
 
 ---
 
-### Figure 6: Speedup and wall time by thread count
-_Purpose: This figure shall illustrate strong-scaling speedup and end-to-end wall time across datasets, marker types, and thread counts._
-
-The code for generating this figure is not yet available.
-
-![Speedup and wall time by thread count](VIZ-AW_Figure6_SpeedImprov_WallTime/VIZ_AW_SpeedImprov_WallTime.png)
-
----
-
-### Table 1: Runtime by thread count
+### Table 1: Runtime through multithreading
 _Purpose: This table compares runtime, speedup, and peak memory across datasets, marker types, and thread counts._
 
-Table: [Markdown](TBL-AW_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.md) | [LaTeX](TBL-AW_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.tex)
+Table: [Markdown](TBL_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.md) | [LaTeX](TBL_Table1_Runtime_by_threads/TABLE_Runtime_by_threads.tex)
 
 The code for generating this table is not yet available.
 

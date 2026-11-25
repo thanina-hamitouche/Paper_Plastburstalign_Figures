@@ -31,7 +31,7 @@ DATASET_COLORS = dict(zip(DATASET_ORDER, ['#377eb8', '#4daf4a', '#984ea3', '#ff7
 def parse_args():
     parser = argparse.ArgumentParser(description='Plot computation time from benchmark CSV data.')
     parser.add_argument('input_csv', nargs='?', default='results.csv')
-    parser.add_argument('output_path_stem', nargs='?', default='./VIZ_Figure5_Effectiveness_Multithreading/Figure5_Effectiveness_Multithreading')
+    parser.add_argument('output_path_stem', nargs='?', default='./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading')
     return parser.parse_args()
 
 

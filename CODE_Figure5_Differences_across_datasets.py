@@ -52,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "output_path_stem",
         nargs="?",
-        default="./VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets",
+        default="./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets",
         help="Output path stem; script writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
