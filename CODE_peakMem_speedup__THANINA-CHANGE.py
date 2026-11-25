@@ -1,5 +1,6 @@
 from pathlib import Path
 import argparse
+from datetime import date
 import warnings
 
 import pandas as pd
@@ -17,7 +18,13 @@ DATASET_ORDER = [
     'benchmark_ZhangNNEtAl2025_13724angiosperms',
 ]
 DATASET_COLORS = dict(zip(DATASET_ORDER, ['#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#e41a1c']))
-DATASET_LABELS = dict(zip(DATASET_ORDER, ['Angiosperms (n=53)', 'Asteraceae (n=155)', 'Monocot (n=733)', 'Angiosperms (n=2,585)', 'Angiosperms (n=13,724)']))
+DATASET_LABELS = dict(zip(DATASET_ORDER, [
+    'Zhang et al. (2025), n=53',
+    'Yang et al. (2022), n=155',
+    'Yang et al. (2022), n=733',
+    'Yang et al. (2022), n=2,585',
+    'Zhang et al. (2025), n=13,724',
+]))
 
 
 def parse_args():
@@ -134,6 +141,7 @@ def plot_side_by_side(speedup_df, memory_df, output_stem):
 def main():
     args = parse_args()
     output_stem = Path(args.output_path_stem)
+    output_stem = output_stem.with_name(f'{output_stem.stem}__{date.today():%Y_%m_%d}')
     output_stem.parent.mkdir(parents=True, exist_ok=True)
     df = load_data(Path(args.input_csv))
     if df.duplicated(['dataset', 'marker', 'threads']).any():

@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import date
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle, Polygon
@@ -277,7 +278,8 @@ for y,label,fill,dashed in [
     txt(1.38,y,label,size=FIELD_TEXT_SIZE,bold=True,ha='left')
 
 fig.subplots_adjust(left=.015,right=.985,bottom=.03,top=.985)
+date_suffix = date.today().strftime('__%Y_%m_%d')
 for ext in ['png','svg','pdf']:
-    fig.savefig(OUT/f'Figure3_WorkflowOverview.{ext}',dpi=220,facecolor='white')
+    fig.savefig(OUT/f'Figure3_WorkflowOverview{date_suffix}.{ext}',dpi=220,facecolor='white')
 plt.close(fig)
 print('Wrote files to',OUT.resolve())

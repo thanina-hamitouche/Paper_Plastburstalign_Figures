@@ -1,9 +1,11 @@
+import argparse
+import os
+from datetime import date
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import to_rgba
 from matplotlib.patches import Arc, Polygon, Rectangle, Wedge
-import os
-import argparse
 
 LABEL_FONTSIZE = 24
 PANEL_LABEL_FONTSIZE = 32
@@ -813,7 +815,7 @@ def resolve_output_paths(output_dir, output_name):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     target_dir = output_dir if output_dir else script_dir
     os.makedirs(target_dir, exist_ok=True)
-    output_base = os.path.splitext(output_name)[0]
+    output_base = f"{os.path.splitext(output_name)[0]}__{date.today():%Y_%m_%d}"
     return (
         os.path.join(target_dir, f"{output_base}.svg"),
         os.path.join(target_dir, f"{output_base}.png"),

@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import argparse
+from datetime import date
 
 import numpy as np
 import pandas as pd
@@ -76,6 +77,7 @@ def main() -> None:
 
     input_csv = Path(args.input_csv)
     output_stem = Path(args.output_path_stem)
+    output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
 
     if not input_csv.exists():
         raise FileNotFoundError(

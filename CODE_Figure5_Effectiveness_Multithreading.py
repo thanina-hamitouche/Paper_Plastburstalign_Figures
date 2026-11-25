@@ -1,8 +1,10 @@
 from pathlib import Path
 import argparse
+from datetime import date
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.transforms import Bbox
 from matplotlib.lines import Line2D
 
 try:
@@ -20,15 +22,16 @@ DATASET_ORDER = [
     'benchmark_ZhangNNEtAl2025_13724angiosperms',
 ]
 DATASET_LABELS = dict(zip(DATASET_ORDER, [
-    'Angiosperms (n=53)', 'Asteraceae (n=155)', 'Monocot (n=733)',
-    'Angiosperms (n=2,585)', 'Angiosperms (n=13,724)']))
+    'Zhang et al. (2025), n=53', 'Yang et al. (2022), n=155',
+    'Yang et al. (2022), n=733', 'Yang et al. (2022), n=2,585',
+    'Zhang et al. (2025), n=13,724']))
 DATASET_COLORS = dict(zip(DATASET_ORDER, ['#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#e41a1c']))
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Plot computation time from benchmark CSV data.')
     parser.add_argument('input_csv', nargs='?', default='results.csv')
-    parser.add_argument('output_path_stem', nargs='?', default='./VIZ_SpeedImprovements/PlastomeBurst_SpeedImprovements_AllMarkers')
+    parser.add_argument('output_path_stem', nargs='?', default='./VIZ_Figure5_Effectiveness_Multithreading/Figure5_Effectiveness_Multithreading')
     return parser.parse_args()
 
 
@@ -80,6 +83,7 @@ def main():
     args = parse_args()
     input_csv = Path(args.input_csv)
     output_stem = Path(args.output_path_stem)
+    output_stem = output_stem.with_name(f'{output_stem.stem}__{date.today():%Y_%m_%d}')
     output_stem.parent.mkdir(parents=True, exist_ok=True)
     plot_df = pd.read_csv(input_csv, dtype={'Elapsed': str})
     required = {'dataset', 'threads', 'mode', 'Elapsed'}
@@ -108,7 +112,7 @@ def main():
     x_breaks = sorted(set(x_breaks) | set(plot_df['CPUS']))
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['font.sans-serif'] = ['Arial', 'Liberation Sans', 'DejaVu Sans', 'sans-serif']
-    fig, ax = plt.subplots(figsize=(13, 16))
+    fig, ax = plt.subplots(figsize=(13, 13))
     ax.axvline(1, color='black', linewidth=0.4)
     ax.axhline(0, color='black', linewidth=0.4)
     label_entries = []
@@ -145,17 +149,27 @@ def main():
     ax.grid(True, which='major', color='gray', alpha=1.0)
     ax.grid(False, which='minor')
     ax.set_xlabel('\nNumber of threads (log2 scale)', fontsize=14)
-    ax.set_ylabel('Computation Time (symlog scale)\n', fontsize=14)
-    ax.set_title('Computation time by thread count\n', fontsize=18, pad=2)
+    ax.set_ylabel('Wall-clock time (symlog scale)\n', fontsize=14)
+    #ax.set_title('Computation time by thread count\n', fontsize=18, pad=2)
     present_datasets = [d for d in DATASET_ORDER if (plot_df['DATASET'] == d).any()]
     add_horizontal_top_legends(fig, present_datasets)
-    fig.subplots_adjust(left=0.09, right=0.93, bottom=0.08, top=0.88)
+    fig.subplots_adjust(left=0.09, right=0.93, bottom=0.08, top=0.92)
     # Adjust labels after final axis transformations and layout.
     if adjust_text is not None and overlap_texts:
         adjust_text(overlap_texts, ax=ax, expand=(1.38, 1.6), force_text=(0.7, 0.9), force_static=(0.42, 0.56), iter_lim=4000, arrowprops={'arrowstyle': '-', 'color': '0.6', 'lw': 0.5})
-    fig.savefig(output_stem.with_suffix('.svg'))
-    fig.savefig(output_stem.with_suffix('.png'), dpi=300)
-    fig.savefig(output_stem.with_suffix('.pdf'))
+    fig.canvas.draw()
+    bbox = fig.get_tightbbox(fig.canvas.get_renderer()).padded(0.05)
+    target_height = max(bbox.height, bbox.width)
+    target_width = target_height
+    bbox = Bbox.from_bounds(
+        bbox.x0 - (target_width - bbox.width) / 2,
+        bbox.y0 - (target_height - bbox.height) / 2,
+        target_width,
+        target_height,
+    )
+    fig.savefig(output_stem.with_suffix('.svg'), bbox_inches=bbox, pad_inches=0)
+    fig.savefig(output_stem.with_suffix('.png'), dpi=300, bbox_inches=bbox, pad_inches=0)
+    fig.savefig(output_stem.with_suffix('.pdf'), bbox_inches=bbox, pad_inches=0)
     plt.close(fig)
     print(f'Saved {output_stem.with_suffix(".svg")}, {output_stem.with_suffix(".png")}, and {output_stem.with_suffix(".pdf")}')
 

@@ -1,5 +1,6 @@
 from pathlib import Path
 import argparse
+from datetime import date
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,11 +23,11 @@ DATASET_COLORS = {
 }
 
 DATASET_LABELS = {
-    "benchmark_ZhangNNEtAl2025_53angiosperms": "Angiosperms (n=53)",
-    "benchmark_YangEtAl2022_Asteraceae": "Asteraceae (n=155)",
-    "benchmark_YangEtAl2022_monocots": "Monocot (n=733)",
-    "benchmark_YangEtAl2022_angiosperms": "Angiosperms (n=2,585)",
-    "benchmark_ZhangNNEtAl2025_13724angiosperms": "Angiosperms (n=13,724)",
+    "benchmark_ZhangNNEtAl2025_53angiosperms": "Zhang et al. (2025), n=53",
+    "benchmark_YangEtAl2022_Asteraceae": "Yang et al. (2022), n=155",
+    "benchmark_YangEtAl2022_monocots": "Yang et al. (2022), n=733",
+    "benchmark_YangEtAl2022_angiosperms": "Yang et al. (2022), n=2,585",
+    "benchmark_ZhangNNEtAl2025_13724angiosperms": "Zhang et al. (2025), n=13,724",
 }
 
 DATASET_ORDER = [
@@ -51,7 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "output_path_stem",
         nargs="?",
-        default="dataset_scaling_grid",
+        default="./VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets",
         help="Output path stem; script writes .png, .svg, and .pdf files.",
     )
     return parser.parse_args()
@@ -103,6 +104,7 @@ def main() -> None:
     args = parse_args()
     input_csv = Path(args.input_csv)
     output_stem = Path(args.output_path_stem)
+    output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
 
     if not input_csv.exists():
         raise FileNotFoundError(f"Input file does not exist: {input_csv}")
@@ -120,8 +122,8 @@ def main() -> None:
     n_cols = len(datasets)
     n_rows = 4
     row_specs = [
-        ("elapsed_minutes", "Runtime (min, log10)", "Runtime (min, log10)"),
-        ("max_ram_gb", "Peak RAM (GB, log10)", "Peak RAM (GB, log10)"),
+        ("elapsed_minutes", "Wall-clock time (min, log10)", "Wall-clock time (min, log10)"),
+        ("max_ram_gb", "PeakRSS (GB, log10)", "PeakRSS (GB, log10)"),
         ("speedup_percent", "Speedup (%, log10)", "Speedup (%, log10)"),
         ("cpu_percent", "CPU Utilization (%, log10)", "CPU Utilization (%, log10)"),
     ]

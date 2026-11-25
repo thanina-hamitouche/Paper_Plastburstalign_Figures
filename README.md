@@ -8,6 +8,11 @@ Code for generating publication-quality figures and tables for the manuscript.
 - speedup through parallelization (dividing the wall-clock time of the corresponding single-core run by that of the multicore run)
 
 
+## TO DO:
+- We need the same color scheme across the figures
+- We need the same font sizes across the figures
+
+
 ### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
 _Purpose: This figure illustrates that plastid genomics remains an active research field with sustained annual publication output and a rapidly expanding body of available genomes. The scale of available genomes now necessitates specialized software (namely ours!) that is capable of efficiently processing and analyzing thousands of plastid genomes simultaneously._
 
@@ -43,13 +48,23 @@ python CODE_Figure3_OverviewWorkflow.py
 
 ---
 
-### Figure X1: Speed improvements through parallel implementation
-_Purpose: This figure shall illustrate the substantial performance gains achieved through multithreading in our software and shall demonstrate that parallel processing is essential when analyzing datasets comprising thousands of genomes. This figure is the only one where all five datasets are compared. Any reader who sees this figure shall immediately recognize that multithreading provides substantial performance gains!_
+### Figure 4: Differences across datasets through multithreading
+_Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, speedup, and CPU utilization across the datasets through multithreading._
 
 ```bash
-python CODE_Figure5_SpeedImprovCombined.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure5_SpeedImprovCombined/PlastomeBurst_ComputationalTimeEprovements_AllMarkers
+python CODE_Figure4_Differences_across_datasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets
 ```
-![Visualization of speed improvements](VIZ_Figure5_SpeedImprovCombined/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
+![Visualization of factors across datasets](VIZ_Figure4_Differences_across_datasets/Figure4_Differences_across_datasets.png)
+
+---
+
+### Figure 5: Effectiveness of multithreading
+_Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
+
+```bash
+python CODE_Figure5_Effectiveness_Multithreading.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_Figure5_Effectiveness_Multithreading/Figure5_Effectiveness_Multithreading
+```
+![Visualization of speed improvements](VIZ_Figure5_Effectiveness_Multithreading/PlastomeBurst_ComputationalTimeEprovements_AllMarkers.png)
 
 ---
 
@@ -70,16 +85,6 @@ _Purpose: This figure shall inform users of the optimal thread settings for achi
 python CODE_peakMem_speedup__THANINA-CHANGE.py ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv ./VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets
 ```
 ![Visualization of peak memory and speedup](VIZ_peakMem_speedup__THANINA-CHANGE/peakMem_speedup_across_datasets.png)
-
----
-
-### Supplemental Figure X4: Overview of various optimizations
-_Purpose: This figure gives us a detailed look at the various optimizations._
-
-```bash
-python CODE_Figure4_CompareFactorsAcrossDatasets.py ./input_data/DATA_Benchmarking_on_Workstation__2026_06_05.csv ./VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid
-```
-![Visualization of factors across datasets](VIZ_Figure4_CompareFactorsAcrossDatasets/Comparing_factors_grid.png)
 
 ---
 
