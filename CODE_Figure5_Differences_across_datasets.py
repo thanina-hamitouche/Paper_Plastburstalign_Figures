@@ -1,242 +1,231 @@
+#!/usr/bin/env python3
+"""Plot elapsed time, speedup, efficiency and peak RSS for each alignment mode.
+
+Figure: 3 rows (CDS, INT, IGS) x 4 columns (Elapsed, Speedup,
+Efficiency, Peak RSS). Each panel contains one line per dataset.
+
+Input CSV required columns:
+  dataset,threads,mode,Elapsed,MaxRSS_KB
+Additional columns are ignored.
+
+Elapsed accepts numeric seconds, MM:SS, or HH:MM:SS.
+Speedup = T_1 / T_p; efficiency = 100 * speedup / p.
+A 1-thread baseline is required for speedup and efficiency for each
+(dataset, mode) combination. Duplicate thread measurements are rejected.
+"""
+
+from __future__ import annotations
+
 import argparse
-from datetime import date
+import csv
+from collections import defaultdict
 from pathlib import Path
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import pandas as pd
 from matplotlib.lines import Line2D
-from matplotlib.ticker import LogLocator, ScalarFormatter
+from matplotlib.ticker import FuncFormatter, LogLocator
 
-MARKER_ORDER = ["CDS", "INT", "IGS"]
-LINESTYLE_BY_MARKER = {
-    "CDS": "solid",
-    "INT": "dashed",
-    "IGS": "dotted",
-}
-
-DATASET_COLORS = {
-    "benchmark_ZhangNNEtAl2025_53angiosperms": "#377eb8",
-    "benchmark_YangEtAl2022_Asteraceae": "#4daf4a",
-    "benchmark_YangEtAl2022_monocots": "#984ea3",
-    "benchmark_YangEtAl2022_angiosperms": "#ff7f00",
-    "benchmark_ZhangNNEtAl2025_13724angiosperms": "#e41a1c",
-}
-
-DATASET_LABELS = {
-    "benchmark_ZhangNNEtAl2025_53angiosperms": "Zhang et al. (2025), n=53",
-    "benchmark_YangEtAl2022_Asteraceae": "Yang et al. (2022), n=155",
-    "benchmark_YangEtAl2022_monocots": "Yang et al. (2022), n=733",
-    "benchmark_YangEtAl2022_angiosperms": "Yang et al. (2022), n=2,585",
-    "benchmark_ZhangNNEtAl2025_13724angiosperms": "Zhang et al. (2025), n=13,724",
-}
-
-DATASET_ORDER = [
-    "benchmark_ZhangNNEtAl2025_53angiosperms",
-    "benchmark_YangEtAl2022_Asteraceae",
-    "benchmark_YangEtAl2022_monocots",
-    "benchmark_YangEtAl2022_angiosperms",
-    "benchmark_ZhangNNEtAl2025_13724angiosperms",
+DATASETS = [
+    ("benchmark_ZhangNNEtAl2025_53angiosperms", "Zhang et al. (53 angiosperms)"),
+    ("benchmark_YangEtAl2022_Asteraceae", "Yang et al. (Asteraceae)"),
+    ("benchmark_YangEtAl2022_monocots", "Yang et al. (Monocots)"),
+    ("benchmark_YangEtAl2022_angiosperms", "Yang et al. (Angiosperms)"),
+    ("benchmark_ZhangNNEtAl2025_13724angiosperms", "Zhang et al. (13,724 angiosperms)"),
 ]
+MODES = ("cds", "int", "igs")
+COLORS = ("#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#1f78b4", "#a6761d")
+MARKERS = ("o", "s", "^", "D", "v", "P", "X")
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Create a combined dataset scaling grid figure."
-    )
-    parser.add_argument(
-        "input_csv",
-        nargs="?",
-        default="results.csv",
-        help="Input CSV file path (default: results.csv).",
-    )
-    parser.add_argument(
-        "output_path_stem",
-        nargs="?",
-        default="./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets",
-        help="Output path stem; script writes .png, .svg, and .pdf files.",
-    )
-    return parser.parse_args()
+def parse_elapsed(value: str) -> float:
+    value = value.strip()
+    if not value:
+        raise ValueError("Elapsed is empty")
+    parts = value.split(":")
+    if len(parts) == 1:
+        result = float(value)
+    elif len(parts) == 2:
+        result = float(parts[0]) * 60 + float(parts[1])
+    elif len(parts) == 3:
+        result = float(parts[0]) * 3600 + float(parts[1]) * 60 + float(parts[2])
+    else:
+        raise ValueError(f"Unsupported Elapsed format: {value}")
+    if result <= 0:
+        raise ValueError(f"Elapsed must be positive: {value}")
+    return result
 
 
-def ensure_output_dir(output_stem: Path) -> None:
-    output_stem.parent.mkdir(parents=True, exist_ok=True)
+def load_metrics(path: Path):
+    data = defaultdict(dict)
+    with path.open(newline="", encoding="utf-8-sig") as fh:
+        reader = csv.DictReader(fh)
+        required = {"dataset", "threads", "mode", "Elapsed", "MaxRSS_KB"}
+        missing = required.difference(reader.fieldnames or [])
+        if missing:
+            raise ValueError(f"Missing CSV columns: {', '.join(sorted(missing))}")
+        for line_no, r in enumerate(reader, start=2):
+            dataset = r["dataset"].strip()
+            mode = r["mode"].strip().lower()
+            if mode not in MODES:
+                print(f"Warning: skipping unsupported mode {mode!r} at line {line_no}")
+                continue
+            threads = int(r["threads"])
+            if threads < 1:
+                raise ValueError(f"Invalid threads at line {line_no}")
+            elapsed = parse_elapsed(r["Elapsed"])
+            memory_gib = float(r["MaxRSS_KB"]) / 1048576.0
+            if memory_gib <= 0:
+                raise ValueError(
+                    f"MaxRSS_KB must be positive at line {line_no} (log scale)"
+                )
+            key = (dataset, mode)
+            if threads in data[key]:
+                raise ValueError(
+                    f"Duplicate dataset/mode/threads at line {line_no}: {key}, {threads}"
+                )
+            data[key][threads] = (elapsed, memory_gib)
+    return data
 
 
-def build_speedup_df(df: pd.DataFrame) -> pd.DataFrame:
-    rows = []
-    for (dataset, marker), grp in df.groupby(["dataset", "marker"]):
-        baseline_series = grp.loc[grp["threads"] == 1, "elapsed_seconds"]
-        if baseline_series.empty:
-            continue
+def create_figure(data, output: Path, dpi: int):
+    seen = {dataset for (dataset, _mode) in data}
+    datasets = [(key, label) for key, label in DATASETS if key in seen]
+    datasets.extend((key, key) for key in sorted(seen - {k for k, _ in DATASETS}))
+    if not datasets:
+        raise ValueError("No supported data in CSV")
 
-        baseline = baseline_series.iloc[0]
-        for _, row in grp.sort_values("threads").iterrows():
-            rows.append(
-                {
-                    "dataset": dataset,
-                    "marker": marker,
-                    "threads": row["threads"],
-                    "speedup_percent": (baseline / row["elapsed_seconds"]) * 100.0,
-                }
+    colors = plt.get_cmap("tab20") if len(datasets) > len(COLORS) else None
+    fig, axes = plt.subplots(3, 4, figsize=(19, 11), squeeze=False)
+    column_titles = ["Elapsed time", "Speedup", "Parallel efficiency", "Peak memory"]
+    all_threads = sorted({threads for runs in data.values() for threads in runs})
+    for ri, mode in enumerate(MODES):
+        for ci, heading in enumerate(column_titles):
+            ax = axes[ri, ci]
+            if ri == 0:
+                ax.set_title(heading, fontsize=12, fontweight="bold", pad=12)
+            ax.set_xlabel("Threads")
+            ax.set_xticks(all_threads)
+            ax.tick_params(
+                axis="x", top=False, labeltop=False, bottom=True, labelbottom=True
             )
+            ax.xaxis.set_label_position("bottom")
+            ax.grid(True, which="major", alpha=0.25)
+            ax.set_axisbelow(True)
+            if ci == 0:
+                ax.set_ylabel(f"{mode.upper()}\nElapsed (seconds)", fontweight="medium")
+            elif ci == 1:
+                ax.set_ylabel("Speedup ($T_1 / T_p$)")
+            elif ci == 2:
+                ax.set_ylabel("Efficiency (%)")
+            else:
+                ax.set_ylabel("Peak RSS (GiB, log10)")
+                ax.set_yscale("log", base=10)
+                ax.yaxis.set_major_locator(LogLocator(base=10))
+                ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _pos: f"{v:g}"))
+                ax.grid(True, which="minor", alpha=0.10)
 
-    return pd.DataFrame(rows)
+            if ci == 1:
+                ax.plot(
+                    all_threads,
+                    all_threads,
+                    "--",
+                    color="#777777",
+                    lw=1.2,
+                    label="Ideal linear",
+                )
+            if ci == 2:
+                ax.axhline(100, color="#777777", linestyle="--", lw=1.1)
 
-
-def style_axis_x(ax: plt.Axes, max_threads: int) -> None:
-    x_breaks = [1, 2, 4, 8, 16, 32]
-    x_breaks = [x for x in x_breaks if x <= max_threads]
-    if max_threads not in x_breaks:
-        x_breaks.append(max_threads)
-
-    ax.set_xscale("log", base=2)
-    ax.set_xticks(sorted(set(x_breaks)))
-    ax.get_xaxis().set_major_formatter(ScalarFormatter())
-    ax.grid(True, alpha=0.3)
-
-
-def style_axis_y(ax: plt.Axes) -> None:
-    ax.set_yscale("log", base=10)
-    ax.yaxis.set_major_locator(LogLocator(base=10.0, subs=(1.0,)))
-    ax.yaxis.set_major_formatter(ScalarFormatter())
-
-
-def main() -> None:
-    args = parse_args()
-    input_csv = Path(args.input_csv)
-    output_stem = Path(args.output_path_stem)
-    output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
-
-    if not input_csv.exists():
-        raise FileNotFoundError(f"Input file does not exist: {input_csv}")
-
-    ensure_output_dir(output_stem)
-
-    df = pd.read_csv(input_csv)
-    df["marker"] = df["marker"].astype(str).str.upper()
-
-    speedup_df = build_speedup_df(df)
-    df["elapsed_minutes"] = df["elapsed_seconds"] / 60.0
-
-    present_datasets = set(df["dataset"].unique())
-    datasets = [dataset for dataset in DATASET_ORDER if dataset in present_datasets]
-    n_cols = len(datasets)
-    n_rows = 4
-    row_specs = [
-        (
-            "elapsed_minutes",
-            "Wall-clock time (min, log10)",
-            "Wall-clock time (min, log10)",
-        ),
-        ("max_ram_gb", "PeakRSS (GB, log10)", "PeakRSS (GiB, log10)"),
-        ("speedup_percent", "Speedup (%, log10)", "Speedup (%, log10)"),
-        ("cpu_percent", "CPU Utilization (%, log10)", "CPU Utilization (%, log10)"),
-    ]
-
-    fig, axes = plt.subplots(
-        n_rows,
-        n_cols,
-        figsize=(3.8 * n_cols, 1.9 * n_cols),
-        squeeze=False,
-        sharey="row",
-    )
-
-    for col, dataset in enumerate(datasets):
-        clean_name = dataset.replace("benchmark_", "")
-        column_label = DATASET_LABELS.get(dataset, clean_name)
-        dataset_color = DATASET_COLORS.get(dataset, "gray")
-        subset = df[df["dataset"] == dataset]
-        subset_sp = speedup_df[speedup_df["dataset"] == dataset]
-        max_threads = int(subset["threads"].max())
-
-        for row, (value_col, y_label, row_title) in enumerate(row_specs):
-            ax = axes[row, col]
-            plot_df = subset_sp if value_col == "speedup_percent" else subset
-
-            for marker in MARKER_ORDER:
-                marker_df = plot_df[plot_df["marker"] == marker].sort_values("threads")
-                if marker_df.empty:
+            for idx, (key, _label) in enumerate(datasets):
+                runs = data.get((key, mode), {})
+                if not runs:
                     continue
-
+                xs = sorted(runs)
+                if ci in (1, 2) and 1 not in runs:
+                    print(
+                        f"Warning: no 1-thread baseline for {key} / {mode.upper()}, skipping speedup/efficiency"
+                    )
+                    continue
+                base = runs[1][0] if 1 in runs else None
+                if ci == 0:
+                    ys = [runs[t][0] for t in xs]
+                elif ci == 1:
+                    ys = [base / runs[t][0] for t in xs]
+                elif ci == 2:
+                    ys = [100 * (base / runs[t][0]) / t for t in xs]
+                else:
+                    ys = [runs[t][1] for t in xs]
+                color = (
+                    COLORS[idx]
+                    if colors is None
+                    else colors(idx / max(1, len(datasets) - 1))
+                )
                 ax.plot(
-                    marker_df["threads"],
-                    marker_df[value_col],
-                    marker="o",
-                    color=dataset_color,
-                    linestyle=LINESTYLE_BY_MARKER[marker],
-                    linewidth=1.8,
-                    markersize=4,
+                    xs,
+                    ys,
+                    marker=MARKERS[idx % len(MARKERS)],
+                    color=color,
+                    linewidth=1.7,
+                    markersize=4.5,
                 )
 
-            if value_col == "speedup_percent":
-                ideal_threads = sorted(subset_sp["threads"].unique())
-                ideal_speedup = [t * 100.0 for t in ideal_threads]
-                ax.plot(
-                    ideal_threads,
-                    ideal_speedup,
-                    "-",
-                    linewidth=1.2,
-                    color="0.6",
-                    alpha=1.0,
-                )
-
-            if value_col == "cpu_percent":
-                ideal_threads = sorted(subset["threads"].unique())
-                ideal_cpu = [t * 100 for t in ideal_threads]
-                ax.plot(
-                    ideal_threads, ideal_cpu, "-", linewidth=1.2, color="0.6", alpha=1.0
-                )
-
-            style_axis_x(ax, max_threads=max_threads)
-            style_axis_y(ax)
-
-            if row == 0:
-                ax.set_title(column_label, fontsize=10)
-    marker_handles = [
+    handles = [
         Line2D(
             [0],
             [0],
-            color="black",
-            linestyle=LINESTYLE_BY_MARKER[m],
-            marker="o",
-            linewidth=1.8,
-            label=m,
+            color=(
+                COLORS[i]
+                if len(datasets) <= len(COLORS)
+                else colors(i / max(1, len(datasets) - 1))
+            ),
+            marker=MARKERS[i % len(MARKERS)],
+            lw=1.8,
+            label=label,
         )
-        for m in MARKER_ORDER
+        for i, (_key, label) in enumerate(datasets)
     ]
-    marker_prefix = Line2D([], [], linestyle="None", label="MARKER")
-    fig.legend(
-        handles=[marker_prefix, *marker_handles],
-        loc="upper center",
-        bbox_to_anchor=(0.5, 0.975),
-        ncol=4,
-        columnspacing=0.9,
-        handletextpad=0.5,
-        labelspacing=0.4,
-        handlelength=2.6,
-        frameon=False,
-    )
-
-    fig.tight_layout(rect=(0.02, 0.05, 0.99, 0.94))
-
-    for row, (_, y_label, _) in enumerate(row_specs):
-        row_box = axes[row, 0].get_position()
-        fig.text(
-            0.015,
-            row_box.y0 + row_box.height / 2,
-            y_label,
-            fontsize=10,
-            va="center",
-            ha="left",
-            rotation=90,
+    handles.append(
+        Line2D(
+            [0],
+            [0],
+            color="#777777",
+            linestyle="--",
+            lw=1.2,
+            label="Ideal speedup / 100% efficiency",
         )
-
-    fig.text(0.5, 0.015, "Number of CPUs (log2 scale)", ha="center", va="bottom")
-
-    fig.savefig(output_stem.with_suffix(".png"), dpi=300)
-    fig.savefig(output_stem.with_suffix(".svg"))
-    fig.savefig(output_stem.with_suffix(".pdf"))
+    )
+    fig.legend(
+        handles=handles,
+        loc="upper center",
+        ncol=3,
+        bbox_to_anchor=(0.5, 1.015),
+        frameon=False,
+        fontsize=9,
+    )
+    fig.tight_layout(rect=(0, 0, 1, 0.935), h_pad=2.2, w_pad=1.8)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    for ext in ("png", "pdf"):
+        dest = output.with_suffix("." + ext)
+        fig.savefig(dest, dpi=dpi, bbox_inches="tight")
+        print(f"Saved {dest}")
     plt.close(fig)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("csv_file", type=Path, help="Benchmark CSV file")
+    parser.add_argument(
+        "-o",
+        "--output-prefix",
+        type=Path,
+        default=Path("pub_artifacts/figure_per_mode_all_metrics"),
+    )
+    parser.add_argument("--dpi", type=int, default=300)
+    args = parser.parse_args()
+    create_figure(load_metrics(args.csv_file), args.output_prefix, args.dpi)
 
 
 if __name__ == "__main__":
