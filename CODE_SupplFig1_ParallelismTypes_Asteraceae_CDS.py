@@ -1,13 +1,11 @@
-
-from pathlib import Path
 import argparse
 from datetime import date
+from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.ticker import LogLocator, FuncFormatter
-
+from matplotlib.ticker import FuncFormatter, LogLocator
 
 CONFIG_ORDER = ["16*1", "8*2", "4*4", "2*8", "1*16"]
 
@@ -80,9 +78,7 @@ def main() -> None:
     output_stem = output_stem.with_name(f"{output_stem.stem}__{date.today():%Y_%m_%d}")
 
     if not input_csv.exists():
-        raise FileNotFoundError(
-            f"Input file does not exist: {input_csv}"
-        )
+        raise FileNotFoundError(f"Input file does not exist: {input_csv}")
 
     ensure_output_dir(output_stem)
 
@@ -96,9 +92,7 @@ def main() -> None:
     missing = required_columns - set(plot_df.columns)
 
     if missing:
-        raise ValueError(
-            f"Missing required columns: {sorted(missing)}"
-        )
+        raise ValueError(f"Missing required columns: {sorted(missing)}")
 
     plot_df["Config"] = (
         plot_df["Config"]
@@ -108,9 +102,7 @@ def main() -> None:
         .str.replace(" ", "", regex=False)
     )
 
-    plot_df = plot_df[
-        plot_df["Config"].isin(CONFIG_ORDER)
-    ].copy()
+    plot_df = plot_df[plot_df["Config"].isin(CONFIG_ORDER)].copy()
 
     plot_df["Config"] = pd.Categorical(
         plot_df["Config"],
@@ -118,12 +110,8 @@ def main() -> None:
         ordered=True,
     )
 
-    plot_df["Elapsed"] = pd.to_numeric(
-        plot_df["Elapsed"], errors="coerce"
-    )
-    plot_df["MaxRSS_KB"] = pd.to_numeric(
-        plot_df["MaxRSS_KB"], errors="coerce"
-    )
+    plot_df["Elapsed"] = pd.to_numeric(plot_df["Elapsed"], errors="coerce")
+    plot_df["MaxRSS_KB"] = pd.to_numeric(plot_df["MaxRSS_KB"], errors="coerce")
 
     plot_df.dropna(
         subset=["Config", "Elapsed", "MaxRSS_KB"],
@@ -145,10 +133,9 @@ def main() -> None:
         .reset_index()
     )
 
-    x = np.array([
-        CONFIG_ORDER.index(config)
-        for config in plot_df["Config"].astype(str)
-    ])
+    x = np.array(
+        [CONFIG_ORDER.index(config) for config in plot_df["Config"].astype(str)]
+    )
 
     # ==========================================
     # 2. Figure configuration
@@ -163,13 +150,14 @@ def main() -> None:
     ]
 
     fig, axes = plt.subplots(
-        1, 2,
+        1,
+        2,
         figsize=(15, 6),
     )
 
     # ==========================================
-# 3. Execution time (LINEAR scale)
-# ==========================================
+    # 3. Execution time (LINEAR scale)
+    # ==========================================
 
     ax = axes[0]
 
@@ -215,9 +203,7 @@ def main() -> None:
     memory = plot_df["MaxRSS_KB"]
 
     if (memory <= 0).any():
-        raise ValueError(
-            "Memory values must be positive for log10 scaling."
-        )
+        raise ValueError("Memory values must be positive for log10 scaling.")
 
     ax.plot(
         x,
@@ -248,13 +234,9 @@ def main() -> None:
 
     ax.set_yscale("log", base=10)
 
-    ax.yaxis.set_major_locator(
-        LogLocator(base=10, subs=(1.0,))
-    )
+    ax.yaxis.set_major_locator(LogLocator(base=10, subs=(1.0,)))
 
-    ax.yaxis.set_major_formatter(
-        FuncFormatter(lambda value, pos: f"{value:,.0f}")
-    )
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda value, pos: f"{value:,.0f}"))
 
     ax.set_ylim(
         memory.min() / 1.5,
@@ -275,7 +257,6 @@ def main() -> None:
     # 5. Overall figure formatting
     # ==========================================
 
-    
     fig.tight_layout()
 
     # ==========================================

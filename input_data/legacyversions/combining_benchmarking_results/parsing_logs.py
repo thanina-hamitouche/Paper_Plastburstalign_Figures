@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import os
-import re
 import csv
+import re
 from pathlib import Path
 
 
@@ -40,7 +39,7 @@ def parse_log(logfile):
         "cpu_percent": None,
         "elapsed_seconds": None,
         "max_ram_gb": None,
-        "file": str(logfile)
+        "file": str(logfile),
     }
 
     # Dataset name
@@ -50,8 +49,7 @@ def parse_log(logfile):
 
     # Threads and marker
     m = re.search(
-        r"Running plastburstalign with\s+(\d+)\s+threads,\s*mode:\s*(\w+)",
-        text
+        r"Running plastburstalign with\s+(\d+)\s+threads,\s*mode:\s*(\w+)", text
     )
     if m:
         result["threads"] = int(m.group(1))
@@ -64,8 +62,7 @@ def parse_log(logfile):
 
     # Elapsed time
     m = re.search(
-        r"Elapsed \(wall clock\) time \(h:mm:ss or m:ss\):\s+([0-9:.]+)",
-        text
+        r"Elapsed \(wall clock\) time \(h:mm:ss or m:ss\):\s+([0-9:.]+)", text
     )
     if m:
         result["elapsed_seconds"] = round(time_to_seconds(m.group(1)), 2)
@@ -108,13 +105,7 @@ def main(log_directory, output_csv):
             print(f"Skipping {logfile}: {e}")
 
     # Sort output
-    rows.sort(
-        key=lambda x: (
-            x["dataset"],
-            x["marker"],
-            x["threads"]
-        )
-    )
+    rows.sort(key=lambda x: (x["dataset"], x["marker"], x["threads"]))
 
     with open(output_csv, "w", newline="") as f:
         writer = csv.DictWriter(
@@ -126,8 +117,8 @@ def main(log_directory, output_csv):
                 "cpu_percent",
                 "elapsed_seconds",
                 "max_ram_gb",
-                "file"
-            ]
+                "file",
+            ],
         )
 
         writer.writeheader()
@@ -143,16 +134,13 @@ if __name__ == "__main__":
         description="Extract runtime, CPU, RAM, and thread information from benchmark log files."
     )
 
-    parser.add_argument(
-        "log_directory",
-        help="Directory containing log files"
-    )
+    parser.add_argument("log_directory", help="Directory containing log files")
 
     parser.add_argument(
         "-o",
         "--output",
         default="benchmark_summary.csv",
-        help="Output CSV file (default: benchmark_summary.csv)"
+        help="Output CSV file (default: benchmark_summary.csv)",
     )
 
     args = parser.parse_args()

@@ -1,9 +1,9 @@
-from pathlib import Path
 import argparse
 from datetime import date
+from pathlib import Path
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 from matplotlib.lines import Line2D
 from matplotlib.ticker import LogLocator, ScalarFormatter
 
@@ -60,6 +60,7 @@ def parse_args() -> argparse.Namespace:
 
 def ensure_output_dir(output_stem: Path) -> None:
     output_stem.parent.mkdir(parents=True, exist_ok=True)
+
 
 def build_speedup_df(df: pd.DataFrame) -> pd.DataFrame:
     rows = []
@@ -122,7 +123,11 @@ def main() -> None:
     n_cols = len(datasets)
     n_rows = 4
     row_specs = [
-        ("elapsed_minutes", "Wall-clock time (min, log10)", "Wall-clock time (min, log10)"),
+        (
+            "elapsed_minutes",
+            "Wall-clock time (min, log10)",
+            "Wall-clock time (min, log10)",
+        ),
         ("max_ram_gb", "PeakRSS (GB, log10)", "PeakRSS (GiB, log10)"),
         ("speedup_percent", "Speedup (%, log10)", "Speedup (%, log10)"),
         ("cpu_percent", "CPU Utilization (%, log10)", "CPU Utilization (%, log10)"),
@@ -166,12 +171,21 @@ def main() -> None:
             if value_col == "speedup_percent":
                 ideal_threads = sorted(subset_sp["threads"].unique())
                 ideal_speedup = [t * 100.0 for t in ideal_threads]
-                ax.plot(ideal_threads, ideal_speedup, "-", linewidth=1.2, color="0.6", alpha=1.0)
+                ax.plot(
+                    ideal_threads,
+                    ideal_speedup,
+                    "-",
+                    linewidth=1.2,
+                    color="0.6",
+                    alpha=1.0,
+                )
 
             if value_col == "cpu_percent":
                 ideal_threads = sorted(subset["threads"].unique())
                 ideal_cpu = [t * 100 for t in ideal_threads]
-                ax.plot(ideal_threads, ideal_cpu, "-", linewidth=1.2, color="0.6", alpha=1.0)
+                ax.plot(
+                    ideal_threads, ideal_cpu, "-", linewidth=1.2, color="0.6", alpha=1.0
+                )
 
             style_axis_x(ax, max_threads=max_threads)
             style_axis_y(ax)
@@ -179,7 +193,15 @@ def main() -> None:
             if row == 0:
                 ax.set_title(column_label, fontsize=10)
     marker_handles = [
-        Line2D([0], [0], color="black", linestyle=LINESTYLE_BY_MARKER[m], marker="o", linewidth=1.8, label=m)
+        Line2D(
+            [0],
+            [0],
+            color="black",
+            linestyle=LINESTYLE_BY_MARKER[m],
+            marker="o",
+            linewidth=1.8,
+            label=m,
+        )
         for m in MARKER_ORDER
     ]
     marker_prefix = Line2D([], [], linestyle="None", label="MARKER")
@@ -199,7 +221,15 @@ def main() -> None:
 
     for row, (_, y_label, _) in enumerate(row_specs):
         row_box = axes[row, 0].get_position()
-        fig.text(0.015, row_box.y0 + row_box.height / 2, y_label, fontsize=10, va="center", ha="left", rotation=90)
+        fig.text(
+            0.015,
+            row_box.y0 + row_box.height / 2,
+            y_label,
+            fontsize=10,
+            va="center",
+            ha="left",
+            rotation=90,
+        )
 
     fig.text(0.5, 0.015, "Number of CPUs (log2 scale)", ha="center", va="bottom")
 
