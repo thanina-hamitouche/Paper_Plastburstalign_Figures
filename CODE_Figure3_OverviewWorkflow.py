@@ -441,9 +441,9 @@ box(3.45, 0.15, 3.20, 8.50, fill=YELLOW, edge=ORANGE)
 field_title(5.05, 7.98, "Marker extraction &\nquality control")
 box(3.66, 5.73, 2.88, 1.68, fill=PALE, edge=BLACK, lw=0.8, r=0.13)
 for y, label, kind in [
-    (7.14, "cds", "cds"),
-    (6.76, "int", "int"),
-    (6.38, "igs", "igs"),
+    (7.14, "cds", "CDS"),
+    (6.76, "int", "INT"),
+    (6.38, "igs", "IGS"),
     (6.00, "trna / rrna", "RNA"),
 ]:
     field_text(3.82, y, label, ha="left")

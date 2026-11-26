@@ -49,37 +49,30 @@ echo ""
 
 # Figure 4
 echo "Compiling figure 4 ..."
-run_figure "./VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime" \
-  python CODE_Figure4_Speedup_and_Wallclocktime.py \
+run_figure "./VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset" \
+  python CODE_Figure4_Benchmarking_Workstation__by_dataset.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Figure 5
 echo "Compiling figure 5 ..."
-run_figure "./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets" \
-  python CODE_Figure5_Differences_across_datasets.py \
+run_figure "./VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation" \
+  python CODE_Figure5_ImpactOfMultithreading_Workstation.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Suppl. Figure 1
 echo "Compiling supplemental figure 1 ..."
-run_figure "./VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS" \
-  python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS.py \
-  --input-csv ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv
+run_figure "./VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode" \
+  python CODE_SupplFig1_Benchmarking_Workstation__by_extraction_mode.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Suppl. Figure 2
 echo "Compiling supplemental figure 2 ..."
-run_figure "./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading" \
-  python CODE_SupplFig2_Effectiveness_Multithreading.py \
-  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
-echo ""
-
-# Suppl. Figure 3
-echo "Compiling supplemental figure 3 ..."
-run_figure "./VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets" \
-  python CODE_SupplFig3_peakMem_speedup.py \
-  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
+run_figure "./VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat" \
+  python CODE_SupplFig2_ImpactOfMultithreading_Beocat.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Beocat__2026_11_20.csv
 echo ""
 
 echo "Copied figures to $compiled_dir"

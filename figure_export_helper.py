@@ -27,7 +27,7 @@ DATASET_MARKERS = {
 }
 
 
-def configure_typography() -> str:
+def configure_typography(font_size_increase=0) -> str:
     available = {
         font.name.casefold(): font.name for font in font_manager.fontManager.ttflist
     }
@@ -41,12 +41,12 @@ def configure_typography() -> str:
     rcParams.update(
         {
             "font.family": family,
-            "font.size": TYPOGRAPHY["annotation_size"],
-            "axes.labelsize": TYPOGRAPHY["axis_label_size"],
-            "xtick.labelsize": TYPOGRAPHY["tick_label_size"],
-            "ytick.labelsize": TYPOGRAPHY["tick_label_size"],
-            "legend.fontsize": TYPOGRAPHY["legend_size"],
-            "axes.titlesize": TYPOGRAPHY["title_size"],
+            "font.size": TYPOGRAPHY["annotation_size"] + font_size_increase,
+            "axes.labelsize": TYPOGRAPHY["axis_label_size"] + font_size_increase,
+            "xtick.labelsize": TYPOGRAPHY["tick_label_size"] + font_size_increase,
+            "ytick.labelsize": TYPOGRAPHY["tick_label_size"] + font_size_increase,
+            "legend.fontsize": TYPOGRAPHY["legend_size"] + font_size_increase,
+            "axes.titlesize": TYPOGRAPHY["title_size"] + font_size_increase,
             "mathtext.fontset": "custom",
             "mathtext.cal": family,
             "mathtext.rm": family,
@@ -74,31 +74,49 @@ def report_output_directory(directory: Path) -> None:
     print(f"Wrote files to {location}")
 
 
-def add_bottom_legend(fig, handles, ncol=3):
+def add_bottom_legend(fig, handles, ncol=3, fontsize=None):
     return fig.legend(
         handles=handles,
         loc="upper center",
         ncol=ncol,
-        fontsize=TYPOGRAPHY["legend_size"],
+        fontsize=TYPOGRAPHY["legend_size"] if fontsize is None else fontsize,
         frameon=False,
         borderaxespad=0,
         borderpad=0,
     )
 
 
-def place_bottom_legend(fig, legend):
+def place_bottom_legend(fig, legend, label_gap=8, legend_gap=16):
+    """Place the legend; a None label gap matches the y-axis label distance."""
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     bottom = min(ax.get_tightbbox(renderer).y0 for ax in fig.axes if ax.get_visible())
     if fig._supxlabel is not None and fig._supxlabel.get_visible():
+        if label_gap is None:
+            labeled_axes = [
+                ax for ax in fig.axes if ax.get_visible() and ax.yaxis.label.get_text()
+            ]
+            if not labeled_axes:
+                raise ValueError("Cannot align the x-axis label without a y-axis label")
+            distance = max(
+                ax.get_window_extent(renderer).x0
+                - ax.yaxis.label.get_window_extent(renderer).x1
+                for ax in labeled_axes
+            )
+            axes_bottom = min(
+                ax.get_window_extent(renderer).y0 for ax in fig.axes if ax.get_visible()
+            )
+            label_top = axes_bottom - distance
+        else:
+            label_top = bottom - renderer.points_to_pixels(label_gap)
         _, y = fig.transFigure.inverted().transform(
-            (0, bottom - renderer.points_to_pixels(8))
+            (0, label_top)
         )
         fig._supxlabel.set_position((0.5, y))
         fig._supxlabel.set_verticalalignment("top")
         fig.canvas.draw()
         bottom = fig._supxlabel.get_window_extent(renderer).y0
-    gap = renderer.points_to_pixels(16)
+    gap = renderer.points_to_pixels(legend_gap)
     _, y = fig.transFigure.inverted().transform((0, bottom - gap))
     legend.set_bbox_to_anchor((0.5, y), transform=fig.transFigure)
 
@@ -113,10 +131,10 @@ def fit_bbox_to_aspect(content, aspect_ratio, minimum_width=0):
 
 def prepare_figure(
     fig, width, bbox_inches=None, pad_inches=0.03, scale_text=False, layout=None,
-    bottom_legend=None, aspect_ratio=None,
+    bottom_legend=None, aspect_ratio=None, label_gap=8, legend_gap=16,
 ):
     if bottom_legend is not None:
-        place_bottom_legend(fig, bottom_legend)
+        place_bottom_legend(fig, bottom_legend, label_gap, legend_gap)
     fig.canvas.draw()
     if bbox_inches == "tight":
         original_bbox = fig.get_tightbbox(fig.canvas.get_renderer()).padded(pad_inches)
@@ -146,7 +164,7 @@ def prepare_figure(
         fig.tight_layout(**layout)
 
     if bottom_legend is not None:
-        place_bottom_legend(fig, bottom_legend)
+        place_bottom_legend(fig, bottom_legend, label_gap, legend_gap)
 
     if bbox_inches is None:
         return None

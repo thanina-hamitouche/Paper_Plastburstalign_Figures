@@ -281,9 +281,9 @@ make_annotation_grob <- function(text) {
 }
 
 # Right-aligned label on a white box placed over the top-left panel corner
-figure_annotation_size <- typography$annotation_size * 0.90
-figure_tick_label_size <- typography$tick_label_size * 0.90
-figure_axis_label_size <- typography$axis_label_size * 0.90
+figure_annotation_size <- typography$annotation_size * 0.80
+figure_tick_label_size <- typography$tick_label_size * 0.80
+figure_axis_label_size <- typography$axis_label_size * 0.80
 annotation_grob <- make_annotation_grob(annotation_text)
 
 
@@ -320,14 +320,14 @@ myPlot <- ggplot() +
         data = plot_publications,
         aes(x = DATE, y = CUM_PUBLICATIONS_SCALED),
         color = "#1f77b4",
-        linewidth = 1.0
+        linewidth = 0.8
     ) +
 
     geom_point(
         data = plot_publications,
         aes(x = DATE, y = CUM_PUBLICATIONS_SCALED),
         color = "#1f77b4",
-        size = 1.7
+        size = 1.5
     ) +
 
     geom_rug(

@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.lines import Line2D
 
-from CODE_SupplFig2_Effectiveness_Multithreading import (
+from CODE_Figure5_ImpactOfMultithreading_Workstation import (
     DATASET_LABELS,
     DATASET_ORDER,
     MARKER_ORDER,
@@ -85,7 +85,7 @@ class BottomLegendTests(unittest.TestCase):
         gap = (xlabel_bbox.y0 - legend.get_window_extent(renderer).y1) * 72 / fig.dpi
         self.assertAlmostEqual(gap, 16, places=2)
 
-    def test_supplemental_legend_is_one_grouped_block(self):
+    def test_figure5_legend_is_one_grouped_block(self):
         configure_typography()
         for datasets in (DATASET_ORDER, DATASET_ORDER[:1]):
             with self.subTest(datasets=datasets):

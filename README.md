@@ -4,18 +4,8 @@ Code for generating publication-quality figures and tables for the manuscript.
 ### Features
 - PNG exports use at least 300 dpi; SVG and PDF exports remain vector graphics.
 - Figure scripts append the current date (`__YYYY_MM_DD`) to PNG, SVG, and PDF filenames.
-Figure 1's PDF export requires R with Cairo support.
 - Figures target a 7.2-inch width when practical, with larger widths retained for dense layouts. Figure 3 remains approximately 20 inches wide to preserve the readability of its existing labels.
-- Figure typography is defined in `figure_typography.json`: Arial is preferred, with the listed alternatives used when Arial is unavailable. Figures 4–5 and supplemental figures 1–3 use the configured point sizes directly: 12 pt for axis labels and titles, and 11 pt for tick labels, legends, and annotations.
-
-## IMPORTANT: Across all these figures and tables, we must only have a limited number of runtime and memory indicators:
-- wall-clock time (elapsed time from the start to the end of the run)
-- peak aggregate resident set size ("peak aggregate RSS"; the highest observed sum of the resident set sizes of the benchmarked process and its child processes at a single time point)
-- speedup through parallelization (dividing the wall-clock time of the corresponding single-core run by that of the multicore run)
-
-
-## TO DO:
-- We need the same color scheme across the figures
+- Figure typography is defined in `figure_typography.json`: Arial is preferred, with the listed alternatives used when Arial is unavailable. Figure 4 and supplemental figure 1 use 14 pt axis labels and titles, 13 pt tick labels and legends, and 17 pt row letters. Figure 5 uses 12 pt axis labels and titles, and 11 pt tick labels, legends, and annotations.
 
 
 ### Figure 1: Average yearly growth of plastid genome records and plastid genome publications
@@ -57,63 +47,69 @@ python CODE_Figure3_OverviewWorkflow.py \
 
 ---
 
-### Figure 4: Speedup and wall-clock time through multithreading
-_Purpose: This figure illustrates the strong scaling in speedup and wall-clock time across the extraction modes due to multrithreading._
+### Figure 4: Workstation benchmarking by dataset
+_Purpose: This figure compares wall-clock time, speedup, parallel efficiency, and peak RSS across extraction modes for each dataset._
+
+Columns use the dataset colors from supplemental figure 1; markers and line styles distinguish cds, int, and igs extraction. Rows A–D show wall-clock time, speedup, efficiency, and peak RSS. Panels in each row share a y-axis scale, and thread counts use a log2 x-axis.
 
 ```bash
-python CODE_Figure4_Speedup_and_Wallclocktime.py \
+python CODE_Figure4_Benchmarking_Workstation__by_dataset.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime
+  --output-prefix ./VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset
 ```
-![Speedup and wall time through multithreading](VIZ_Figure4_Speedup_and_Wallclocktime/Figure4_Speedup_and_Wallclocktime.png)
+![Workstation benchmarking by dataset](VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset__2026_11_25.png)
 
 ---
 
-### Figure 5: Differences across datasets through multithreading
+### Figure 5: Impact of multithreading (Workstation)
+_Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
+
+Duration labels are stacked in value order at each thread count, with leader lines linking them to their points.
+
+```bash
+python CODE_Figure5_ImpactOfMultithreading_Workstation.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
+  --output-prefix ./VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation
+```
+![Visualization of speed improvements](VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation__2026_11_25.png)
+
+---
+
+### Suppl. Figure 1: Workstation benchmarking by extraction mode
 _Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, speedup, and CPU utilization across the datasets through multithreading._
 
+Columns represent the extraction modes; rows A–D show wall-clock time, speedup, efficiency, and peak RSS. All panels in each metric row share a y-axis scale for comparison across modes. Thread counts use a log2 x-axis.
+
 ```bash
-python CODE_Figure5_Differences_across_datasets.py \
+python CODE_SupplFig1_Benchmarking_Workstation__by_extraction_mode.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets
+  --output-prefix ./VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode
 ```
-![Visualization of factors across datasets](VIZ_Figure5_Differences_across_datasets/Figure5_Differences_across_datasets__2026_11_24.png)
+![Visualization of factors across datasets](VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode__2026_11_25.png)
 
 ---
 
-### Suppl. Figure 1: Relative contributions of software and alignment multithreading to performance improvement
+### Suppl. Figure 2: Impact of multithreading (Beocat)
+_Purpose: This figure compares multithreaded runtimes on Beocat using the same presentation as Figure 5._
+
+```bash
+python CODE_SupplFig2_ImpactOfMultithreading_Beocat.py \
+  --input-csv ./input_data/DATA_Benchmarking_on_Beocat__2026_11_20.csv \
+  --output-prefix ./VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat
+```
+![Beocat multithreading benchmarks](VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat__2026_11_25.png)
+
+---
+
+### FUTURE Figure: Relative contributions of software and alignment multithreading to performance improvement
 _Purpose: This figure shall demonstrate that simultaneous multithreading of both the general software workflow and the alignment software yields greater performance gains than multithreading either component individually._
 
 ```bash
-python CODE_SupplFig1_ParallelismTypes_Asteraceae_CDS.py \
+python CODE-FUTURE_ParallelismTypes_Asteraceae_CDS.py \
   --input-csv ./input_data/DATA_ParallelismTypes_Asteraceae_CDS__2026_11_23.csv \
-  --output-prefix ./VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS
+  --output-prefix ./VIZ-FUTURE_ParallelismTypes_Asteraceae_CDS/VIZ-FUTURE_ParallelismTypes_Asteraceae_CDS
 ```
-![Visualization of parallelism types](VIZ_SupplFig1_ParallelismTypes_Asteraceae_CDS/SupplFig1_ParallelismTypes_Asteraceae_CDS.png)
-
----
-
-### Suppl. Figure 2: Effectiveness of multithreading
-_Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
-
-```bash
-python CODE_SupplFig2_Effectiveness_Multithreading.py \
-  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading
-```
-![Visualization of speed improvements](VIZ_SupplFig2_Effectiveness_Multithreading/SupplFig2_Effectiveness_Multithreading__2026_11_24.png)
-
----
-
-### Suppl. Figure 3: Optimization of thread allocation for runtime and memory efficiency
-_Purpose: This figure shall inform users of the optimal thread settings for achieving the most favorable balance between reduced runtime and efficient RAM utilization._
-
-```bash
-python CODE_SupplFig3_peakMem_speedup.py \
-  --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets
-```
-![Visualization of peak memory and speedup](VIZ_SupplFig3_peakMem_speedup/SupplFig3_peakMem_speedup_across_datasets.png)
+![Visualization of parallelism types](VIZ-FUTURE_ParallelismTypes_Asteraceae_CDS/VIZ-FUTURE_ParallelismTypes_Asteraceae_CDS__2026_11_25.png)
 
 ---
 

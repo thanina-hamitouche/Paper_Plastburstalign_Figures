@@ -1,1 +1,0 @@
-The left-hand image has an incorrect y-axis name; it should be "CPU amount", not "Speedup"
