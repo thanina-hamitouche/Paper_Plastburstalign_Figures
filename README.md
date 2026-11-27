@@ -19,9 +19,9 @@ Rscript "CODE_Figure1_AccumulationGraph.R" \
   --input-csv "./input_data/DATA_Compilation_of_plastome_publications__2026_10_25.csv" \
   --start-date "2016-01-01" \
   --end-date "2025-12-31" \
-  --output-prefix "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications"
+  --output-prefix "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph"
 ```
-![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications.png)
+![Combined accumulation graph](VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph.png)
 
 ---
 
@@ -47,31 +47,31 @@ python CODE_Figure3_OverviewWorkflow.py \
 
 ---
 
-### Figure 4: Workstation benchmarking by dataset
+### Figure 5: Workstation benchmarking by dataset
 _Purpose: This figure compares wall-clock time, speedup, parallel efficiency, and peak RSS across extraction modes for each dataset._
 
 Columns use the dataset colors from supplemental figure 1; markers and line styles distinguish cds, int, and igs extraction. Rows A–D show wall-clock time, speedup, efficiency, and peak RSS. Panels in each row share a y-axis scale, and thread counts use a log2 x-axis.
 
 ```bash
-python CODE_Figure4_Benchmarking_Workstation__by_dataset.py \
+python CODE_Figure5_Benchmarking_Workstation__by_dataset.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset
+  --output-prefix ./VIZ_Figure5_Benchmarking_Workstation__by_dataset/Figure5_Benchmarking_Workstation__by_dataset
 ```
-![Workstation benchmarking by dataset](VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset__2026_11_25.png)
+![Workstation benchmarking by dataset](VIZ_Figure5_Benchmarking_Workstation__by_dataset/Figure5_Benchmarking_Workstation__by_dataset__2026_11_26.png)
 
 ---
 
-### Figure 5: Impact of multithreading (Workstation)
+### Figure 4: Wall-clock time overview (Workstation)
 _Purpose: This figure illustrates the speed gains achieved through multithreading the alignment._
 
 Duration labels are stacked in value order at each thread count, with leader lines linking them to their points.
 
 ```bash
-python CODE_Figure5_ImpactOfMultithreading_Workstation.py \
+python CODE_Figure4_WallclockTimeOverview_Workstation.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation
+  --output-prefix ./VIZ_Figure4_WallclockTimeOverview_Workstation/Figure4_WallclockTimeOverview_Workstation
 ```
-![Visualization of speed improvements](VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation__2026_11_25.png)
+![Visualization of speed improvements](VIZ_Figure4_WallclockTimeOverview_Workstation/Figure4_WallclockTimeOverview_Workstation__2026_11_26.png)
 
 ---
 
@@ -81,23 +81,23 @@ _Purpose: This figure illustrates the differences in wall-clock time, PeakRSS, s
 Columns represent the extraction modes; rows A–D show wall-clock time, speedup, efficiency, and peak RSS. All panels in each metric row share a y-axis scale for comparison across modes. Thread counts use a log2 x-axis.
 
 ```bash
-python CODE_SupplFig1_Benchmarking_Workstation__by_extraction_mode.py \
+python CODE_SupplFig2_Benchmarking_Workstation__by_extraction_mode.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv \
-  --output-prefix ./VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode
+  --output-prefix ./VIZ_SupplFig2_Benchmarking_Workstation__by_extraction_mode/SupplFig2_Benchmarking_Workstation__by_extraction_mode
 ```
-![Visualization of factors across datasets](VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode__2026_11_25.png)
+![Visualization of factors across datasets](VIZ_SupplFig2_Benchmarking_Workstation__by_extraction_mode/SupplFig2_Benchmarking_Workstation__by_extraction_mode__2026_11_26.png)
 
 ---
 
-### Suppl. Figure 2: Impact of multithreading (Beocat)
+### Suppl. Figure 2: Wall-clock time overview (Beocat)
 _Purpose: This figure compares multithreaded runtimes on Beocat using the same presentation as Figure 5._
 
 ```bash
-python CODE_SupplFig2_ImpactOfMultithreading_Beocat.py \
+python CODE_SupplFig1_WallclockTimeOverview_Beocat.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Beocat__2026_11_20.csv \
-  --output-prefix ./VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat
+  --output-prefix ./VIZ_SupplFig1_WallclockTimeOverview_Beocat/SupplFig1_WallclockTimeOverview_Beocat
 ```
-![Beocat multithreading benchmarks](VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat__2026_11_25.png)
+![Beocat multithreading benchmarks](VIZ_SupplFig1_WallclockTimeOverview_Beocat/SupplFig1_WallclockTimeOverview_Beocat__2026_11_26.png)
 
 ---
 

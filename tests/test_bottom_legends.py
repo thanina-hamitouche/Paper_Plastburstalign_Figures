@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.lines import Line2D
 
-from CODE_Figure5_ImpactOfMultithreading_Workstation import (
+from CODE_Figure4_WallclockTimeOverview_Workstation import (
     DATASET_LABELS,
     DATASET_ORDER,
     MARKER_ORDER,

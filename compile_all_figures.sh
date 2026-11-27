@@ -27,7 +27,7 @@ run_figure() {
 
 # Figure 1
 echo "Compiling figure 1 ..."
-run_figure "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph_recordsAndPublications" \
+run_figure "./VIZ_Figure1_AccumulationGraph/Figure1_AccumulationGraph" \
   Rscript "CODE_Figure1_AccumulationGraph.R" \
   --input-records "./input_data/DATA_Compilation_of_all_plastid_genomes__2026_06_01.tsv" \
   --input-csv "./input_data/DATA_Compilation_of_plastome_publications__2026_10_25.csv" \
@@ -49,29 +49,29 @@ echo ""
 
 # Figure 4
 echo "Compiling figure 4 ..."
-run_figure "./VIZ_Figure4_Benchmarking_Workstation__by_dataset/Figure4_Benchmarking_Workstation__by_dataset" \
-  python CODE_Figure4_Benchmarking_Workstation__by_dataset.py \
+run_figure "./VIZ_Figure5_Benchmarking_Workstation__by_dataset/Figure5_Benchmarking_Workstation__by_dataset" \
+  python CODE_Figure5_Benchmarking_Workstation__by_dataset.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Figure 5
 echo "Compiling figure 5 ..."
-run_figure "./VIZ_Figure5_ImpactOfMultithreading_Workstation/Figure5_ImpactOfMultithreading_Workstation" \
-  python CODE_Figure5_ImpactOfMultithreading_Workstation.py \
+run_figure "./VIZ_Figure4_WallclockTimeOverview_Workstation/Figure4_WallclockTimeOverview_Workstation" \
+  python CODE_Figure4_WallclockTimeOverview_Workstation.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Suppl. Figure 1
 echo "Compiling supplemental figure 1 ..."
-run_figure "./VIZ_SupplFig1_Benchmarking_Workstation__by_extraction_mode/SupplFig1_Benchmarking_Workstation__by_extraction_mode" \
-  python CODE_SupplFig1_Benchmarking_Workstation__by_extraction_mode.py \
+run_figure "./VIZ_SupplFig2_Benchmarking_Workstation__by_extraction_mode/SupplFig2_Benchmarking_Workstation__by_extraction_mode" \
+  python CODE_SupplFig2_Benchmarking_Workstation__by_extraction_mode.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Workstation__2026_11_24.csv
 echo ""
 
 # Suppl. Figure 2
 echo "Compiling supplemental figure 2 ..."
-run_figure "./VIZ_SupplFig2_ImpactOfMultithreading_Beocat/SupplFig2_ImpactOfMultithreading_Beocat" \
-  python CODE_SupplFig2_ImpactOfMultithreading_Beocat.py \
+run_figure "./VIZ_SupplFig1_WallclockTimeOverview_Beocat/SupplFig1_WallclockTimeOverview_Beocat" \
+  python CODE_SupplFig1_WallclockTimeOverview_Beocat.py \
   --input-csv ./input_data/DATA_Benchmarking_on_Beocat__2026_11_20.csv
 echo ""
 

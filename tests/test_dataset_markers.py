@@ -14,10 +14,10 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from PIL import Image
 
-import CODE_SupplFig1_Benchmarking_Workstation__by_extraction_mode as workstation
-import CODE_SupplFig2_ImpactOfMultithreading_Beocat as suppl2_beocat
-import CODE_Figure5_ImpactOfMultithreading_Workstation as figure5
-import CODE_Figure4_Benchmarking_Workstation__by_dataset as by_dataset
+import CODE_SupplFig2_Benchmarking_Workstation__by_extraction_mode as workstation
+import CODE_SupplFig1_WallclockTimeOverview_Beocat as suppl2_beocat
+import CODE_Figure4_WallclockTimeOverview_Workstation as figure5
+import CODE_Figure5_Benchmarking_Workstation__by_dataset as by_dataset
 from figure_export_helper import TYPOGRAPHY
 
 
@@ -51,6 +51,7 @@ class DatasetMarkerTests(unittest.TestCase):
             expected,
         )
         self.assert_dataset_styles(fig, set(EXPECTED))
+        self.assert_multithreading_axis_labels(fig)
         labels = fig.axes[0].texts
         for dpi in (100, 300):
             with self.subTest(dpi=dpi):
@@ -74,8 +75,8 @@ class DatasetMarkerTests(unittest.TestCase):
         outputs = [call.args[0] for call in savefig.call_args_list]
         self.assertEqual({output.suffix for output in outputs}, {".png", ".svg", ".pdf"})
         self.assertTrue(all(
-            output.parent == Path("VIZ_SupplFig2_ImpactOfMultithreading_Beocat")
-            and output.name.startswith("SupplFig2_ImpactOfMultithreading_Beocat__")
+            output.parent == Path("VIZ_SupplFig1_WallclockTimeOverview_Beocat")
+            and output.name.startswith("SupplFig1_WallclockTimeOverview_Beocat__")
             for output in outputs
         ))
 
@@ -84,9 +85,33 @@ class DatasetMarkerTests(unittest.TestCase):
             args = figure5.parse_args()
         self.assertEqual(
             Path(args.output_path_stem),
-            Path("VIZ_Figure5_ImpactOfMultithreading_Workstation")
-            / "Figure5_ImpactOfMultithreading_Workstation",
+            Path("VIZ_Figure4_WallclockTimeOverview_Workstation")
+            / "Figure4_WallclockTimeOverview_Workstation",
         )
+
+    def assert_multithreading_axis_labels(self, fig):
+        fig.canvas.draw()
+        renderer = fig.canvas.get_renderer()
+        ax = fig.axes[0]
+        for axis in (ax.xaxis, ax.yaxis):
+            label = axis.label
+            self.assertEqual(label.get_fontsize(), TYPOGRAPHY["axis_label_size"] + 5)
+            self.assertNotIn("\n", label.get_text())
+            bounds = label.get_window_extent(renderer)
+            self.assertTrue(all(
+                not bounds.overlaps(tick.get_window_extent(renderer))
+                for tick in axis.get_ticklabels() if tick.get_visible() and tick.get_text()
+            ))
+        x_ticks = [tick.get_window_extent(renderer) for tick in ax.get_xticklabels() if tick.get_visible() and tick.get_text()]
+        y_ticks = [tick.get_window_extent(renderer) for tick in ax.get_yticklabels() if tick.get_visible() and tick.get_text()]
+        x_gap = (min(tick.y0 for tick in x_ticks) - ax.xaxis.label.get_window_extent(renderer).y1) * 72 / fig.dpi
+        y_gap = (min(tick.x0 for tick in y_ticks) - ax.yaxis.label.get_window_extent(renderer).x1) * 72 / fig.dpi
+        self.assertAlmostEqual(x_gap, 2)
+        self.assertAlmostEqual(y_gap, 2)
+        self.assertTrue(all(
+            text.get_fontsize() == ax.xaxis.label.get_fontsize() - 2
+            for text in fig.legends[0].get_texts()
+        ))
 
     def test_figure5_title_and_vertical_margins(self):
         with patch.object(Figure, "savefig") as savefig, patch.object(plt, "close"), \
@@ -95,16 +120,9 @@ class DatasetMarkerTests(unittest.TestCase):
             fig = plt.gcf()
         self.addCleanup(plt.close, fig)
         self.assertIsNone(fig._suptitle)
-        self.assertEqual(fig.axes[0].get_xlabel(), "\nThreads (log2)")
-        fig.canvas.draw()
+        self.assertEqual(fig.axes[0].get_xlabel(), "Threads (log2)")
+        self.assert_multithreading_axis_labels(fig)
         renderer = fig.canvas.get_renderer()
-        ax = fig.axes[0]
-        x_ticks = [tick.get_window_extent(renderer) for tick in ax.get_xticklabels() if tick.get_visible() and tick.get_text()]
-        y_ticks = [tick.get_window_extent(renderer) for tick in ax.get_yticklabels() if tick.get_visible() and tick.get_text()]
-        x_gap = (min(tick.y0 for tick in x_ticks) - ax.xaxis.label.get_window_extent(renderer).y1) * 72 / fig.dpi
-        y_gap = (min(tick.x0 for tick in y_ticks) - ax.yaxis.label.get_window_extent(renderer).x1) * 72 / fig.dpi
-        self.assertAlmostEqual(x_gap, 2)
-        self.assertAlmostEqual(y_gap, 2)
         content = fig.get_tightbbox(renderer)
         export = savefig.call_args.kwargs["bbox_inches"]
         for margin in (content.y0 - export.y0, export.y1 - content.y1):
@@ -180,18 +198,26 @@ class DatasetMarkerTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "overlap across thread counts"):
             figure5.stack_duration_labels(ax, labels)
 
-    def assert_chart_font_sizes(self, fig, increase=0):
+    def assert_chart_font_sizes(
+        self, fig, increase=0, xlabel_increase=None, axis_increase=None, title_increase=None
+    ):
+        if axis_increase is None:
+            axis_increase = increase
+        if title_increase is None:
+            title_increase = increase
         for ax in fig.axes:
             for label in (ax.xaxis.label, ax.yaxis.label):
                 if label.get_text():
-                    self.assertEqual(label.get_fontsize(), TYPOGRAPHY["axis_label_size"] + increase)
+                    self.assertEqual(label.get_fontsize(), TYPOGRAPHY["axis_label_size"] + axis_increase)
             for label in ax.get_xticklabels() + ax.get_yticklabels():
                 if label.get_visible() and label.get_text():
                     self.assertEqual(label.get_fontsize(), TYPOGRAPHY["tick_label_size"] + increase)
             if ax.get_title():
-                self.assertEqual(ax.title.get_fontsize(), TYPOGRAPHY["title_size"] + increase)
+                self.assertEqual(ax.title.get_fontsize(), TYPOGRAPHY["title_size"] + title_increase)
         if fig._supxlabel is not None:
-            self.assertEqual(fig._supxlabel.get_fontsize(), TYPOGRAPHY["axis_label_size"] + increase)
+            if xlabel_increase is None:
+                xlabel_increase = increase
+            self.assertEqual(fig._supxlabel.get_fontsize(), TYPOGRAPHY["axis_label_size"] + xlabel_increase)
 
     def assert_legend_layout(self, fig, label_gap=8, legend_gap=16, increase=0):
         self.assertEqual(len(fig.legends), 1)
@@ -245,7 +271,15 @@ class DatasetMarkerTests(unittest.TestCase):
                     fig = plt.gcf()
                     self.assert_dataset_styles(fig, set(EXPECTED))
                     if index == 0:
-                        self.assert_legend_layout(fig, label_gap=None, legend_gap=22, increase=2)
+                        self.assert_legend_layout(fig, label_gap=None, legend_gap=22, increase=5)
+                        axis_size = fig._supxlabel.get_fontsize()
+                        self.assertTrue(all(
+                            ax.yaxis.label.get_fontsize() == axis_size
+                            for ax in fig.axes if ax.yaxis.label.get_text()
+                        ))
+                        self.assertTrue(all(
+                            text.get_fontsize() == axis_size - 2 for text in fig.legends[0].get_texts()
+                        ))
                         renderer = fig.canvas.get_renderer()
                         distances = [
                             ax.get_window_extent(renderer).x0
@@ -260,15 +294,30 @@ class DatasetMarkerTests(unittest.TestCase):
                         for distance in distances:
                             self.assertAlmostEqual(distance, x_distance, places=2)
                     else:
-                        self.assert_legend_layout(fig)
-                    self.assert_chart_font_sizes(fig, increase=2 if index == 0 else 0)
+                        self.assert_legend_layout(fig, increase=4)
+                    if index == 0:
+                        self.assert_chart_font_sizes(fig, increase=6)
+                    else:
+                        for ax in fig.axes:
+                            for label in (ax.xaxis.label, ax.yaxis.label):
+                                if label.get_text():
+                                    self.assertEqual(
+                                        label.get_fontsize(),
+                                        TYPOGRAPHY["axis_label_size"] + 5,
+                                    )
+                            for label in ax.get_xticklabels() + ax.get_yticklabels():
+                                if label.get_visible() and label.get_text():
+                                    self.assertEqual(
+                                        label.get_fontsize(),
+                                        TYPOGRAPHY["tick_label_size"] + 2,
+                                    )
                     if index == 0:
                         self.assertEqual(
                             [ax.get_ylabel() for ax in fig.axes],
                             [
-                                "Wall-clock time (sec., log10)", "", "",
+                                "Wall-clock time (log10)", "", "",
                                 "Speedup", "", "",
-                                "Efficiency (%)", "", "",
+                                "Efficiency", "", "",
                                 "Peak RSS (log10)", "", "",
                             ],
                         )
@@ -276,10 +325,10 @@ class DatasetMarkerTests(unittest.TestCase):
                             [ax.get_yscale() for ax in fig.axes[9:]], ["log"] * 3
                         )
                     else:
-                        self.assertEqual(fig.axes[0].get_ylabel(), "Wall-clock time (sec., symlog)\n")
+                        self.assertEqual(fig.axes[0].get_ylabel(), "Wall-clock time (symlog)")
                         self.assertTrue(fig.axes[0].texts)
                         self.assertTrue(all(
-                            text.get_fontsize() == TYPOGRAPHY["annotation_size"]
+                            text.get_fontsize() == TYPOGRAPHY["annotation_size"] + 2
                             for text in fig.axes[0].texts
                         ))
                     if index == 0:
@@ -429,7 +478,7 @@ class DatasetMarkerTests(unittest.TestCase):
         self.addCleanup(plt.close, fig)
         self.assertIsNone(fig._suptitle)
         self.assertEqual([ax.get_title() for ax in fig.axes[:3]], list(workstation.MODES))
-        self.assertTrue(all(ax.title.get_fontsize() == TYPOGRAPHY["title_size"] + 2 for ax in fig.axes[:3]))
+        self.assertTrue(all(ax.title.get_fontsize() == TYPOGRAPHY["title_size"] + 6 for ax in fig.axes[:3]))
         self.assertTrue(all(not ax.get_title() for ax in fig.axes[3:]))
         fig.canvas.draw()
         content = fig.get_tightbbox(fig.canvas.get_renderer())
@@ -482,8 +531,35 @@ class DatasetMarkerTests(unittest.TestCase):
             [ax.get_title().replace("\n", " ") for ax in fig.axes[:5]],
             [label for _, label in by_dataset.DATASETS],
         )
-        self.assert_chart_font_sizes(fig, increase=2)
-        self.assert_legend_layout(fig, label_gap=None, legend_gap=22, increase=2)
+        self.assert_chart_font_sizes(
+            fig, increase=6, xlabel_increase=9, axis_increase=7, title_increase=7
+        )
+        self.assert_legend_layout(fig, label_gap=None, legend_gap=22, increase=10)
+        axis_size = fig._supxlabel.get_fontsize()
+        self.assertTrue(all(
+            ax.yaxis.label.get_fontsize() == axis_size - 2
+            for ax in fig.axes if ax.yaxis.label.get_text()
+        ))
+        self.assertTrue(all(
+            text.get_fontsize() == axis_size for text in fig.legends[0].get_texts()
+        ))
+        self.assertTrue(all(ax.yaxis.labelpad == 3 for ax in fig.axes))
+        for ax in fig.axes[::5]:
+            lower, upper = sorted(ax.get_ylim())
+            ticks = [
+                tick.get_window_extent(renderer)
+                for location, tick in zip(ax.get_yticks(), ax.get_yticklabels())
+                if lower <= location <= upper and tick.get_visible() and tick.get_text()
+            ]
+            gap = (min(tick.x0 for tick in ticks) - ax.yaxis.label.get_window_extent(renderer).x1) * 72 / fig.dpi
+            self.assertGreaterEqual(gap, 3 - 1e-6)
+        bottom_ticks = [
+            tick.get_window_extent(renderer)
+            for ax in fig.axes[-5:] for tick in ax.get_xticklabels()
+            if tick.get_visible() and tick.get_text()
+        ]
+        x_gap = (min(tick.y0 for tick in bottom_ticks) - fig._supxlabel.get_window_extent(renderer).y1) * 72 / fig.dpi
+        self.assertGreater(x_gap, 0)
         headings = [ax.title.get_window_extent(renderer) for ax in fig.axes[:5]]
         for left, right in zip(headings, headings[1:]):
             self.assertFalse(left.overlaps(right))
@@ -562,7 +638,7 @@ class DatasetMarkerTests(unittest.TestCase):
                     text = ax.texts[0]
                     self.assertEqual(text.get_text(), letter)
                     self.assertEqual(text.get_fontweight(), "bold")
-                    self.assertEqual(text.get_fontsize(), 17)
+                    self.assertEqual(text.get_fontsize(), 22 if module is by_dataset else 21)
                     self.assertGreater(text.get_fontsize(), ax.title.get_fontsize())
                     bounds = text.get_window_extent(renderer)
                     self.assertLess(bounds.x1, ax.get_window_extent(renderer).x0)
